@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradox (Olivia) Availability Decision Tree - GEODIS HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --geodis-blue: #3200eb; --geodis-blue-dark: #2800c0; --geodis-blue-light: #ebe6ff;
+            --geodis-orange: #eb692b; --geodis-orange-light: #fff5f0;
+            --geodis-purple: #8B5CF6; --geodis-green: #10B981; --geodis-red: #EF4444; --geodis-cyan: #06B6D4;
+            --paradox-color: #06B6D4; --paradox-light: #CFFAFE;
+            --manual-color: #F59E0B; --manual-light: #FEF3C7;
+            --gray-50: #F9FAFB; --gray-100: #F3F4F6; --gray-200: #E5E7EB; --gray-400: #9CA3AF;
+            --gray-500: #6B7280; --gray-600: #4B5563; --gray-700: #374151; --gray-800: #1F2937; --gray-900: #111827; --white: #FFFFFF;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px; --radius-sm: 4px; --radius-lg: 16px; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #F9FAFB; min-height: 100vh; color: var(--gray-800); }
+        .header { background-color: white; border-bottom: 1px solid #E5E7EB; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
+        .header-content { padding: 0 2rem; display: flex; align-items: center; height: 72px; gap: 2rem; }
+        .logo-section { display: flex; align-items: center; gap: 0.75rem; }
+        .geodis-logo { height: 40px; }
+        .logo-divider { border-left: 2px solid #E5E7EB; padding-left: 0.75rem; margin-left: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .app-icon { width: 40px; height: 40px; color: var(--paradox-color); }
+        .app-title h1 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--geodis-blue-dark); }
+        .app-title p { font-size: 0.75rem; color: #6B7280; }
+        .header-controls { margin-left: auto; display: flex; gap: 1rem; align-items: center; }
+        .nav-links { display: flex; gap: 0.5rem; }
+        .nav-link { padding: 0.5rem 1rem; background: var(--gray-100); color: var(--gray-600); font-size: 0.8rem; font-weight: 500; border-radius: var(--radius-sm); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; border: none; cursor: pointer; transition: var(--transition); }
+        .nav-link:hover { background: var(--gray-200); color: var(--gray-800); }
+        .nav-link.active { background: var(--paradox-color); color: var(--white); }
+
+        .main-content { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+
+        .phase-header { background: var(--white); border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-md); }
+        .phase-info h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; color: var(--gray-900); display: flex; align-items: center; gap: 0.75rem; }
+        .phase-info h2 .phase-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--paradox-color), #0891B2); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--white); }
+        .phase-info p { color: var(--gray-600); margin-top: 0.5rem; }
+
+        .decision-tree-container { background: var(--white); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-lg); margin-bottom: 1.5rem; }
+        .decision-tree-title { font-family: 'Poppins', sans-serif; font-size: 1.25rem; color: var(--geodis-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .decision-tree-title i { color: var(--geodis-orange); }
+
+        .tree-wrapper { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+
+        .tree-node { background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 1rem 1.5rem; text-align: center; position: relative; min-width: 200px; transition: var(--transition); }
+        .tree-node:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+        .tree-node.start { border-color: var(--geodis-green); background: linear-gradient(135deg, #D1FAE5, #ECFDF5); }
+        .tree-node.decision { border-color: var(--geodis-orange); background: var(--geodis-orange-light); transform: rotate(0deg); }
+        .tree-node.decision .node-content { }
+        .tree-node.paradox { border-color: var(--paradox-color); background: var(--paradox-light); }
+        .tree-node.manual { border-color: var(--manual-color); background: var(--manual-light); }
+        .tree-node.end { border-color: var(--geodis-purple); background: linear-gradient(135deg, #EDE9FE, #F5F3FF); }
+
+        .node-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .tree-node.start .node-icon { color: var(--geodis-green); }
+        .tree-node.decision .node-icon { color: var(--geodis-orange); }
+        .tree-node.paradox .node-icon { color: var(--paradox-color); }
+        .tree-node.manual .node-icon { color: var(--manual-color); }
+        .tree-node.end .node-icon { color: var(--geodis-purple); }
+
+        .node-title { font-weight: 600; font-size: 0.9rem; color: var(--gray-800); }
+        .node-subtitle { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
+
+        .tree-row { display: flex; justify-content: center; gap: 3rem; position: relative; }
+        .tree-connector { width: 2px; height: 30px; background: var(--gray-300); margin: 0 auto; }
+        .tree-connector.yes { background: var(--geodis-green); }
+        .tree-connector.no { background: var(--geodis-red); }
+
+        .branch-labels { display: flex; justify-content: center; gap: 8rem; margin: 0.5rem 0; }
+        .branch-label { font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 10px; }
+        .branch-label.yes { background: #D1FAE5; color: var(--geodis-green); }
+        .branch-label.no { background: #FEE2E2; color: var(--geodis-red); }
+
+        .horizontal-connector { display: flex; align-items: center; justify-content: center; }
+        .horizontal-line { height: 2px; width: 100px; background: var(--gray-300); }
+
+        .country-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem; }
+
+        .country-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray-200); overflow: hidden; }
+        .country-card-header { padding: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+        .country-card-header.paradox { background: var(--paradox-light); border-bottom: 2px solid var(--paradox-color); }
+        .country-card-header.manual { background: var(--manual-light); border-bottom: 2px solid var(--manual-color); }
+        .country-card-header h4 { font-size: 0.9rem; font-weight: 600; }
+        .country-card-header.paradox h4 { color: #0E7490; }
+        .country-card-header.manual h4 { color: #B45309; }
+        .country-card-header i { font-size: 1.25rem; }
+        .country-card-header.paradox i { color: var(--paradox-color); }
+        .country-card-header.manual i { color: var(--manual-color); }
+
+        .country-list { padding: 1rem; }
+        .country-list ul { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+        .country-list li { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--gray-600); }
+        .country-list li i { font-size: 0.7rem; }
+        .country-list.paradox li i { color: var(--paradox-color); }
+        .country-list.manual li i { color: var(--manual-color); }
+
+        .process-comparison { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem; }
+
+        .process-card { background: var(--white); border-radius: var(--radius-lg); border: 2px solid; overflow: hidden; }
+        .process-card.paradox { border-color: var(--paradox-color); }
+        .process-card.manual { border-color: var(--manual-color); }
+
+        .process-card-header { padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .process-card.paradox .process-card-header { background: var(--paradox-light); }
+        .process-card.manual .process-card-header { background: var(--manual-light); }
+
+        .process-card-header h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .process-card.paradox .process-card-header h3 { color: #0E7490; }
+        .process-card.manual .process-card-header h3 { color: #B45309; }
+
+        .process-badge { font-size: 0.65rem; padding: 0.25rem 0.5rem; border-radius: 10px; font-weight: 600; }
+        .process-card.paradox .process-badge { background: var(--paradox-color); color: white; }
+        .process-card.manual .process-badge { background: var(--manual-color); color: white; }
+
+        .process-card-body { padding: 1.5rem; }
+        .process-step { display: flex; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gray-100); }
+        .process-step:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+        .step-number { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: white; flex-shrink: 0; }
+        .process-card.paradox .step-number { background: var(--paradox-color); }
+        .process-card.manual .step-number { background: var(--manual-color); }
+
+        .step-content h4 { font-size: 0.85rem; font-weight: 600; color: var(--gray-800); margin-bottom: 0.25rem; }
+        .step-content p { font-size: 0.75rem; color: var(--gray-500); }
+
+        .affected-phases { background: var(--gray-50); border-radius: var(--radius); padding: 1.5rem; margin-top: 1.5rem; }
+        .affected-phases h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; color: var(--geodis-blue); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .affected-phases h3 i { color: var(--geodis-orange); }
+
+        .phase-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .phase-tag { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); font-size: 0.8rem; transition: var(--transition); }
+        .phase-tag:hover { border-color: var(--geodis-blue); box-shadow: var(--shadow); }
+        .phase-tag i { color: var(--geodis-orange); }
+        .phase-tag span { font-weight: 500; color: var(--gray-700); }
+        .phase-tag .phase-feature { font-size: 0.7rem; color: var(--gray-500); margin-left: 0.5rem; }
+
+        .info-banner { background: linear-gradient(135deg, var(--geodis-blue-light), white); border: 1px solid var(--geodis-blue); border-radius: var(--radius); padding: 1rem 1.5rem; margin-top: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; }
+        .info-banner i { color: var(--geodis-blue); font-size: 1.25rem; margin-top: 0.2rem; }
+        .info-banner-content h4 { font-size: 0.9rem; font-weight: 600; color: var(--geodis-blue-dark); margin-bottom: 0.25rem; }
+        .info-banner-content p { font-size: 0.8rem; color: var(--gray-600); }
+
+        .footer { background: white; border-top: 1px solid var(--gray-200); margin-top: 2rem; padding: 1.5rem 2rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer-copyright { font-size: 0.875rem; color: var(--gray-600); }
+        .footer-nav { display: flex; gap: 1rem; }
+        .footer-nav a { font-size: 0.8rem; color: var(--geodis-blue); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; }
+
+        @media (max-width: 900px) {
+            .country-grid, .process-comparison { grid-template-columns: 1fr; }
+            .tree-row { flex-direction: column; gap: 1rem; }
+            .branch-labels { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://d25zu39ynyitwy.cloudfront.net/oms/000000/image/2024/8/6RPG2_Logo/Logo_-1x-1.png" alt="GEODIS Logo" class="geodis-logo">
+                <div class="logo-divider">
+                    <svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    <div class="app-title">
+                        <h1>Paradox (Olivia) Availability</h1>
+                        <p>Country-Based Decision Tree</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="nav-links">
+                    <a href="Decision_Flowchart_01_Requisition.html" class="nav-link"><i class="fas fa-file-signature"></i> Requisition</a>
+                    <a href="Decision_Flowchart_02_Posting.html" class="nav-link"><i class="fas fa-bullhorn"></i> Posting</a>
+                    <a href="Decision_Flowchart_03_Screening.html" class="nav-link"><i class="fas fa-filter"></i> Screening</a>
+                    <a href="Decision_Flowchart_04_Interview.html" class="nav-link"><i class="fas fa-comments"></i> Interview</a>
+                    <a href="Decision_Flowchart_05_Offer.html" class="nav-link"><i class="fas fa-file-contract"></i> Offer</a>
+                    <a href="Decision_Flowchart_06_Hire.html" class="nav-link"><i class="fas fa-user-plus"></i> Hire</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="phase-header">
+            <div class="phase-info">
+                <h2>
+                    <span class="phase-icon"><i class="fas fa-robot"></i></span>
+                    Paradox (Olivia) Conversational AI - Availability by Country
+                </h2>
+                <p><strong>Note:</strong> Paradox (Olivia) is not available in all GEODIS countries. Use this decision tree to determine which process applies based on requisition country. Countries without Paradox use manual processes for screening and scheduling.</p>
+            </div>
+        </div>
+
+        <!-- Decision Tree Visual -->
+        <div class="decision-tree-container">
+            <h3 class="decision-tree-title"><i class="fas fa-sitemap"></i> Decision Flow</h3>
+
+            <div class="tree-wrapper">
+                <!-- Start Node -->
+                <div class="tree-node start">
+                    <div class="node-icon"><i class="fas fa-play-circle"></i></div>
+                    <div class="node-title">Recruitment Initiated</div>
+                    <div class="node-subtitle">Check requisition country</div>
+                </div>
+
+                <div class="tree-connector"></div>
+
+                <!-- Decision Node -->
+                <div class="tree-node decision">
+                    <div class="node-icon"><i class="fas fa-question-circle"></i></div>
+                    <div class="node-title">Is Paradox Available?</div>
+                    <div class="node-subtitle">Check country eligibility</div>
+                </div>
+
+                <div class="branch-labels">
+                    <span class="branch-label yes"><i class="fas fa-check"></i> YES</span>
+                    <span class="branch-label no"><i class="fas fa-times"></i> NO</span>
+                </div>
+
+                <!-- Two Branches -->
+                <div class="tree-row">
+                    <!-- Paradox Path -->
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="tree-connector yes"></div>
+                        <div class="tree-node paradox">
+                            <div class="node-icon"><i class="fas fa-robot"></i></div>
+                            <div class="node-title">Use Paradox (Olivia)</div>
+                            <div class="node-subtitle">AI-assisted screening & scheduling</div>
+                        </div>
+                        <div class="tree-connector yes"></div>
+                        <div class="tree-node end">
+                            <div class="node-icon"><i class="fas fa-bolt"></i></div>
+                            <div class="node-title">Automated Process</div>
+                            <div class="node-subtitle">24/7 candidate engagement</div>
+                        </div>
+                    </div>
+
+                    <!-- Manual Path -->
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="tree-connector no"></div>
+                        <div class="tree-node manual">
+                            <div class="node-icon"><i class="fas fa-user-clock"></i></div>
+                            <div class="node-title">Manual Process</div>
+                            <div class="node-subtitle">Recruiter-led screening & scheduling</div>
+                        </div>
+                        <div class="tree-connector no"></div>
+                        <div class="tree-node end">
+                            <div class="node-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="node-title">Standard Process</div>
+                            <div class="node-subtitle">Email/phone coordination</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Process Comparison -->
+        <div class="process-comparison">
+            <div class="process-card paradox">
+                <div class="process-card-header">
+                    <h3><i class="fas fa-robot"></i> With Paradox (Olivia)</h3>
+                    <span class="process-badge">AUTOMATED</span>
+                </div>
+                <div class="process-card-body">
+                    <div class="process-step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>AI Phone Screening</h4>
+                            <p>Olivia conducts initial phone screens via conversational AI, available 24/7</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Automated Scheduling</h4>
+                            <p>Olivia coordinates interview scheduling with candidates and interviewers automatically</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Candidate Engagement</h4>
+                            <p>Automated reminders, rescheduling, and status updates via SMS/chat</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h4>Application Assistance</h4>
+                            <p>Olivia helps candidates complete applications through natural conversation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-card manual">
+                <div class="process-card-header">
+                    <h3><i class="fas fa-user-clock"></i> Without Paradox (Manual)</h3>
+                    <span class="process-badge">MANUAL</span>
+                </div>
+                <div class="process-card-body">
+                    <div class="process-step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Recruiter Phone Screening</h4>
+                            <p>Recruiter manually conducts phone screens during business hours</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Manual Scheduling</h4>
+                            <p>Recruiter coordinates via email/phone with candidates and interviewers</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Email Communication</h4>
+                            <p>Standard email templates for reminders and status updates</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h4>Standard Application</h4>
+                            <p>Candidates complete application forms without AI assistance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Affected Phases -->
+        <div class="affected-phases">
+            <h3><i class="fas fa-layer-group"></i> Recruitment Phases Affected by Paradox Availability</h3>
+            <div class="phase-tags">
+                <a href="Decision_Flowchart_02_Posting.html" class="phase-tag">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Phase 2: Posting</span>
+                    <span class="phase-feature">Candidate engagement</span>
+                </a>
+                <a href="Decision_Flowchart_03_Screening.html" class="phase-tag">
+                    <i class="fas fa-filter"></i>
+                    <span>Phase 3: Screening</span>
+                    <span class="phase-feature">AI phone screening</span>
+                </a>
+                <a href="Decision_Flowchart_04_Interview.html" class="phase-tag">
+                    <i class="fas fa-comments"></i>
+                    <span>Phase 4: Interview</span>
+                    <span class="phase-feature">Automated scheduling</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Info Banner -->
+        <div class="info-banner">
+            <i class="fas fa-info-circle"></i>
+            <div class="info-banner-content">
+                <h4>Configuration Note</h4>
+                <p>Paradox availability is configured at the country/legal entity level in Oracle Recruiting Cloud. When creating a requisition, the system automatically determines which features are available based on the requisition's country assignment. Contact your local HR team or HRIS administrator for the current list of Paradox-enabled countries.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-copyright">&copy; 2024 GEODIS - HCM Recruitment Decision Flowchart</div>
+            <div class="footer-nav">
+                <a href="Decision_Flowchart_02_Posting.html"><i class="fas fa-bullhorn"></i> Posting Phase</a>
+                <a href="Decision_Flowchart_03_Screening.html"><i class="fas fa-filter"></i> Screening Phase</a>
+                <a href="Decision_Flowchart_04_Interview.html"><i class="fas fa-comments"></i> Interview Phase</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Flowchart - Offer - GEODIS HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --geodis-blue: #3200eb; --geodis-blue-dark: #2800c0; --geodis-blue-light: #ebe6ff;
+            --geodis-orange: #eb692b; --geodis-orange-light: #fff5f0;
+            --geodis-purple: #8B5CF6; --geodis-green: #10B981; --geodis-red: #EF4444; --geodis-cyan: #06B6D4;
+            --lane-recruiter: #F59E0B; --lane-recruiter-light: #FEF3C7;
+            --lane-hr: #EC4899; --lane-hr-light: #FCE7F3;
+            --lane-candidate: #10B981; --lane-candidate-light: #D1FAE5;
+            --lane-external: #06B6D4; --lane-external-light: #CFFAFE;
+            --lane-approver: #8B5CF6; --lane-approver-light: #EDE9FE;
+            --gray-50: #F9FAFB; --gray-100: #F3F4F6; --gray-200: #E5E7EB; --gray-400: #9CA3AF;
+            --gray-500: #6B7280; --gray-600: #4B5563; --gray-700: #374151; --gray-800: #1F2937; --gray-900: #111827; --white: #FFFFFF;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px; --radius-sm: 4px; --radius-lg: 16px; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --lane-height: 120px; --step-width: 140px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #F9FAFB; min-height: 100vh; color: var(--gray-800); display: flex; flex-direction: column; }
+        .header { background-color: white; border-bottom: 1px solid #E5E7EB; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
+        .header-content { padding: 0 2rem; display: flex; align-items: center; height: 72px; gap: 2rem; }
+        .logo-section { display: flex; align-items: center; gap: 0.75rem; }
+        .geodis-logo { height: 40px; }
+        .logo-divider { border-left: 2px solid #E5E7EB; padding-left: 0.75rem; margin-left: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .app-icon { width: 40px; height: 40px; color: var(--geodis-orange); }
+        .app-title h1 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--geodis-blue-dark); }
+        .app-title p { font-size: 0.75rem; color: #6B7280; }
+        .header-controls { margin-left: auto; display: flex; gap: 1rem; align-items: center; }
+        .nav-links { display: flex; gap: 0.5rem; }
+        .nav-link { padding: 0.5rem 1rem; background: var(--gray-100); color: var(--gray-600); font-size: 0.8rem; font-weight: 500; border-radius: var(--radius-sm); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; border: none; cursor: pointer; transition: var(--transition); }
+        .nav-link:hover { background: var(--gray-200); color: var(--gray-800); }
+        .nav-link.active { background: var(--geodis-blue); color: var(--white); }
+        .zoom-controls { display: flex; gap: 0.25rem; background: var(--gray-100); border-radius: var(--radius); padding: 4px; }
+        .zoom-btn { width: 32px; height: 32px; border: none; background: transparent; color: var(--gray-600); cursor: pointer; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+        .zoom-btn:hover { background: var(--gray-200); color: var(--geodis-blue); }
+        .main-content { flex: 1; padding: 2rem; }
+        .phase-header { background: var(--white); border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .phase-info h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; color: var(--gray-900); display: flex; align-items: center; gap: 0.75rem; }
+        .phase-info h2 .phase-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--geodis-blue), var(--geodis-blue-dark)); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--white); }
+        .phase-info p { color: var(--gray-600); margin-top: 0.25rem; margin-left: 52px; }
+        .phase-stats { display: flex; gap: 1rem; }
+        .stat-box { background: var(--geodis-blue-light); border: 1px solid var(--geodis-blue); border-radius: var(--radius); padding: 0.75rem 1.25rem; text-align: center; }
+        .stat-box .value { font-size: 1.25rem; font-weight: 700; color: var(--geodis-blue); }
+        .stat-box .label { font-size: 0.7rem; color: var(--geodis-blue-dark); text-transform: uppercase; }
+        .stat-box.orange { background: var(--geodis-orange-light); border-color: var(--geodis-orange); }
+        .stat-box.orange .value, .stat-box.orange .label { color: var(--geodis-orange); }
+        .swimlane-wrapper { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; }
+        .swimlane-legend { padding: 1rem 1.5rem; background: linear-gradient(to right, var(--gray-50), var(--white)); border-bottom: 1px solid var(--gray-200); display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+        .legend-title { font-weight: 600; color: var(--geodis-blue); font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
+        .legend-items { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--gray-600); }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .legend-shape.diamond { width: 14px; height: 14px; background: var(--geodis-orange-light); border: 2px solid var(--geodis-orange); transform: rotate(45deg); }
+        .legend-line { width: 30px; height: 3px; border-radius: 2px; }
+        .swimlane-canvas { position: relative; overflow-x: auto; overflow-y: hidden; }
+        .swimlane-diagram { display: flex; min-width: max-content; position: relative; }
+        .lane-labels { position: sticky; left: 0; z-index: 100; background: var(--white); border-right: 2px solid var(--gray-200); box-shadow: 4px 0 8px rgba(0,0,0,0.05); }
+        .lane-label { height: var(--lane-height); width: 180px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid var(--gray-100); }
+        .lane-icon { width: 36px; height: 36px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 0.9rem; }
+        .lane-info h4 { font-size: 0.8rem; font-weight: 600; color: var(--gray-800); }
+        .lane-info span { font-size: 0.7rem; color: var(--gray-500); }
+        .lanes-content { flex: 1; position: relative; }
+        .connectors-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+        .connector-path { fill: none; stroke-width: 2; stroke-linecap: round; }
+        .connector-path.forward { stroke: var(--geodis-blue); }
+        .connector-path.yes { stroke: var(--geodis-green); stroke-width: 2.5; }
+        .connector-path.no { stroke: var(--geodis-red); stroke-width: 2.5; }
+        .connector-path.return { stroke: var(--geodis-orange); stroke-dasharray: 8 4; }
+        .connector-path.animated { animation: flowAnimation 1s linear infinite; }
+        @keyframes flowAnimation { from { stroke-dashoffset: 12; } to { stroke-dashoffset: 0; } }
+        .connector-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; }
+        .lane-row { height: var(--lane-height); position: relative; border-bottom: 1px solid var(--gray-100); }
+        .lane-row.lane-recruiter { background: var(--lane-recruiter-light); }
+        .lane-row.lane-hr { background: var(--lane-hr-light); }
+        .lane-row.lane-candidate { background: var(--lane-candidate-light); }
+        .lane-row.lane-external { background: var(--lane-external-light); }
+        .lane-row.lane-approver { background: var(--lane-approver-light); }
+        .lane-label.lane-recruiter .lane-icon { background: var(--lane-recruiter); }
+        .lane-label.lane-hr .lane-icon { background: var(--lane-hr); }
+        .lane-label.lane-candidate .lane-icon { background: var(--lane-candidate); }
+        .lane-label.lane-external .lane-icon { background: var(--lane-external); }
+        .lane-label.lane-approver .lane-icon { background: var(--lane-approver); }
+        .step-block { position: absolute; width: var(--step-width); padding: 0.6rem 0.75rem; background: var(--white); border-radius: var(--radius); border: 2px solid; box-shadow: var(--shadow); cursor: pointer; transition: var(--transition); z-index: 60; }
+        .step-block:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); z-index: 70; }
+        .step-block.lane-recruiter { border-color: var(--lane-recruiter); }
+        .step-block.lane-recruiter .step-number { background: var(--lane-recruiter); }
+        .step-block.lane-hr { border-color: var(--lane-hr); }
+        .step-block.lane-hr .step-number { background: var(--lane-hr); }
+        .step-block.lane-candidate { border-color: var(--lane-candidate); }
+        .step-block.lane-candidate .step-number { background: var(--lane-candidate); }
+        .step-block.lane-external { border-color: var(--lane-external); }
+        .step-block.lane-external .step-number { background: var(--lane-external); }
+        .step-block.lane-approver { border-color: var(--lane-approver); }
+        .step-block.lane-approver .step-number { background: var(--lane-approver); }
+        .step-block.start { border-color: var(--geodis-green); background: linear-gradient(135deg, #D1FAE5, #ECFDF5); }
+        .step-block.start .step-number { background: var(--geodis-green); }
+        .step-block.end { border-color: var(--geodis-purple); background: linear-gradient(135deg, #EDE9FE, #F5F3FF); }
+        .step-block.end .step-number { background: var(--geodis-purple); }
+        .step-block.reject { border-color: var(--geodis-red); background: #FEE2E2; }
+        .step-block.reject .step-number { background: var(--geodis-red); }
+        .step-block.highlighted { animation: pulseGlow 2s ease-in-out infinite; }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: var(--shadow); } 50% { box-shadow: 0 0 20px rgba(50, 0, 235, 0.4); } }
+        .step-header { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem; }
+        .step-number { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: var(--white); }
+        .step-icon { font-size: 0.75rem; opacity: 0.7; }
+        .step-title { font-size: 0.75rem; font-weight: 600; color: var(--gray-800); }
+        .step-meta { font-size: 0.65rem; color: var(--gray-500); margin-top: 0.25rem; display: flex; align-items: center; gap: 0.3rem; }
+        .decision-block { position: absolute; width: 80px; height: 80px; z-index: 60; cursor: pointer; }
+        .decision-diamond { width: 55px; height: 55px; background: var(--white); border: 2.5px solid var(--geodis-orange); transform: rotate(45deg); position: absolute; top: 12px; left: 12px; box-shadow: var(--shadow); transition: var(--transition); }
+        .decision-block:hover .decision-diamond { transform: rotate(45deg) scale(1.1); box-shadow: var(--shadow-lg); }
+        .decision-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 2; }
+        .decision-content .decision-id { font-size: 0.7rem; font-weight: 700; color: var(--geodis-orange); }
+        .decision-content span { display: block; font-size: 0.6rem; font-weight: 600; color: var(--gray-600); }
+
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: var(--transition); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-width: 600px; width: 90%; max-height: 85vh; overflow: hidden; transform: scale(0.9); transition: var(--transition); }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-header { background: linear-gradient(135deg, var(--geodis-blue), var(--geodis-blue-dark)); color: var(--white); padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .modal-header h3 { display: flex; align-items: center; gap: 0.75rem; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; }
+        .modal-icon { width: 40px; height: 40px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .modal-close { background: rgba(255, 255, 255, 0.2); border: none; color: var(--white); width: 36px; height: 36px; border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .modal-close:hover { background: rgba(255, 255, 255, 0.3); }
+        .modal-body { padding: 1.5rem; overflow-y: auto; max-height: calc(85vh - 80px); }
+        .modal-section { margin-bottom: 1.25rem; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .modal-section h4 { font-size: 0.8rem; font-weight: 600; color: var(--geodis-blue); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .modal-section h4 i { color: var(--geodis-orange); font-size: 0.75rem; }
+        .modal-section p { color: var(--gray-600); font-size: 0.875rem; line-height: 1.6; }
+        .info-row { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .info-box { flex: 1; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 0.75rem; }
+        .info-box label { display: block; font-size: 0.65rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.2rem; }
+        .info-box span { font-size: 0.85rem; font-weight: 600; color: var(--gray-800); }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .tag { background: var(--geodis-blue-light); border: 1px solid var(--geodis-blue); padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.7rem; color: var(--geodis-blue-dark); font-weight: 500; }
+        .rule-list { list-style: none; }
+        .rule-list li { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.4rem 0; font-size: 0.8rem; color: var(--gray-600); border-bottom: 1px solid var(--gray-100); }
+        .rule-list li:last-child { border-bottom: none; }
+        .rule-list li i { color: var(--geodis-orange); margin-top: 0.2rem; font-size: 0.7rem; }
+
+        .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .info-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1rem; }
+        .info-card h4 { font-size: 0.85rem; font-weight: 600; color: var(--geodis-blue); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .info-card h4 i { color: var(--geodis-orange); }
+        .info-card ul { list-style: none; font-size: 0.8rem; color: var(--gray-600); }
+        .info-card li { padding: 0.3rem 0; display: flex; align-items: flex-start; gap: 0.5rem; }
+        .info-card li i { color: var(--geodis-green); margin-top: 3px; font-size: 0.7rem; }
+        .footer { background: white; border-top: 1px solid var(--gray-200); margin-top: auto; }
+        .footer-content { padding: 1.5rem 2rem; }
+        .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+        .footer-copyright { font-size: 0.875rem; color: var(--gray-600); }
+        .footer-nav { display: flex; gap: 1rem; }
+        .footer-nav a { font-size: 0.8rem; color: var(--geodis-blue); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; }
+        .tooltip { position: fixed; background: var(--gray-900); color: var(--white); padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 0.8rem; max-width: 300px; z-index: 2000; pointer-events: none; opacity: 0; transition: opacity 0.2s ease; }
+        .tooltip.visible { opacity: 1; }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--gray-100); }
+        ::-webkit-scrollbar-thumb { background: var(--gray-400); border-radius: 5px; }
+        @media (max-width: 768px) { .nav-links, .phase-stats { display: none; } .lane-label { width: 120px; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://d25zu39ynyitwy.cloudfront.net/oms/000000/image/2024/8/6RPG2_Logo/Logo_-1x-1.png" alt="GEODIS Logo" class="geodis-logo">
+                <div class="logo-divider">
+                    <svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/><path d="M9 14l2 2 4-4"/></svg>
+                    <div class="app-title"><h1>Decision Flowchart</h1><p>Phase 5: Offer Management</p></div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="nav-links">
+                    <a href="Decision_Flowchart_01_Requisition.html" class="nav-link"><i class="fas fa-file-signature"></i> Requisition</a>
+                    <a href="Decision_Flowchart_02_Posting.html" class="nav-link"><i class="fas fa-bullhorn"></i> Posting</a>
+                    <a href="Decision_Flowchart_03_Screening.html" class="nav-link"><i class="fas fa-filter"></i> Screening</a>
+                    <a href="Decision_Flowchart_04_Interview.html" class="nav-link"><i class="fas fa-comments"></i> Interview</a>
+                    <a href="Decision_Flowchart_05_Offer.html" class="nav-link active"><i class="fas fa-file-contract"></i> Offer</a>
+                    <a href="Decision_Flowchart_06_Hire.html" class="nav-link"><i class="fas fa-user-plus"></i> Hire</a>
+                </div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
+                    <button class="zoom-btn" onclick="resetZoom()"><i class="fas fa-compress-arrows-alt"></i></button>
+                    <button class="zoom-btn" onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="phase-header">
+            <div class="phase-info">
+                <h2><span class="phase-icon"><i class="fas fa-file-contract"></i></span>Phase 5: Offer Management</h2>
+                <p><strong>GEODIS Policy:</strong> 18 country-specific offer templates. Salary thresholds: &lt;125K (standard), 125K-155K (senior), &gt;155K/TopEx (executive). Use DocuSign for e-signature.</p>
+            </div>
+            <div class="phase-stats">
+                <div class="stat-box"><div class="value">10</div><div class="label">Steps</div></div>
+                <div class="stat-box orange"><div class="value">3</div><div class="label">Decisions</div></div>
+                <div class="stat-box"><div class="value">18</div><div class="label">Templates</div></div>
+            </div>
+        </div>
+
+        <div class="swimlane-wrapper">
+            <div class="swimlane-legend">
+                <div class="legend-title"><i class="fas fa-shapes"></i> Legend:</div>
+                <div class="legend-items">
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--geodis-green);"></div><span>Start/End</span></div>
+                    <div class="legend-item"><div class="legend-shape diamond"></div><span>Decision</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-blue);"></div><span>Forward</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-green);"></div><span>Approved/Accept</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-red);"></div><span>Reject/Decline</span></div>
+                </div>
+            </div>
+
+            <div class="swimlane-canvas" id="canvas">
+                <div class="swimlane-diagram" id="diagram">
+                    <div class="lane-labels">
+                        <div class="lane-label lane-recruiter"><div class="lane-icon"><i class="fas fa-user-friends"></i></div><div class="lane-info"><h4>Recruiter</h4><span>Prepares & extends</span></div></div>
+                        <div class="lane-label lane-hr"><div class="lane-icon"><i class="fas fa-calculator"></i></div><div class="lane-info"><h4>HR / C&B</h4><span>Validates compensation</span></div></div>
+                        <div class="lane-label lane-candidate"><div class="lane-icon"><i class="fas fa-user"></i></div><div class="lane-info"><h4>Candidate</h4><span>Reviews & accepts</span></div></div>
+                        <div class="lane-label lane-external"><div class="lane-icon"><i class="fas fa-signature"></i></div><div class="lane-info"><h4>DocuSign</h4><span>E-signature</span></div></div>
+                        <div class="lane-label lane-approver"><div class="lane-icon"><i class="fas fa-user-shield"></i></div><div class="lane-info"><h4>Approvers</h4><span>Based on salary level</span></div></div>
+                    </div>
+
+                    <div class="lanes-content" id="lanesContent">
+                        <svg class="connectors-layer" id="connectors"></svg>
+                        <div class="lane-row lane-recruiter" id="lane0"></div>
+                        <div class="lane-row lane-hr" id="lane1"></div>
+                        <div class="lane-row lane-candidate" id="lane2"></div>
+                        <div class="lane-row lane-external" id="lane3"></div>
+                        <div class="lane-row lane-approver" id="lane4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-cards">
+            <div class="info-card">
+                <h4><i class="fas fa-code-branch"></i> Decision Points</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> <strong>D1:</strong> Compensation Policy Check (C&B)</li>
+                    <li><i class="fas fa-check"></i> <strong>D2:</strong> Approver Decision</li>
+                    <li><i class="fas fa-check"></i> <strong>D3:</strong> Candidate Accept/Decline/Negotiate</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-route"></i> Approval Thresholds</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Standard (&lt;EUR 125K): HM + HRBP</li>
+                    <li><i class="fas fa-check"></i> Senior (125K-155K): + EVP HR</li>
+                    <li><i class="fas fa-check"></i> Executive (&gt;155K/TopEx): + CHRO</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-globe"></i> Templates & Finance</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> 18 country-specific templates</li>
+                    <li><i class="fas fa-check"></i> Local legal compliance built-in</li>
+                    <li><i class="fas fa-check"></i> DocuSign integration</li>
+                    <li><i class="fas fa-check"></i> <strong>GL Coding:</strong> Cost Center allocation</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-copyright">&copy; 2024 GEODIS - HCM Recruitment Decision Flowchart</div>
+                <div class="footer-nav">
+                    <a href="Decision_Flowchart_04_Interview.html"><i class="fas fa-arrow-left"></i> Prev: Interview</a>
+                    <a href="Decision_Flowchart_06_Hire.html"><i class="fas fa-arrow-right"></i> Next: Hire</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><span class="modal-icon" id="modalIcon"></span><span id="modalTitleText">Step Title</span></h3>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const LANE_HEIGHT = 120, STEP_WIDTH = 140, V_CENTER = 60;
+
+        const steps = [
+            { id: 'start', lane: 0, x: 30, label: 'FROM INTV', icon: 'fa-play', type: 'start', meta: 'Selected',
+              desc: 'Selected candidate from interview phase ready for offer. The chosen candidate receives a job offer - aim is to make offer within 2 months of interview phase per GEODIS policy.',
+              owner: 'Recruiter', duration: 'Transition', systems: ['Oracle Recruiting Cloud'],
+              rules: ['Candidate selection confirmed', 'Reference checks completed', 'Interview feedback consolidated'],
+              goodPractice: 'The aim is to make a job offer within two months of the interview phase.' },
+
+            { id: 's1', lane: 0, x: 200, label: 'Prepare Offer', num: '1', icon: 'fa-file-alt', meta: '1-2 days',
+              desc: 'Prepare offer package based on job grade and internal equity. Select appropriate country template from 18 available. Specify GL coding (General Ledger) and Cost Center allocation for proper financial tracking and budgeting. Gather required documents for offer letter. Ensure salary is within approved range and compare to market data.',
+              owner: 'Recruiter', duration: '1-2 days', systems: ['Oracle Recruiting Cloud', 'C&B System', 'Template Library', 'GL Coding System', 'Cost Center Database'],
+              rules: ['Use correct country template (18 available)', 'Match to job grade', 'Check internal equity', 'Specify GL Code and Cost Center', 'Document preparation checklist', 'Budget allocation verified'],
+              goodPractice: 'Choose appropriate offer template from 18 country-specific templates. Ensure GL coding and Cost Center are correctly specified for accurate financial tracking. Ensure all compensation elements are correctly captured.',
+              highlighted: true },
+
+            { id: 's2', lane: 1, x: 400, label: 'C&B Review', num: '2', icon: 'fa-balance-scale', meta: 'Validation',
+              desc: 'Compensation & Benefits validates offer against grade structure, market rates, internal equity, and budget. Validates GL coding and Cost Center allocation for proper financial tracking. Reviews total compensation package including base, bonus, benefits. Ensures compliance with local regulations.',
+              owner: 'C&B Specialist', duration: '1-2 days', systems: ['C&B System', 'Market Data', 'Oracle HCM', 'GL Coding System'],
+              rules: ['Validate against grade structure', 'Check market competitiveness', 'Verify internal equity', 'Confirm budget availability', 'Validate GL Code and Cost Center'],
+              goodPractice: 'C&B review ensures offers are competitive yet sustainable. Verify GL coding is correct for accurate financial reporting. Consider total package value including benefits.' },
+
+            { id: 'd1', lane: 1, x: 600, label: 'In Policy?', type: 'decision', icon: 'fa-question',
+              desc: 'Decision point: Is the proposed compensation within policy guidelines and approved budget? C&B determines if offer meets all requirements or needs revision.',
+              owner: 'C&B Specialist', duration: 'Instant', systems: ['C&B System', 'Policy Database'],
+              rules: ['Policy compliance check', 'Budget verification', 'Exception process if needed'],
+              goodPractice: 'Standard offers proceed quickly. Exception requests require additional documentation and approval.' },
+
+            { id: 's3', lane: 4, x: 800, label: 'Approval Routing', num: '3', icon: 'fa-check-circle', meta: 'By Level',
+              desc: 'Route offer to appropriate approvers based on salary level. Thresholds: <125K EUR (standard: HM + HRBP), 125K-155K (senior: + EVP HR), >155K or TopEx (executive: + CHRO). System auto-routes based on total compensation.',
+              owner: 'System / Approvers', duration: '1-3 days', systems: ['Oracle Recruiting Cloud', 'Approval Workflow'],
+              rules: ['<125K: HM + HRBP', '125K-155K: + EVP HR', '>155K/TopEx: + CHRO', 'Auto-routing by compensation level'],
+              goodPractice: 'Approval thresholds ensure appropriate oversight. Higher compensation requires more senior approval.',
+              highlighted: true },
+
+            { id: 'd2', lane: 4, x: 1020, label: 'Approved?', type: 'decision', icon: 'fa-question',
+              desc: 'Decision point: Do all required approvers approve the offer? Rejection sends back for revision. All approvers must consent for offer to proceed.',
+              owner: 'Approvers', duration: '1-2 days', systems: ['Oracle Recruiting Cloud', 'Email'],
+              rules: ['All required approvals needed', 'Rejection requires revision', 'Escalation path available'],
+              goodPractice: 'Approvers should respond within SLA. Include justification for any rejection.' },
+
+            { id: 's4', lane: 0, x: 1220, label: 'Generate Offer', num: '4', icon: 'fa-file-signature', meta: 'Letter',
+              desc: 'Generate formal offer letter from approved country template. System merges candidate data, compensation details, start date, and terms. Letter includes all legally required disclosures for the country.',
+              owner: 'Recruiter', duration: '30 min', systems: ['Oracle Recruiting Cloud', 'Document Generation', 'Template Library'],
+              rules: ['Use approved template', 'Verify all data accuracy', 'Include legal disclosures', 'Add attachments as needed'],
+              goodPractice: 'Double-check all details before sending. Ensure country-specific requirements are met.' },
+
+            { id: 's5', lane: 3, x: 1420, label: 'Send DocuSign', num: '5', icon: 'fa-paper-plane', meta: 'E-Sign',
+              desc: 'Send offer letter via DocuSign for electronic signature. Candidate receives secure link to review and sign. System tracks delivery, opens, and signature status. Automatic reminders sent if not actioned.',
+              owner: 'DocuSign System', duration: 'Auto', systems: ['DocuSign', 'Oracle Recruiting Cloud', 'Email'],
+              rules: ['Secure e-signature delivery', 'Tracking and reminders', 'Audit trail maintained', 'Legal validity'],
+              goodPractice: 'DocuSign provides secure, legally binding e-signatures with full audit trail.' },
+
+            { id: 's6', lane: 2, x: 1620, label: 'Review Offer', num: '6', icon: 'fa-search', meta: 'Details',
+              desc: 'Candidate reviews complete offer package including: base salary, bonus structure, benefits, start date, and all terms. Candidate can accept, decline, or negotiate through recruiter.',
+              owner: 'Candidate', duration: '1-5 days', systems: ['DocuSign', 'Email'],
+              rules: ['Full offer visibility', 'Questions via recruiter', 'Deadline communicated', 'Counter-offer possible'],
+              goodPractice: 'Give candidate adequate time to review. Recruiter available to answer questions and clarify terms.' },
+
+            { id: 'd3', lane: 2, x: 1840, label: 'Accept?', type: 'decision', icon: 'fa-question',
+              desc: 'Decision point: Does candidate accept the offer? Options: Accept (sign and proceed to hire), Decline (exit process), or Negotiate (return to revision).',
+              owner: 'Candidate', duration: 'Variable', systems: ['DocuSign', 'Oracle Recruiting Cloud'],
+              rules: ['Three possible outcomes', 'Negotiation triggers revision loop', 'Acceptance triggers hire process'],
+              goodPractice: 'Maintain open communication throughout. Address concerns promptly to improve acceptance rate.' },
+
+            { id: 'reject', lane: 2, x: 2040, label: 'Declined', icon: 'fa-times', type: 'reject', meta: 'Lost',
+              desc: 'Candidate declines offer. Document reason for analytics. Consider backup candidate if available. Maintain relationship for future opportunities.',
+              owner: 'Recruiter', duration: '1 day', systems: ['Oracle Recruiting Cloud', 'Analytics'],
+              rules: ['Document decline reason', 'Consider backup candidates', 'Update requisition status'],
+              goodPractice: 'Track decline reasons to improve future offers. Maintain positive relationship for future opportunities.' },
+
+            { id: 'end', lane: 3, x: 2040, label: 'TO HIRE', icon: 'fa-arrow-right', type: 'end', meta: 'Phase 6',
+              desc: 'Offer accepted via DocuSign. Signed offer letter stored in system. Proceed to Phase 6: Hire & Onboarding for preboarding and Day 1 preparation.',
+              owner: 'System', duration: 'Transition', systems: ['DocuSign', 'Oracle Recruiting Cloud', 'Oracle HCM'],
+              rules: ['Signed offer archived', 'Hire process initiated', 'Preboarding begins'],
+              goodPractice: 'Immediate confirmation to candidate. Start preboarding activities promptly.' }
+        ];
+
+        const connections = [
+            { from: 'start', to: 's1', type: 'forward' },
+            { from: 's1', to: 's2', type: 'forward' },
+            { from: 's2', to: 'd1', type: 'forward' },
+            { from: 'd1', to: 's1', type: 'return', label: 'Revise' },
+            { from: 'd1', to: 's3', type: 'yes', label: 'OK' },
+            { from: 's3', to: 'd2', type: 'forward' },
+            { from: 'd2', to: 's3', type: 'return', label: 'Revise' },
+            { from: 'd2', to: 's4', type: 'yes', label: 'Approved' },
+            { from: 's4', to: 's5', type: 'forward' },
+            { from: 's5', to: 's6', type: 'forward' },
+            { from: 's6', to: 'd3', type: 'forward' },
+            { from: 'd3', to: 'reject', type: 'no', label: 'Decline' },
+            { from: 'd3', to: 's4', type: 'return', label: 'Negotiate' },
+            { from: 'd3', to: 'end', type: 'yes', label: 'Accept' }
+        ];
+
+        const stepsMap = {};
+        steps.forEach(s => stepsMap[s.id] = s);
+        const laneClasses = ['lane-recruiter', 'lane-hr', 'lane-candidate', 'lane-external', 'lane-approver'];
+
+        function init() {
+            const lanesContent = document.getElementById('lanesContent');
+            const maxX = Math.max(...steps.map(s => s.x)) + STEP_WIDTH + 100;
+            lanesContent.style.minWidth = maxX + 'px';
+
+            steps.forEach(step => {
+                const laneRow = document.getElementById('lane' + step.lane);
+                if (!laneRow) return;
+                const laneClass = laneClasses[step.lane];
+
+                if (step.type === 'decision') {
+                    const block = document.createElement('div');
+                    block.className = 'decision-block';
+                    block.style.left = step.x + 'px';
+                    block.style.top = (V_CENTER - 40) + 'px';
+                    block.innerHTML = `<div class="decision-diamond"></div><div class="decision-content"><div class="decision-id">${step.id.toUpperCase()}</div><span>${step.label}</span></div>`;
+                    block.onclick = () => showStepModal(step, laneClass);
+                    laneRow.appendChild(block);
+                } else {
+                    const block = document.createElement('div');
+                    let blockClass = 'step-block';
+                    if (step.type === 'start') blockClass += ' start';
+                    else if (step.type === 'end') blockClass += ' end';
+                    else if (step.type === 'reject') blockClass += ' reject';
+                    else blockClass += ' ' + laneClass;
+                    if (step.highlighted) blockClass += ' highlighted';
+
+                    block.className = blockClass;
+                    block.style.left = step.x + 'px';
+                    block.style.top = (V_CENTER - 35) + 'px';
+
+                    const numContent = step.num ? step.num : `<i class="fas ${step.icon}"></i>`;
+                    const iconHtml = step.num ? `<i class="fas ${step.icon} step-icon"></i>` : '';
+
+                    block.innerHTML = `<div class="step-header"><span class="step-number">${numContent}</span>${iconHtml}</div><div class="step-title">${step.label}</div><div class="step-meta"><i class="fas fa-info-circle"></i> ${step.meta}</div>`;
+                    block.onclick = () => showStepModal(step, laneClass);
+                    laneRow.appendChild(block);
+                }
+            });
+
+            drawConnections();
+        }
+
+        function drawConnections() {
+            const svg = document.getElementById('connectors');
+            const maxX = Math.max(...steps.map(s => s.x)) + STEP_WIDTH + 100;
+            const totalHeight = 5 * LANE_HEIGHT;
+            svg.setAttribute('viewBox', `0 0 ${maxX} ${totalHeight}`);
+            svg.style.width = maxX + 'px';
+            svg.style.height = totalHeight + 'px';
+
+            let svgContent = '';
+
+            connections.forEach(conn => {
+                const from = stepsMap[conn.from];
+                const to = stepsMap[conn.to];
+                if (!from || !to) return;
+
+                const fromIsDecision = from.type === 'decision';
+                let fromX, fromY, toX, toY;
+
+                if (fromIsDecision) {
+                    fromX = from.x + 40;
+                    fromY = from.lane * LANE_HEIGHT + V_CENTER;
+                    if (conn.type === 'yes') {
+                        if (to.lane > from.lane) fromY = from.lane * LANE_HEIGHT + V_CENTER + 28;
+                        else if (to.lane < from.lane) fromY = from.lane * LANE_HEIGHT + V_CENTER - 28;
+                        else fromX = from.x + 80;
+                    } else if (conn.type === 'no') { fromX = from.x + 80; }
+                    else if (conn.type === 'return') { fromY = from.lane * LANE_HEIGHT + V_CENTER - 28; }
+                    else { fromX = from.x + 80; }
+                } else {
+                    fromX = from.x + STEP_WIDTH;
+                    fromY = from.lane * LANE_HEIGHT + V_CENTER;
+                    if (to.lane > from.lane) { fromX = from.x + STEP_WIDTH / 2; fromY = from.lane * LANE_HEIGHT + V_CENTER + 35; }
+                    else if (to.lane < from.lane) { fromX = from.x + STEP_WIDTH / 2; fromY = from.lane * LANE_HEIGHT + V_CENTER - 35; }
+                }
+
+                const toIsDecision = to.type === 'decision';
+                if (toIsDecision) {
+                    toX = to.x; toY = to.lane * LANE_HEIGHT + V_CENTER;
+                    if (from.lane !== to.lane) {
+                        if (from.lane < to.lane) toY = to.lane * LANE_HEIGHT + V_CENTER - 28;
+                        else toY = to.lane * LANE_HEIGHT + V_CENTER + 28;
+                        toX = to.x + 40;
+                    }
+                } else {
+                    toX = to.x; toY = to.lane * LANE_HEIGHT + V_CENTER;
+                    if (from.lane < to.lane) { toX = to.x + STEP_WIDTH / 2; toY = to.lane * LANE_HEIGHT + V_CENTER - 35; }
+                    else if (from.lane > to.lane) { toX = to.x + STEP_WIDTH / 2; toY = to.lane * LANE_HEIGHT + V_CENTER + 35; }
+                }
+
+                if (conn.type === 'return') {
+                    const loopY = Math.min(from.lane, to.lane) * LANE_HEIGHT + 15;
+                    const pathD = `M ${fromX} ${fromY} L ${fromX} ${loopY} L ${toX + STEP_WIDTH / 2} ${loopY} L ${toX + STEP_WIDTH / 2} ${to.lane * LANE_HEIGHT + V_CENTER - 35}`;
+                    svgContent += `<path d="${pathD}" class="connector-path return animated"/>`;
+                    svgContent += `<polygon points="${toX + STEP_WIDTH / 2 - 5},${to.lane * LANE_HEIGHT + V_CENTER - 43} ${toX + STEP_WIDTH / 2 + 5},${to.lane * LANE_HEIGHT + V_CENTER - 43} ${toX + STEP_WIDTH / 2},${to.lane * LANE_HEIGHT + V_CENTER - 35}" fill="#eb692b"/>`;
+                    if (conn.label) svgContent += `<text x="${(fromX + toX + STEP_WIDTH / 2) / 2}" y="${loopY - 5}" class="connector-label" fill="#eb692b">${conn.label}</text>`;
+                    return;
+                }
+
+                let pathD;
+                if (from.lane === to.lane) pathD = `M ${fromX} ${fromY} L ${toX} ${toY}`;
+                else { const midX = fromX + (toX - fromX) / 2; pathD = `M ${fromX} ${fromY} C ${midX} ${fromY}, ${midX} ${toY}, ${toX} ${toY}`; }
+                svgContent += `<path d="${pathD}" class="connector-path ${conn.type}"/>`;
+
+                const arrowColor = conn.type === 'yes' ? '#10B981' : conn.type === 'no' ? '#EF4444' : '#3200eb';
+                let angle = Math.atan2(toY - fromY, toX - fromX);
+                if (from.lane !== to.lane) { if (toY > fromY) angle = Math.PI / 2; else if (toY < fromY) angle = -Math.PI / 2; }
+                const arrowSize = 8;
+                svgContent += `<polygon points="${toX},${toY} ${toX - arrowSize * Math.cos(angle - 0.4)},${toY - arrowSize * Math.sin(angle - 0.4)} ${toX - arrowSize * Math.cos(angle + 0.4)},${toY - arrowSize * Math.sin(angle + 0.4)}" fill="${arrowColor}"/>`;
+                if (conn.label) svgContent += `<text x="${fromX + (toX - fromX) * 0.5}" y="${fromY + (toY - fromY) * 0.5 - 8}" class="connector-label" fill="${conn.type === 'yes' ? '#10B981' : conn.type === 'no' ? '#EF4444' : '#eb692b'}">${conn.label}</text>`;
+            });
+
+            svg.innerHTML = svgContent;
+        }
+
+        function showStepModal(step, laneClass) {
+            const modal = document.getElementById('modal');
+            const icon = document.getElementById('modalIcon');
+            const title = document.getElementById('modalTitleText');
+            const body = document.getElementById('modalBody');
+
+            const colorMap = { 'lane-recruiter': 'var(--lane-recruiter)', 'lane-hr': 'var(--lane-hr)', 'lane-candidate': 'var(--lane-candidate)', 'lane-external': 'var(--lane-external)', 'lane-approver': 'var(--lane-approver)' };
+            let iconColor = colorMap[laneClass] || 'var(--geodis-blue)';
+            if (step.type === 'start') iconColor = 'var(--geodis-green)';
+            if (step.type === 'end') iconColor = 'var(--geodis-purple)';
+            if (step.type === 'reject') iconColor = 'var(--geodis-red)';
+            if (step.type === 'decision') iconColor = 'var(--geodis-orange)';
+
+            icon.style.background = iconColor;
+            icon.innerHTML = `<i class="fas ${step.icon || 'fa-question'}"></i>`;
+            title.textContent = step.label;
+
+            const systemsTags = (step.systems || ['Oracle Recruiting Cloud']).map(s => `<span class="tag">${s}</span>`).join('');
+            const rulesList = (step.rules || ['Follow GEODIS standard process']).map(r => `<li><i class="fas fa-check-circle"></i> ${r}</li>`).join('');
+            const goodPracticeHtml = step.goodPractice ? `<div class="modal-section" style="background: var(--geodis-orange-light); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--geodis-orange);"><h4 style="color: var(--geodis-orange);"><i class="fas fa-lightbulb"></i> GEODIS Good Practice</h4><p style="font-style: italic; color: var(--gray-700);">"${step.goodPractice}"</p></div>` : '';
+
+            body.innerHTML = `
+                <div class="modal-section"><h4><i class="fas fa-info-circle"></i> Description</h4><p>${step.desc}</p></div>
+                <div class="info-row"><div class="info-box"><label>Owner</label><span>${step.owner}</span></div><div class="info-box"><label>Duration</label><span>${step.duration}</span></div></div>
+                <div class="modal-section"><h4><i class="fas fa-cog"></i> Systems</h4><div class="tag-list">${systemsTags}</div></div>
+                <div class="modal-section"><h4><i class="fas fa-gavel"></i> Key Rules</h4><ul class="rule-list">${rulesList}</ul></div>
+                ${goodPracticeHtml}`;
+            modal.classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('modal').classList.remove('active'); }
+
+        let currentZoom = 1;
+        function zoomIn() { currentZoom = Math.min(currentZoom + 0.1, 2); document.getElementById('diagram').style.transform = `scale(${currentZoom})`; }
+        function zoomOut() { currentZoom = Math.max(currentZoom - 0.1, 0.5); document.getElementById('diagram').style.transform = `scale(${currentZoom})`; }
+        function resetZoom() { currentZoom = 1; document.getElementById('diagram').style.transform = 'scale(1)'; }
+
+        document.getElementById('modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

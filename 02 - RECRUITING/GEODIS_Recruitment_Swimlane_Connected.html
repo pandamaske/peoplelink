@@ -1,0 +1,2764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Process Swimlane - GEODIS HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* GEODIS Brand Colors */
+            --geodis-blue: #3200eb;
+            --geodis-blue-dark: #2800c0;
+            --geodis-blue-light: #ebe6ff;
+            --geodis-orange: #eb692b;
+            --geodis-orange-light: #fff5f0;
+            --geodis-purple: #8B5CF6;
+            --geodis-green: #10B981;
+            --geodis-gray: #f5f5f5;
+            --geodis-white: #ffffff;
+
+            /* Lane Colors */
+            --lane-candidate: #10B981;
+            --lane-candidate-light: #D1FAE5;
+            --lane-hiring-manager: #3B82F6;
+            --lane-hiring-manager-light: #DBEAFE;
+            --lane-recruiter: #F59E0B;
+            --lane-recruiter-light: #FEF3C7;
+            --lane-hr: #EC4899;
+            --lane-hr-light: #FCE7F3;
+            --lane-interviewer: #8B5CF6;
+            --lane-interviewer-light: #EDE9FE;
+            --lane-system: #6B7280;
+            --lane-system-light: #F3F4F6;
+            --lane-external: #06B6D4;
+            --lane-external-light: #CFFAFE;
+
+            /* Grays */
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --white: #FFFFFF;
+
+            --connector-color: #94A3B8;
+            --connector-active: var(--geodis-blue);
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+            --radius-sm: 4px;
+            --radius: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --lane-height: 100px;
+            --step-width: 140px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #F9FAFB;
+            min-height: 100vh;
+            color: var(--gray-800);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ========== HEADER - GEODIS Style ========== */
+        .header {
+            background-color: white;
+            border-bottom: 1px solid #E5E7EB;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            height: 72px;
+            gap: 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .geodis-logo {
+            height: 40px;
+        }
+
+        .logo-divider {
+            border-left: 2px solid #E5E7EB;
+            padding-left: 0.75rem;
+            margin-left: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            color: var(--geodis-orange);
+            flex-shrink: 0;
+        }
+
+        .app-title h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--geodis-blue-dark);
+            line-height: 1.2;
+        }
+
+        .app-title p {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+
+        .header-controls {
+            margin-left: auto;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .phase-selector {
+            display: flex;
+            background: var(--gray-100);
+            border-radius: var(--radius);
+            padding: 4px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .phase-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .phase-btn:hover {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+
+        .phase-btn.active {
+            background: var(--geodis-blue);
+            color: var(--white);
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 0.25rem;
+            background: var(--gray-100);
+            border-radius: var(--radius);
+            padding: 4px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .zoom-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .zoom-btn:hover {
+            background: var(--gray-200);
+            color: var(--geodis-blue);
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .main-container {
+            max-width: 1900px;
+            margin: 0 auto;
+        }
+
+        /* Phase Header Card */
+        .phase-header {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .phase-info h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .phase-info h2 .phase-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--geodis-blue), var(--geodis-blue-dark));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        .phase-info p {
+            color: var(--gray-600);
+            margin-top: 0.25rem;
+            margin-left: 52px;
+        }
+
+        .phase-stats {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .stat-box {
+            background: var(--geodis-blue-light);
+            border: 1px solid var(--geodis-blue);
+            border-radius: var(--radius);
+            padding: 0.75rem 1.25rem;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--geodis-blue);
+        }
+
+        .stat-box .label {
+            font-size: 0.7rem;
+            color: var(--geodis-blue-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Swimlane Wrapper */
+        .swimlane-wrapper {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        /* Legend */
+        .swimlane-legend {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(to right, var(--gray-50), var(--white));
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .legend-title {
+            font-weight: 600;
+            color: var(--geodis-blue);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--gray-600);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* Swimlane Canvas */
+        .swimlane-canvas {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .swimlane-diagram {
+            display: flex;
+            min-width: max-content;
+            position: relative;
+        }
+
+        /* Lane Labels */
+        .lane-labels {
+            position: sticky;
+            left: 0;
+            z-index: 100;
+            background: var(--white);
+            border-right: 2px solid var(--gray-200);
+            box-shadow: 4px 0 8px rgba(0,0,0,0.05);
+        }
+
+        .lane-label {
+            height: var(--lane-height);
+            width: 180px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--gray-100);
+            transition: var(--transition);
+        }
+
+        .lane-label:hover {
+            background: var(--gray-50);
+        }
+
+        .lane-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .lane-info h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1.2;
+        }
+
+        .lane-info span {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+        }
+
+        /* Lanes Content */
+        .lanes-content {
+            flex: 1;
+            position: relative;
+        }
+
+        /* SVG Connectors */
+        .connectors-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .connector-path {
+            fill: none;
+            stroke: var(--connector-color);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .connector-path.active {
+            stroke: var(--connector-active);
+            stroke-width: 3;
+        }
+
+        .connector-path.animated {
+            stroke-dasharray: 8 4;
+            animation: flowAnimation 1s linear infinite;
+        }
+
+        @keyframes flowAnimation {
+            from { stroke-dashoffset: 12; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        .connector-arrow {
+            fill: var(--connector-color);
+        }
+
+        /* Lane Rows */
+        .lane-row {
+            height: var(--lane-height);
+            position: relative;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        /* Step Blocks */
+        .step-block {
+            position: absolute;
+            width: var(--step-width);
+            padding: 0.6rem 0.75rem;
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 2px solid;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 60;
+        }
+
+        .step-block:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            z-index: 70;
+        }
+
+        .step-block.highlighted {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: var(--shadow); }
+            50% { box-shadow: 0 0 20px rgba(50, 0, 235, 0.4); }
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .step-number {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .step-icon {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .step-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1.25;
+        }
+
+        .step-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 0.25rem;
+            font-size: 0.65rem;
+            color: var(--gray-500);
+        }
+
+        .step-meta i {
+            font-size: 0.6rem;
+        }
+
+        /* Decision Diamond */
+        .decision-block {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            z-index: 60;
+            cursor: pointer;
+        }
+
+        .decision-diamond {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border: 2px solid var(--geodis-orange);
+            transform: rotate(45deg);
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .decision-block:hover .decision-diamond {
+            transform: rotate(45deg) scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .decision-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .decision-content i {
+            font-size: 1rem;
+            color: var(--geodis-orange);
+        }
+
+        .decision-content span {
+            display: block;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-top: 2px;
+        }
+
+        /* Lane Colors */
+        .lane-row.lane-hiring-manager { background: var(--lane-hiring-manager-light); }
+        .lane-row.lane-recruiter { background: var(--lane-recruiter-light); }
+        .lane-row.lane-hr { background: var(--lane-hr-light); }
+        .lane-row.lane-candidate { background: var(--lane-candidate-light); }
+        .lane-row.lane-interviewer { background: var(--lane-interviewer-light); }
+        .lane-row.lane-system { background: var(--lane-system-light); }
+        .lane-row.lane-external { background: var(--lane-external-light); }
+
+        .step-block.lane-hiring-manager { border-color: var(--lane-hiring-manager); }
+        .step-block.lane-hiring-manager .step-number { background: var(--lane-hiring-manager); }
+
+        .step-block.lane-recruiter { border-color: var(--lane-recruiter); }
+        .step-block.lane-recruiter .step-number { background: var(--lane-recruiter); }
+
+        .step-block.lane-hr { border-color: var(--lane-hr); }
+        .step-block.lane-hr .step-number { background: var(--lane-hr); }
+
+        .step-block.lane-candidate { border-color: var(--lane-candidate); }
+        .step-block.lane-candidate .step-number { background: var(--lane-candidate); }
+
+        .step-block.lane-interviewer { border-color: var(--lane-interviewer); }
+        .step-block.lane-interviewer .step-number { background: var(--lane-interviewer); }
+
+        .step-block.lane-system { border-color: var(--lane-system); }
+        .step-block.lane-system .step-number { background: var(--lane-system); }
+
+        .step-block.lane-external { border-color: var(--lane-external); }
+        .step-block.lane-external .step-number { background: var(--lane-external); }
+
+        .lane-label.lane-hiring-manager .lane-icon { background: var(--lane-hiring-manager); }
+        .lane-label.lane-recruiter .lane-icon { background: var(--lane-recruiter); }
+        .lane-label.lane-hr .lane-icon { background: var(--lane-hr); }
+        .lane-label.lane-candidate .lane-icon { background: var(--lane-candidate); }
+        .lane-label.lane-interviewer .lane-icon { background: var(--lane-interviewer); }
+        .lane-label.lane-system .lane-icon { background: var(--lane-system); }
+        .lane-label.lane-external .lane-icon { background: var(--lane-external); }
+
+        /* ========== MODAL ========== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            max-width: 550px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, var(--geodis-blue-light), var(--white));
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .modal-header h3 .modal-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 0.85rem;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gray-100);
+            color: var(--gray-500);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-section h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--geodis-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-section h4 i {
+            color: var(--geodis-orange);
+            font-size: 0.75rem;
+        }
+
+        .modal-section p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-box {
+            flex: 1;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 0.75rem;
+        }
+
+        .info-box label {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-box span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            background: var(--geodis-blue-light);
+            border: 1px solid var(--geodis-blue);
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: var(--geodis-blue-dark);
+            font-weight: 500;
+        }
+
+        .rule-list {
+            list-style: none;
+        }
+
+        .rule-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.4rem 0;
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .rule-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rule-list li i {
+            color: var(--geodis-orange);
+            margin-top: 0.2rem;
+            font-size: 0.7rem;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .tooltip.visible {
+            opacity: 1;
+        }
+
+        /* Phase Sections */
+        .phase-section {
+            display: none;
+        }
+
+        .phase-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ========== FOOTER - GEODIS Style ========== */
+        .footer {
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        .footer-main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--geodis-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--geodis-blue-dark);
+        }
+
+        .footer-link.orange {
+            color: var(--geodis-orange);
+        }
+
+        .footer-link.orange:hover {
+            color: #c25400;
+        }
+
+        .footer-tagline {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-100);
+            text-align: center;
+        }
+
+        .footer-tagline p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .phase-selector {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+                height: auto;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .phase-stats {
+                display: none;
+            }
+
+            .lane-label {
+                width: 140px;
+            }
+
+            .lane-info span {
+                display: none;
+            }
+
+            .footer-main {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-500);
+        }
+
+        /* Print */
+        @media print {
+            .header, .footer { display: none; }
+            .swimlane-wrapper { box-shadow: none; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img
+                    src="https://d25zu39ynyitwy.cloudfront.net/oms/000000/image/2024/8/6RPG2_Logo/Logo_-1x-1.png"
+                    alt="GEODIS Logo"
+                    class="geodis-logo"
+                >
+                <div class="logo-divider">
+                    <svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <div class="app-title">
+                        <h1>Recruitment Swimlane</h1>
+                        <p>Oracle HCM Cloud - Connected Process Flow</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="phase-selector">
+                    <button class="phase-btn active" data-phase="end-to-end">End-to-End</button>
+                    <button class="phase-btn" data-phase="requisition">Requisition</button>
+                    <button class="phase-btn" data-phase="posting">Posting</button>
+                    <button class="phase-btn" data-phase="interview">Interview</button>
+                    <button class="phase-btn" data-phase="offer">Offer</button>
+                    <button class="phase-btn" data-phase="hire">Preboarding & Hire</button>
+                </div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <button class="zoom-btn" onclick="resetZoom()" title="Reset">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                    </button>
+                    <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        <div class="main-container">
+            <!-- End-to-End Phase -->
+            <section id="end-to-end" class="phase-section active">
+                <div class="phase-header">
+                    <div class="phase-info">
+                        <h2>
+                            <span class="phase-icon"><i class="fas fa-project-diagram"></i></span>
+                            End-to-End Recruitment Process
+                        </h2>
+                        <p><strong>GEODIS Policy:</strong> Identify and fill vacancies in line with our principles of diversity and inclusion, giving priority to internal candidates and broadening the search to attract the best talent in the market.</p>
+                    </div>
+                    <div class="phase-stats">
+                        <div class="stat-box">
+                            <div class="value">8</div>
+                            <div class="label">Phases</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">10-12</div>
+                            <div class="label">Weeks Avg</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">21</div>
+                            <div class="label">Steps</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">7</div>
+                            <div class="label">Actors</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swimlane-wrapper">
+                    <div class="swimlane-legend">
+                        <span class="legend-title"><i class="fas fa-palette"></i> Actors:</span>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-hiring-manager);"></div>
+                                <span>Hiring Manager</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-recruiter);"></div>
+                                <span>Recruiter</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-hr);"></div>
+                                <span>HR Business Partner</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-candidate);"></div>
+                                <span>Candidate</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-interviewer);"></div>
+                                <span>Interviewer</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-system);"></div>
+                                <span>System</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swimlane-canvas" id="e2eCanvas">
+                        <div class="swimlane-diagram" id="e2eDiagram">
+                            <!-- Lane Labels -->
+                            <div class="lane-labels">
+                                <div class="lane-label lane-hiring-manager">
+                                    <div class="lane-icon"><i class="fas fa-user-tie"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Hiring Manager</h4>
+                                        <span>Creates req, interviews, decides</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-recruiter">
+                                    <div class="lane-icon"><i class="fas fa-user-friends"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Recruiter</h4>
+                                        <span>Sources, screens, coordinates</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-hr">
+                                    <div class="lane-icon"><i class="fas fa-user-shield"></i></div>
+                                    <div class="lane-info">
+                                        <h4>HR Business Partner</h4>
+                                        <span>Approves, compliance</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-candidate">
+                                    <div class="lane-icon"><i class="fas fa-user"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Candidate</h4>
+                                        <span>Applies, interviews, accepts</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-interviewer">
+                                    <div class="lane-icon"><i class="fas fa-users"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Interviewer(s)</h4>
+                                        <span>Assesses, provides feedback</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-system">
+                                    <div class="lane-icon"><i class="fas fa-cog"></i></div>
+                                    <div class="lane-info">
+                                        <h4>System / Integrations</h4>
+                                        <span>Oracle, DocuSign, Sterling</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lanes Content -->
+                            <div class="lanes-content" id="e2eLanesContent">
+                                <svg class="connectors-layer" id="e2eConnectors"></svg>
+                                <div class="lane-row lane-hiring-manager" data-lane="0"></div>
+                                <div class="lane-row lane-recruiter" data-lane="1"></div>
+                                <div class="lane-row lane-hr" data-lane="2"></div>
+                                <div class="lane-row lane-candidate" data-lane="3"></div>
+                                <div class="lane-row lane-interviewer" data-lane="4"></div>
+                                <div class="lane-row lane-system" data-lane="5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Requisition Phase -->
+            <section id="requisition" class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-info">
+                        <h2>
+                            <span class="phase-icon"><i class="fas fa-file-alt"></i></span>
+                            Phase 1: Requisition Creation & Approval
+                        </h2>
+                        <p><strong>2.2 Recruitment need & Job Description:</strong> Analyze and challenge managers' needs, formalize comprehensive Vacancy Request, and route through approval path by relevant authority. TopEx positions require CHRO approval.</p>
+                    </div>
+                    <div class="phase-stats">
+                        <div class="stat-box">
+                            <div class="value">2-5</div>
+                            <div class="label">Days</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">5</div>
+                            <div class="label">Templates</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">24h</div>
+                            <div class="label">SLA/Level</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swimlane-wrapper">
+                    <div class="swimlane-legend">
+                        <span class="legend-title"><i class="fas fa-info-circle"></i> Approval Thresholds:</span>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-green);"></div>
+                                <span>&lt; EUR 125K: Standard</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-orange);"></div>
+                                <span>EUR 125K-155K: Senior</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #EF4444;"></div>
+                                <span>&gt; EUR 155K / TOPEX: Executive</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swimlane-canvas" id="reqCanvas">
+                        <div class="swimlane-diagram" id="reqDiagram">
+                            <div class="lane-labels">
+                                <div class="lane-label lane-hiring-manager">
+                                    <div class="lane-icon"><i class="fas fa-user-tie"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Hiring Manager</h4>
+                                        <span>Creates & submits</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-hr">
+                                    <div class="lane-icon"><i class="fas fa-user-check"></i></div>
+                                    <div class="lane-info">
+                                        <h4>N+1 Manager</h4>
+                                        <span>First approval</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-interviewer">
+                                    <div class="lane-icon"><i class="fas fa-user-shield"></i></div>
+                                    <div class="lane-info">
+                                        <h4>HRBP</h4>
+                                        <span>HR validation</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-external">
+                                    <div class="lane-icon"><i class="fas fa-crown"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Senior Approvers</h4>
+                                        <span>EVP HR / CHRO</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-recruiter">
+                                    <div class="lane-icon"><i class="fas fa-user-friends"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Recruiter</h4>
+                                        <span>Receives activated req</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="lanes-content" id="reqLanesContent">
+                                <svg class="connectors-layer" id="reqConnectors"></svg>
+                                <div class="lane-row lane-hiring-manager" data-lane="0"></div>
+                                <div class="lane-row lane-hr" data-lane="1"></div>
+                                <div class="lane-row lane-interviewer" data-lane="2"></div>
+                                <div class="lane-row lane-external" data-lane="3"></div>
+                                <div class="lane-row lane-recruiter" data-lane="4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Posting Phase -->
+            <section id="posting" class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-info">
+                        <h2><span class="phase-icon"><i class="fas fa-bullhorn"></i></span> Phase 2: Job Posting & Sourcing</h2>
+                        <p><strong>2.3 Candidates selection/search:</strong> Post job offers FIRST internally on G-Talent+ for a MINIMUM period of one week, then externally. Prioritize internal candidates at local, regional, and national levels.</p>
+                    </div>
+                    <div class="phase-stats">
+                        <div class="stat-box">
+                            <div class="value">7</div>
+                            <div class="label">Days Min Internal</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">4+</div>
+                            <div class="label">Channels</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">90</div>
+                            <div class="label">Days Max Agency</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swimlane-wrapper">
+                    <div class="swimlane-legend">
+                        <span class="legend-title"><i class="fas fa-share-alt"></i> Posting Channels:</span>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-blue);"></div>
+                                <span>Internal Career Site</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #0A66C2;"></div>
+                                <span>LinkedIn</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #2164f3;"></div>
+                                <span>Indeed</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-orange);"></div>
+                                <span>GEODIS.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swimlane-canvas" id="postingCanvas">
+                        <div class="swimlane-diagram" id="postingDiagram">
+                            <div class="lane-labels">
+                                <div class="lane-label lane-recruiter">
+                                    <div class="lane-icon"><i class="fas fa-user-friends"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Recruiter</h4>
+                                        <span>Creates & publishes postings</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-system">
+                                    <div class="lane-icon"><i class="fas fa-cog"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Oracle System</h4>
+                                        <span>Job distribution engine</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-external">
+                                    <div class="lane-icon"><i class="fas fa-globe"></i></div>
+                                    <div class="lane-info">
+                                        <h4>External Channels</h4>
+                                        <span>LinkedIn, Indeed, Career Site</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-candidate">
+                                    <div class="lane-icon"><i class="fas fa-user"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Candidate</h4>
+                                        <span>Views & applies</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lanes-content" id="postingLanesContent">
+                                <svg class="connectors-layer" id="postingConnectors"></svg>
+                                <div class="lane-row lane-recruiter" data-lane="0"></div>
+                                <div class="lane-row lane-system" data-lane="1"></div>
+                                <div class="lane-row lane-external" data-lane="2"></div>
+                                <div class="lane-row lane-candidate" data-lane="3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interview Phase -->
+            <section id="interview" class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-info">
+                        <h2><span class="phase-icon"><i class="fas fa-comments"></i></span> Phase 4: Interview & Assessment</h2>
+                        <p><strong>2.4 Candidates' recruitment:</strong> Interview without discrimination following structured format: Introduction (GEODIS culture/values), Getting to know candidate, Capability questions, Close. Discriminatory questions are strictly PROHIBITED.</p>
+                    </div>
+                    <div class="phase-stats">
+                        <div class="stat-box">
+                            <div class="value">2-4</div>
+                            <div class="label">Rounds</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">48h</div>
+                            <div class="label">Feedback SLA</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">3</div>
+                            <div class="label">Min Panel (Functional)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swimlane-wrapper">
+                    <div class="swimlane-legend">
+                        <span class="legend-title"><i class="fas fa-list-ol"></i> Interview Types:</span>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-recruiter);"></div>
+                                <span>Phone Screen</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-hiring-manager);"></div>
+                                <span>HM Interview</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-interviewer);"></div>
+                                <span>Panel Interview</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-purple);"></div>
+                                <span>Technical Assessment</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swimlane-canvas" id="interviewCanvas">
+                        <div class="swimlane-diagram" id="interviewDiagram">
+                            <div class="lane-labels">
+                                <div class="lane-label lane-recruiter">
+                                    <div class="lane-icon"><i class="fas fa-user-friends"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Recruiter</h4>
+                                        <span>Schedules & coordinates</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-hiring-manager">
+                                    <div class="lane-icon"><i class="fas fa-user-tie"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Hiring Manager</h4>
+                                        <span>Conducts interviews</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-interviewer">
+                                    <div class="lane-icon"><i class="fas fa-users"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Interview Panel</h4>
+                                        <span>Assesses & scores</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-candidate">
+                                    <div class="lane-icon"><i class="fas fa-user"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Candidate</h4>
+                                        <span>Participates in interviews</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-system">
+                                    <div class="lane-icon"><i class="fas fa-cog"></i></div>
+                                    <div class="lane-info">
+                                        <h4>System</h4>
+                                        <span>Calendar, notifications</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lanes-content" id="interviewLanesContent">
+                                <svg class="connectors-layer" id="interviewConnectors"></svg>
+                                <div class="lane-row lane-recruiter" data-lane="0"></div>
+                                <div class="lane-row lane-hiring-manager" data-lane="1"></div>
+                                <div class="lane-row lane-interviewer" data-lane="2"></div>
+                                <div class="lane-row lane-candidate" data-lane="3"></div>
+                                <div class="lane-row lane-system" data-lane="4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Offer Phase -->
+            <section id="offer" class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-info">
+                        <h2><span class="phase-icon"><i class="fas fa-file-signature"></i></span> Phase 6: Offer Management</h2>
+                        <p><strong>2.4.3 Provide feedback and select:</strong> The chosen candidate receives a job offer. The aim is to make a job offer within two months of the interview phase. All applicants receive a response regardless of outcome.</p>
+                    </div>
+                    <div class="phase-stats">
+                        <div class="stat-box">
+                            <div class="value">18</div>
+                            <div class="label">Templates</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">2</div>
+                            <div class="label">Months Target</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">5</div>
+                            <div class="label">Days Response</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swimlane-wrapper">
+                    <div class="swimlane-legend">
+                        <span class="legend-title"><i class="fas fa-file-contract"></i> Offer Templates by Country:</span>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #002395;"></div>
+                                <span>France (5)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #B22234;"></div>
+                                <span>USA (4)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #FF9933;"></div>
+                                <span>Netherlands (3)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-green);"></div>
+                                <span>Other (6)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swimlane-canvas" id="offerCanvas">
+                        <div class="swimlane-diagram" id="offerDiagram">
+                            <div class="lane-labels">
+                                <div class="lane-label lane-recruiter">
+                                    <div class="lane-icon"><i class="fas fa-user-friends"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Recruiter</h4>
+                                        <span>Creates & drafts offer</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-hiring-manager">
+                                    <div class="lane-icon"><i class="fas fa-user-tie"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Hiring Manager</h4>
+                                        <span>Reviews compensation</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-hr">
+                                    <div class="lane-icon"><i class="fas fa-user-shield"></i></div>
+                                    <div class="lane-info">
+                                        <h4>HRBP / Comp Team</h4>
+                                        <span>Approves offer</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-system">
+                                    <div class="lane-icon"><i class="fas fa-signature"></i></div>
+                                    <div class="lane-info">
+                                        <h4>DocuSign</h4>
+                                        <span>E-signature workflow</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-candidate">
+                                    <div class="lane-icon"><i class="fas fa-user"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Candidate</h4>
+                                        <span>Reviews & signs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lanes-content" id="offerLanesContent">
+                                <svg class="connectors-layer" id="offerConnectors"></svg>
+                                <div class="lane-row lane-recruiter" data-lane="0"></div>
+                                <div class="lane-row lane-hiring-manager" data-lane="1"></div>
+                                <div class="lane-row lane-hr" data-lane="2"></div>
+                                <div class="lane-row lane-system" data-lane="3"></div>
+                                <div class="lane-row lane-candidate" data-lane="4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preboarding & Hire Phase - MERGED -->
+            <section id="hire" class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-info">
+                        <h2><span class="phase-icon"><i class="fas fa-user-plus"></i></span> Phase 7-8: Preboarding & Hire</h2>
+                        <p><strong>Admin & Payroll 4.1-4.4:</strong> From contract signature to Day 1. Create HCM profile, order equipment (Coupa), collect documents, BGC (Sterling), IT/Facilities setup, Health & Safety, welcome communications, and onboarding. Refer to Talent Mgmt 3.1-3.2.</p>
+                    </div>
+                    <div class="phase-stats">
+                        <div class="stat-box">
+                            <div class="value">2-4</div>
+                            <div class="label">Weeks to D1</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">68%</div>
+                            <div class="label">BGC in 1 Day</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">20</div>
+                            <div class="label">Checklist Items</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">6</div>
+                            <div class="label">Actors</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swimlane-wrapper">
+                    <div class="swimlane-legend">
+                        <span class="legend-title"><i class="fas fa-tasks"></i> Preboarding & Hire Checklist:</span>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-blue);"></div>
+                                <span>HCM Profile</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-orange);"></div>
+                                <span>Equipment (Coupa)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-external);"></div>
+                                <span>BGC (Sterling)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--lane-interviewer);"></div>
+                                <span>IT & Facilities</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--geodis-green);"></div>
+                                <span>Day 1 Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swimlane-canvas" id="hireCanvas">
+                        <div class="swimlane-diagram" id="hireDiagram">
+                            <div class="lane-labels">
+                                <div class="lane-label lane-hr">
+                                    <div class="lane-icon"><i class="fas fa-user-shield"></i></div>
+                                    <div class="lane-info">
+                                        <h4>HR Operations</h4>
+                                        <span>Profile, docs, coordination</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-external">
+                                    <div class="lane-icon"><i class="fas fa-shield-alt"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Sterling / Coupa</h4>
+                                        <span>BGC, equipment orders</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-candidate">
+                                    <div class="lane-icon"><i class="fas fa-user"></i></div>
+                                    <div class="lane-info">
+                                        <h4>New Hire</h4>
+                                        <span>Documents, surveys, onboarding</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-system">
+                                    <div class="lane-icon"><i class="fas fa-database"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Oracle HCM / Payroll</h4>
+                                        <span>Worker record, integrations</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-interviewer">
+                                    <div class="lane-icon"><i class="fas fa-laptop"></i></div>
+                                    <div class="lane-info">
+                                        <h4>IT / Facilities / H&S</h4>
+                                        <span>Access, workspace, medical</span>
+                                    </div>
+                                </div>
+                                <div class="lane-label lane-hiring-manager">
+                                    <div class="lane-icon"><i class="fas fa-user-tie"></i></div>
+                                    <div class="lane-info">
+                                        <h4>Hiring Manager</h4>
+                                        <span>Welcome, onboard</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lanes-content" id="hireLanesContent">
+                                <svg class="connectors-layer" id="hireConnectors"></svg>
+                                <div class="lane-row lane-hr" data-lane="0"></div>
+                                <div class="lane-row lane-external" data-lane="1"></div>
+                                <div class="lane-row lane-candidate" data-lane="2"></div>
+                                <div class="lane-row lane-system" data-lane="3"></div>
+                                <div class="lane-row lane-interviewer" data-lane="4"></div>
+                                <div class="lane-row lane-hiring-manager" data-lane="5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-copyright">
+                    &copy; 2024 GEODIS. All rights reserved. &bull; Recruitment Process - Oracle HCM Cloud
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link orange">
+                        <i class="fas fa-book"></i>
+                        <span>Documentation</span>
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About Oracle Recruiting</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-tagline">
+                <p>Powered by Oracle Cloud HCM &bull; Connecting Talent, Process & Technology</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== MODAL ========== -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">
+                    <span class="modal-icon" id="modalIcon"><i class="fas fa-info"></i></span>
+                    <span id="modalTitleText">Step Details</span>
+                </h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Configuration
+        const LANE_HEIGHT = 100;
+        const STEP_WIDTH = 140;
+        const STEP_HEIGHT = 70;
+        const V_CENTER = LANE_HEIGHT / 2;
+
+        let currentZoom = 1;
+
+        // End-to-End Steps - Enriched with GEODIS HR Blueprint Policies
+        const e2eSteps = [
+            { id: 's1', lane: 0, x: 30, label: 'Create Requisition', num: '1', icon: 'fa-plus', duration: 'Day 1',
+              desc: 'Hiring Manager analyzes needs and formalizes a comprehensive Vacancy Request including job description, mission statement, expected profile (knowledge, skills, abilities, qualifications), and offer characteristics (contract type, salary, benefits). Ensure positions are budgeted or justified per GEODIS policy.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+'],
+              rules: ['Use GEODIS Job Description templates', 'Positions must be budgeted or justified', 'Select from 5 requisition templates: GEODIS_STD, GEODIS_EXEC, GEODIS_FR, GEODIS_US, GEODIS_INTERN'],
+              goodPractice: 'HR teams mobilize skills and supports shared by the Group (recruitment guide) to advise and challenge managers on identifying their needs and defining a realistic recruitment framework.' },
+            { id: 's2', lane: 2, x: 220, label: 'Approve Requisition', num: '2', icon: 'fa-stamp', duration: '2-5 days',
+              desc: 'Approval path by relevant authority. Managers with impact to hiring positions must approve all new hiring upfronts. For certain contexts, Regional/LoB EVP approval required. For TopEx positions, CHRO approval is mandatory. Thresholds: Standard (<EUR 125K), Senior (EUR 125K-155K adds Director), Executive (>EUR 155K or TopEx adds VP + CHRO).',
+              owner: 'N+1 Manager + HRBP',
+              systems: ['Oracle BPM Workflow', 'Approval Chain'],
+              rules: ['SLA: 24h per approval level', 'Escalation at 2-day, 3-day, 5-day auto-escalate', 'TopEx requires CHRO approval', 'All vacancy requests must be well documented'],
+              goodPractice: 'Ensure that the Vacancy Request is well documented before submission to avoid rejection and rework.' },
+            { id: 's3', lane: 1, x: 410, label: 'Post Job', num: '3', icon: 'fa-bullhorn', duration: '7+ days',
+              desc: 'Create and publish job offers FIRST internally on G-Talent+ for a MINIMUM period of one week, then externally. Prioritize internal candidates at local, regional, and national levels. Search for external candidates only after internal posting period. Use GEODIS partner recruitment agencies only if absolutely necessary (Regional HRD authorization required).',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'InJob', 'Jump\'In', 'LinkedIn API', 'Indeed API'],
+              rules: ['7-day internal posting rule mandatory', 'Internal before external - always', 'Agency contracts max 90 days', 'Only HR contacts agencies', 'Only GEODIS partner agencies allowed'],
+              goodPractice: 'Be proactive in creating talent pools by building strong networking in transport and logistics, and developing content and interaction on social media.' },
+            { id: 's4', lane: 3, x: 600, label: 'Apply for Job', num: '4', icon: 'fa-paper-plane', duration: '~10 min',
+              desc: 'Candidate discovers and applies for job through internal career site, LinkedIn, Indeed, or GEODIS.com. Application captured in Oracle ATS. Internal candidates can apply directly via G-Talent+. Spontaneous applications also accepted via G-Talent+.',
+              owner: 'Candidate',
+              systems: ['Oracle Career Site', 'G-Talent+', 'LinkedIn', 'Indeed', 'GEODIS.com'],
+              rules: ['Complete application required', 'CV must include initial training and work experience', 'Data stored per GDPR compliance'],
+              goodPractice: 'Each job offer should contain purpose of role (job description and mission statement), expected profile, and offer characteristics.' },
+            { id: 's5', lane: 5, x: 790, label: 'Auto-Screen', num: '5', icon: 'fa-robot', duration: 'Instant',
+              desc: 'Oracle Recruiting applies configurable auto-screening rules and knockout questions. Pre-screening questionnaire validates minimum requirements. Candidates auto-progressed or auto-rejected based on responses. AI-assisted matching available.',
+              owner: 'Oracle System',
+              systems: ['Oracle Recruiting Cloud', 'Auto-Screening Engine', 'Paradox/Olivia Chatbot'],
+              rules: ['Screening questions must be non-discriminatory', 'Minimum requirements clearly defined', '24h SLA for initial application review'],
+              goodPractice: 'Ensure screening criteria align with vacancy request requirements and GEODIS diversity & inclusion principles.' },
+            { id: 's6', lane: 1, x: 980, label: 'Screen & Shortlist', num: '6', icon: 'fa-filter', duration: '3-5 days',
+              desc: 'Review ALL applications ensuring completeness and that applicant files provide information on initial training and previous work experience. Pre-select candidates meeting recruitment criteria. Conduct pre-qualification interviews to validate interest, availability, and salary expectations. Reference checks are MANDATORY for white collars.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+'],
+              rules: ['Review all applications - none skipped', 'Pre-qualification validates: interest, availability, salary expectations', 'Reference checks mandatory for white collars', 'Document screening decisions'],
+              goodPractice: 'Consider impact of selecting external over internal candidates where similar appreciations - internal candidates may get up to speed more quickly as they already know the business.' },
+            { id: 's7', lane: 0, x: 1170, label: 'Review Shortlist', num: '7', icon: 'fa-list-check', duration: '1-2 days',
+              desc: 'Hiring Manager reviews pre-selected candidate profiles with interview reports. For positions with functional attachment, selection committee includes: direct manager, functional manager, and HR representative. Manager confirms candidates to proceed to interview stage.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'Shortlist Dashboard'],
+              rules: ['Selection committee for functional positions', 'Document selection rationale', 'Consider diversity & inclusion goals'],
+              goodPractice: 'Give priority to internal candidates in line with GEODIS diversity and inclusion principles.' },
+            { id: 's8', lane: 1, x: 1360, label: 'Schedule Interviews', num: '8', icon: 'fa-calendar', duration: '1-2 days',
+              desc: 'Recruiter coordinates interview scheduling with all parties. Provide key information about recruitment process (number of interviews, tests, etc.). Send calendar invitations via Oracle integration with Outlook/Teams. Multiple interview rounds may be scheduled.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Outlook Calendar', 'Microsoft Teams'],
+              rules: ['Inform candidates of full process upfront', 'Confirm interviewer availability', 'Allow adequate preparation time'],
+              goodPractice: 'Provide clear expectations about number of interviews, assessment types, and timeline to manage candidate experience.' },
+            { id: 's9', lane: 3, x: 1550, label: 'Attend Interview', num: '9', icon: 'fa-video', duration: '60-90 min',
+              desc: 'Candidate participates in structured interview(s). Types include: phone screen, HM interview, panel interview, technical assessment. Format follows GEODIS recruitment guide: Introduction (culture, values), Getting to know candidate (CV exploration), Capability questions (structured examples), Close (next steps).',
+              owner: 'Candidate',
+              systems: ['Microsoft Teams', 'Oracle Recruiting Cloud'],
+              rules: ['Structured interview format required', 'No discriminatory questions', 'Particular attention to candidates with disabilities'],
+              goodPractice: 'Present GEODIS culture and values, clarify what to expect, and manage expectations for next steps.' },
+            { id: 's10', lane: 4, x: 1550, label: 'Conduct Interview', num: '10', icon: 'fa-comments', duration: '60-90 min',
+              desc: 'Interview panel assesses candidate following GEODIS recruitment guide structure: 1) Introduction - present GEODIS culture/values, 2) Getting to know candidate - explore CV elements, 3) Capability questions - structured open questions exploring examples, 4) Close - manage expectations and next steps. Discriminatory questions strictly PROHIBITED.',
+              owner: 'Interviewer(s)',
+              systems: ['Oracle Recruiting Cloud', 'Interview Scorecards'],
+              rules: ['Follow structured interview guide', 'Discriminatory questions PROHIBITED', 'Special attention to candidates with disabilities', 'Document all responses'],
+              goodPractice: 'Use structured and open questions to explore examples of candidate experiences. Asking discriminatory questions is strictly prohibited per GEODIS policy.' },
+            { id: 's11', lane: 4, x: 1740, label: 'Submit Feedback', num: '11', icon: 'fa-star', duration: 'SLA: 48h',
+              desc: 'Interviewers submit structured scorecards and recommendations within 48-hour SLA. Feedback includes: competency ratings, behavioral observations, hire/no-hire recommendation, and detailed comments. All interview reports compiled for hiring manager review.',
+              owner: 'Interviewer(s)',
+              systems: ['Oracle Recruiting Cloud', 'Interview Feedback Module'],
+              rules: ['48h feedback SLA mandatory', 'Use standardized scorecard', 'Document objective observations', 'Provide hire recommendation'],
+              goodPractice: 'Provide specific examples and evidence-based feedback to support hiring decisions.' },
+            { id: 's12', lane: 0, x: 1930, label: 'Select Candidate', num: '12', icon: 'fa-check-circle', duration: '1-2 days',
+              desc: 'Hiring Manager reviews all applications and interview reports to select best candidate whose background and (soft/hard) skills best meet vacancy request needs. Decision made in collaboration with HR. If no candidate meets requirements after 6 months, stop recruitment and verify if needs still exist.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'Decision Dashboard'],
+              rules: ['Select based on merit and fit', '6-month recruitment timeout rule', 'Document selection rationale', 'Consider D&I objectives'],
+              goodPractice: 'If after six months no candidate meets requirements or blocking problems exist, stop recruitment to verify needs still exist. If so, implement new process with new Vacancy Request Approval.' },
+            { id: 's13', lane: 1, x: 2120, label: 'Create Offer', num: '13', icon: 'fa-file-alt', duration: '1 day',
+              desc: 'Recruiter creates offer using country-specific template (18 templates: FR-5, US-4, NL-3, UK/DE/Other-6). Include compensation, benefits, start date, and employment terms. Offer aim: make job offer within 2 months of interview phase start.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Offer Templates', 'Compensation Workbench'],
+              rules: ['Use correct country template', 'Verify compensation within bands', 'Target: offer within 2 months of interviews', 'All terms per local labor law'],
+              goodPractice: 'The aim is to make a job offer within two months of the interview phase per GEODIS recruitment policy.' },
+            { id: 's14', lane: 2, x: 2310, label: 'Approve Offer', num: '14', icon: 'fa-check-double', duration: '1-3 days',
+              desc: 'Offer approval workflow based on salary thresholds: Standard (<EUR 125K) = HRBP approval, Senior (EUR 125K-155K) = adds Compensation team, Executive (>EUR 155K/TopEx) = adds VP HR + CHRO. SLA: 24-48h per level. Escalation rules apply.',
+              owner: 'HRBP / Comp Team / Exec',
+              systems: ['Oracle BPM Workflow', 'Offer Approval Chain'],
+              rules: ['Approval by salary threshold', 'SLA: 24-48h per level', 'TopEx requires CHRO', 'Document approval rationale'],
+              goodPractice: 'Ensure compensation is within approved bands and aligned with internal equity before submission.' },
+            { id: 's15', lane: 5, x: 2500, label: 'DocuSign E-Sign', num: '15', icon: 'fa-signature', duration: 'Instant',
+              desc: 'Approved offer automatically generates PDF from template and routes to DocuSign for electronic signature. Candidate receives email with secure signing link. Signed documents stored in Oracle and DocuSign vault.',
+              owner: 'DocuSign Integration',
+              systems: ['DocuSign', 'Oracle Recruiting Cloud', 'PDF Generation'],
+              rules: ['E-signature legally binding', 'Offer valid for 5 days default', 'Auto-reminders at 2-day, 4-day'],
+              goodPractice: 'Electronic signature accelerates acceptance and provides secure, auditable document trail.' },
+            { id: 's16', lane: 3, x: 2690, label: 'Accept Offer', num: '16', icon: 'fa-handshake', duration: '1-5 days',
+              desc: 'Candidate reviews offer terms and conditions, asks clarifying questions if needed, and electronically signs offer letter. 5-day response window with automated reminders. Signed offer triggers pre-boarding workflow.',
+              owner: 'Candidate',
+              systems: ['DocuSign', 'Email', 'Oracle Recruiting Cloud'],
+              rules: ['5-day response window', 'Auto-reminders at 2, 4 days', 'Signed offer required before BGC'],
+              goodPractice: 'Provide clear contact for questions during offer review period to improve acceptance rates.' },
+            { id: 's17', lane: 5, x: 2880, label: 'Background Check', num: '17', icon: 'fa-shield-alt', duration: '3-7 days',
+              desc: 'Sterling performs comprehensive background verification including: criminal records, employment history, education verification, and reference checks. 68% of checks complete in 1 day. Results returned via secure API integration.',
+              owner: 'Sterling Integration',
+              systems: ['Sterling', 'Oracle Recruiting Cloud', 'Secure API'],
+              rules: ['Candidate consent required', 'GDPR compliant processing', 'Adverse action procedures if issues', '68% complete in 1 day'],
+              goodPractice: 'Initiate background check immediately upon offer acceptance to minimize start date delays.' },
+            { id: 's18', lane: 2, x: 3070, label: 'Process Hire', num: '18', icon: 'fa-user-plus', duration: '2-3 days',
+              desc: 'HR Operations collects required onboarding documents, verifies completeness, and creates worker record in Oracle Core HR. Triggers downstream provisioning for payroll, benefits enrollment, and IT systems. Please refer to Onboarding and Admin & Payroll Processes.',
+              owner: 'HR Operations',
+              systems: ['Oracle Core HR', 'Document Management', 'Payroll', 'Benefits'],
+              rules: ['All documents verified before hire', 'Worker record per data standards', 'Sync to payroll required', 'Benefits enrollment triggered'],
+              goodPractice: 'Refer to the Onboarding and Admin. & Payroll Processes to complete the employment offer per GEODIS policy.' },
+            { id: 's19', lane: 5, x: 3260, label: 'Core HR Sync', num: '19', icon: 'fa-database', duration: 'Auto',
+              desc: 'Oracle automatically synchronizes new worker record to: Payroll module (compensation setup), Benefits module (enrollment), IT provisioning (email, access, equipment), and Learning Management (onboarding courses). Real-time integration ensures Day 1 readiness.',
+              owner: 'Oracle Core HR',
+              systems: ['Oracle Core HR', 'Oracle Payroll', 'Oracle Benefits', 'IT Provisioning', 'Oracle Learning'],
+              rules: ['Real-time sync required', 'All downstream systems updated', 'Audit trail maintained'],
+              goodPractice: 'Automated integration ensures consistent data across all HR systems and Day 1 readiness.' },
+            { id: 's20', lane: 0, x: 3450, label: 'Welcome New Hire', num: '20', icon: 'fa-door-open', duration: 'Day 1',
+              desc: 'Hiring Manager welcomes new employee per GEODIS onboarding process. Day 1 includes: workspace ready, system access confirmed, team introductions, onboarding schedule review. Manager is accountable for successful integration.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Onboarding', 'Email', 'GEODIS Induction Program'],
+              rules: ['Day 1 checklist complete', 'Manager welcome mandatory', 'Induction schedule provided', 'Equipment ready'],
+              goodPractice: 'Successful onboarding is critical for retention. Manager engagement on Day 1 sets the tone for the employee experience.' },
+            { id: 's21', lane: 3, x: 3450, label: 'Start Work', num: '21', icon: 'fa-briefcase', duration: 'Day 1',
+              desc: 'New employee begins GEODIS induction program including: company orientation, compliance training, role-specific onboarding, and meeting key stakeholders. Trial/probation period begins per local employment contract.',
+              owner: 'New Employee',
+              systems: ['Oracle Learning', 'GEODIS University', 'Induction Portal'],
+              rules: ['Complete mandatory compliance training', 'Probation period per contract', 'Manager check-ins scheduled'],
+              goodPractice: 'Please refer to the Onboarding process (3.1 Employee onboarding & induction) and Probation review (3.2) for next steps.' },
+        ];
+
+        const e2eConnections = [
+            { from: 's1', to: 's2' },
+            { from: 's2', to: 's3' },
+            { from: 's3', to: 's4' },
+            { from: 's4', to: 's5' },
+            { from: 's5', to: 's6' },
+            { from: 's6', to: 's7' },
+            { from: 's7', to: 's8' },
+            { from: 's8', to: 's9' },
+            { from: 's8', to: 's10' },
+            { from: 's9', to: 's11', type: 'parallel' },
+            { from: 's10', to: 's11' },
+            { from: 's11', to: 's12' },
+            { from: 's12', to: 's13' },
+            { from: 's13', to: 's14' },
+            { from: 's14', to: 's15' },
+            { from: 's15', to: 's16' },
+            { from: 's16', to: 's17' },
+            { from: 's17', to: 's18' },
+            { from: 's18', to: 's19' },
+            { from: 's19', to: 's20' },
+            { from: 's19', to: 's21' },
+        ];
+
+        // Requisition Steps - Enriched with GEODIS HR Blueprint + H2R Flow Elements
+        const reqSteps = [
+            { id: 'r1', lane: 0, x: 30, label: 'Identify Need', num: '1.1', icon: 'fa-lightbulb', duration: 'Day 1',
+              desc: 'Analyze and challenge managers\' needs and expectations (short and long-term). Identify required capabilities to achieve expectations and define recruitment conditions. HR teams use recruitment guide to advise managers on identifying needs and defining realistic recruitment framework.',
+              owner: 'Hiring Manager + HR',
+              systems: ['G-Talent+', 'Job Descriptions Library'],
+              rules: ['Analyze short and long-term needs', 'Define required capabilities', 'Challenge unrealistic expectations', 'Budget verification required'],
+              goodPractice: 'HR teams mobilize skills and supports shared by the Group (recruitment guide) to advise and challenge managers on identifying their needs.' },
+            { id: 'r1b', lane: 0, x: 200, label: 'Confidential Check', num: '1.2', icon: 'fa-user-secret', duration: '5 min', type: 'decision',
+              desc: 'Determine if recruitment is confidential (sensitive position, executive replacement, strategic hire). Confidential recruitments bypass standard internal posting and route to headhunter/executive search process directly.',
+              owner: 'Hiring Manager + HR',
+              systems: ['Oracle Recruiting Cloud'],
+              rules: ['Confidential = headhunter path', 'Non-confidential = standard path', 'HR approval for confidential flag', 'TopEx often confidential'],
+              goodPractice: 'Confidential recruitments should be reserved for truly sensitive situations. Document justification for confidential designation.' },
+            { id: 'r2', lane: 0, x: 370, label: 'Select Template', num: '1.3', icon: 'fa-file-alt', duration: '5 min',
+              desc: 'Select appropriate requisition template from 5 GEODIS standard templates: GEODIS_STD (standard positions), GEODIS_EXEC (executive), GEODIS_FR (France-specific), GEODIS_US (US-specific), GEODIS_INTERN (internships/apprentices).',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+'],
+              rules: ['Use correct template for position type', '5 templates available', 'TopEx uses GEODIS_EXEC', 'Interns use GEODIS_INTERN'],
+              goodPractice: 'Select template that matches the position level and geography to ensure correct fields and approval routing.' },
+            { id: 'r2b', lane: 0, x: 540, label: 'Competency-Based JD', num: '1.4', icon: 'fa-tasks', duration: '15-30 min',
+              desc: 'Create competency-based job description. Auto-populate missions and profile from job description library. Refine with specific requirements: competencies, skills, qualifications, certifications. Ensure D&I objectives reflected in role requirements.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'Job Descriptions Library', 'Competency Framework'],
+              rules: ['Use competency framework', 'Auto-populate from library', 'Include D&I objectives', 'Gender-neutral language required'],
+              goodPractice: 'Create competency-based job description to ensure objective candidate evaluation. Ensure diversity and inclusion objectives are reflected in the requisition.' },
+            { id: 'r2c', lane: 2, x: 710, label: 'Salary Benchmarking', num: '1.5', icon: 'fa-chart-line', duration: '1-2 days',
+              desc: 'Conduct salary benchmarking against market data. Compare proposed compensation to internal equity and external market rates. C&B team validates salary range for positions >= EUR 125K. Ensures competitive and equitable offers.',
+              owner: 'HRBP / C&B Team',
+              systems: ['Compensation Workbench', 'Market Data', 'Oracle Recruiting Cloud'],
+              rules: ['Benchmark all positions', 'C&B review for >= EUR 125K', 'Internal equity check', 'Market positioning validated'],
+              goodPractice: 'Conduct salary benchmarking against market data before finalizing requisition to ensure competitive positioning.' },
+            { id: 'r3', lane: 0, x: 880, label: 'Enter Full Details', num: '1.6', icon: 'fa-edit', duration: '15-30 min',
+              desc: 'Formalize comprehensive Vacancy Request including: purpose of role (job description, mission statement), expected profile (knowledge, skills, abilities, qualifications, certifications), and offer characteristics (job reference, contract type, salary, working environment, benefits). Ensure hiring positions are budgeted or justified.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'Job Descriptions'],
+              rules: ['Complete all mandatory fields', 'Job description required', 'Salary range from benchmark', 'Position must be budgeted or justified'],
+              goodPractice: 'Include purpose of role, expected profile, and offer characteristics. Ensure that the hiring positions are budgeted or justified.' },
+            { id: 'r3b', lane: 3, x: 1050, label: 'TopEx Succession Check', num: '1.7', icon: 'fa-sitemap', duration: 'If TopEx', type: 'decision',
+              desc: 'For TopEx positions: Launch succession planning process. Review internal succession pipeline before external search. CHRO notified. If internal successor ready, may proceed with internal promotion instead of external recruitment.',
+              owner: 'EVP HR / Succession Planning',
+              systems: ['Oracle Succession Planning', 'TopEx Dashboard', 'CHRO Notification'],
+              rules: ['TopEx triggers succession review', 'Internal pipeline checked first', 'CHRO approval mandatory for TopEx', 'Succession plan updated'],
+              goodPractice: 'For TopEx positions, launch succession planning process to identify internal candidates before external search. CHRO approval is mandatory.' },
+            { id: 'r4', lane: 0, x: 1220, label: 'Submit to Workflow', num: '1.8', icon: 'fa-paper-plane', duration: 'Instant',
+              desc: 'Submit completed Vacancy Request to approval workflow (max 4 steps). System automatically routes to appropriate approvers based on position level, salary, and geography. Notification sent to first approver.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle BPM Workflow', 'Email Notifications'],
+              rules: ['All required fields must be complete', 'Auto-routing based on thresholds', 'Max 4 approval steps', 'Notifications sent automatically'],
+              goodPractice: 'Ensure Vacancy Request is well documented before submission to avoid rejection and delays. HR launches approval workflow with max 4 steps.' },
+            { id: 'r5', lane: 1, x: 1390, label: 'N+1 Review', num: '2.1', icon: 'fa-eye', duration: 'SLA: 24h',
+              desc: 'N+1 Manager (direct supervisor of Hiring Manager) reviews Vacancy Request. Validates business need, budget availability, and position requirements. May request changes or additional information before approval.',
+              owner: 'N+1 Manager',
+              systems: ['Oracle BPM Workflow', 'Oracle Recruiting Cloud'],
+              rules: ['24h SLA for response', 'Verify budget availability', 'Validate business justification', 'Escalation at 2 days if pending'],
+              goodPractice: 'Managers with impact to hiring positions must approve all new hiring upfronts and ensure Vacancy Request is well documented.' },
+            { id: 'r6', lane: 1, x: 1560, label: 'N+1 Approve', num: '2.2', icon: 'fa-check', duration: 'Decision',
+              desc: 'N+1 Manager approves or rejects Vacancy Request. Approval confirms business need and budget allocation. Rejection requires justification and returns to Hiring Manager for revision.',
+              owner: 'N+1 Manager',
+              systems: ['Oracle BPM Workflow'],
+              rules: ['Approve/Reject/Request Info', 'Document approval rationale', 'Rejection requires explanation'],
+              goodPractice: 'Provide clear feedback if requesting changes to expedite the approval process.' },
+            { id: 'r7', lane: 2, x: 1730, label: 'HRBP Validate', num: '3.1', icon: 'fa-clipboard-check', duration: 'SLA: 24h',
+              desc: 'HR Business Partner validates: job description accuracy, compensation alignment with bands, compliance with GEODIS policies, and position classification. Ensures D&I considerations are addressed.',
+              owner: 'HRBP',
+              systems: ['Oracle Recruiting Cloud', 'Compensation Workbench'],
+              rules: ['24h SLA for validation', 'Verify job description quality', 'Check compensation bands', 'Confirm policy compliance'],
+              goodPractice: 'Validate that position aligns with GEODIS grading structure and compensation philosophy.' },
+            { id: 'r8', lane: 2, x: 1900, label: 'Check Salary', num: '3.2', icon: 'fa-euro-sign', duration: 'Auto', type: 'decision',
+              desc: 'System automatically evaluates salary threshold to determine approval path: Standard (<EUR 125K) = HRBP approves, Senior (EUR 125K-155K) = adds Director approval, Executive (>EUR 155K or TopEx) = adds VP HR + CHRO approval.',
+              owner: 'System (Auto)',
+              systems: ['Oracle BPM Rules Engine'],
+              rules: ['< EUR 125K = Standard path', 'EUR 125K-155K = Senior path', '> EUR 155K = Executive path', 'TopEx always Executive path'],
+              goodPractice: 'Thresholds ensure appropriate governance for higher compensation positions.' },
+            { id: 'r9', lane: 2, x: 2100, label: 'HRBP Approve', num: '3.3', icon: 'fa-stamp', duration: '< EUR 125K',
+              desc: 'For Standard positions (<EUR 125K): HRBP provides final approval. Requisition moves to OPEN status and is available for job posting. Recruiter notified to begin sourcing.',
+              owner: 'HRBP',
+              systems: ['Oracle BPM Workflow', 'Oracle Recruiting Cloud'],
+              rules: ['Standard path: HRBP is final approver', 'Position moves to OPEN status', 'Recruiter notification sent'],
+              goodPractice: 'Standard positions typically approved within 2-3 business days if documentation is complete.' },
+            { id: 'r10', lane: 3, x: 2100, label: 'Senior/Exec Approval', num: '4.1', icon: 'fa-crown', duration: '> EUR 155K',
+              desc: 'For Senior/Executive positions (EUR 125K-155K adds Director, >EUR 155K or TopEx adds VP HR + CHRO): Additional approval levels required. In certain contexts, Regional/LoB EVP approval may be required. For TopEx positions, CHRO approval is MANDATORY.',
+              owner: 'Director / VP HR / CHRO',
+              systems: ['Oracle BPM Workflow', 'Executive Dashboard'],
+              rules: ['Senior: +Director approval', 'Executive: +VP HR + CHRO', 'TopEx: CHRO mandatory', 'Regional EVP may be required'],
+              goodPractice: 'For TopEx positions, CHRO approval is mandatory per GEODIS TopEx Policy.' },
+            { id: 'r11', lane: 4, x: 2300, label: 'Req Activated', num: '5.1', icon: 'fa-check-circle', duration: 'Status: OPEN', highlighted: true,
+              desc: 'Requisition status changes to OPEN. Position now available for job posting. System triggers notification to assigned Recruiter. 6-month auto-close timer begins with warnings at 150 days and 165 days.',
+              owner: 'System',
+              systems: ['Oracle Recruiting Cloud', 'Notification Engine'],
+              rules: ['Status = OPEN', 'Recruiter notified', '6-month auto-close rule', 'Warnings at 150/165 days'],
+              goodPractice: 'If after six months no candidate meets requirements, stop recruitment to verify needs still exist. If so, implement new process with new Vacancy Request Approval.' },
+            { id: 'r12', lane: 4, x: 2500, label: 'Begin Posting', num: '5.2', icon: 'fa-bullhorn', duration: 'Next Phase',
+              desc: 'Recruiter receives activated requisition and begins job posting process. Per GEODIS policy: job must be posted INTERNALLY FIRST for minimum 7 days before external posting. Proceed to Posting Phase.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'Job Posting Platforms'],
+              rules: ['Internal posting first - mandatory', '7-day minimum internal period', 'Then external channels allowed'],
+              goodPractice: 'Any search for external candidates must first be advertised internally for a minimum period of one week, with certain exceptions.' },
+        ];
+
+        const reqConnections = [
+            { from: 'r1', to: 'r1b' },
+            { from: 'r1b', to: 'r2' },
+            { from: 'r2', to: 'r2b' },
+            { from: 'r2b', to: 'r2c' },
+            { from: 'r2c', to: 'r3' },
+            { from: 'r3', to: 'r3b' },
+            { from: 'r3b', to: 'r4' },
+            { from: 'r4', to: 'r5' },
+            { from: 'r5', to: 'r6' },
+            { from: 'r6', to: 'r7' },
+            { from: 'r7', to: 'r8' },
+            { from: 'r8', to: 'r9', label: '< 125K' },
+            { from: 'r8', to: 'r10', label: '> 155K' },
+            { from: 'r9', to: 'r11' },
+            { from: 'r10', to: 'r11' },
+            { from: 'r11', to: 'r12' },
+        ];
+
+        // Lane mappings
+        const laneClasses = {
+            0: 'lane-hiring-manager',
+            1: 'lane-recruiter',
+            2: 'lane-hr',
+            3: 'lane-candidate',
+            4: 'lane-interviewer',
+            5: 'lane-system'
+        };
+
+        const reqLaneClasses = {
+            0: 'lane-hiring-manager',
+            1: 'lane-hr',
+            2: 'lane-interviewer',
+            3: 'lane-external',
+            4: 'lane-recruiter'
+        };
+
+        // ============ POSTING PHASE - Enriched with GEODIS HR Blueprint + H2R Flow ============
+        const postingSteps = [
+            { id: 'p1', lane: 0, x: 30, label: 'Review Job Content', num: '2.1', icon: 'fa-edit', duration: '15 min',
+              desc: 'Recruiter reviews and finalizes job offer content from Vacancy Request. Each job offer should contain: purpose of role (job description and mission statement), expected profile (required knowledge, skills, abilities, qualifications and certifications), and characteristics of offer (type of contract, working environment, benefits).',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'Job Descriptions Library'],
+              rules: ['Job description must be complete', 'Include mission statement', 'Specify required qualifications', 'Working environment details'],
+              goodPractice: 'Each job offer should contain the purpose of the role, expected profile, and characteristics of the offer per GEODIS recruitment policy.' },
+            { id: 'p1b', lane: 0, x: 200, label: 'Apply Employer Branding', num: '2.2', icon: 'fa-bullseye', duration: '15 min',
+              desc: 'Apply employer branding guidelines to job posting. Ensure posting reflects GEODIS culture, values, mission, vision, and Candidate Promise. Use communication materials promoting GEODIS characteristics, principles, and value proposition.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Employer Brand Guidelines', 'Communication Templates'],
+              rules: ['Apply employer branding guidelines', 'Reflect GEODIS culture and values', 'Include Candidate Promise', 'Use approved communication materials'],
+              goodPractice: 'Apply employer branding guidelines to job posting. Use communication materials to promote GEODIS characteristics, principles, values, mission and vision.' },
+            { id: 'p2', lane: 0, x: 370, label: 'Create Internal Post', num: '2.3', icon: 'fa-home', duration: '10 min',
+              desc: 'Create and publish job offer FIRST internally on G-Talent+ and InJob. MANDATORY: Any search for external candidates must first be advertised internally for a MINIMUM period of one week, with certain exceptions. Prioritize internal candidates at local, regional, and national levels.',
+              owner: 'Recruiter',
+              systems: ['G-Talent+', 'InJob', 'Oracle Recruiting Cloud'],
+              rules: ['INTERNAL FIRST - mandatory rule', 'Minimum 7 days internal posting', 'Local → Regional → National priority', 'Exceptions require HR approval'],
+              goodPractice: 'Based on Vacancy Request, create and publish job offers first internally on G-Talent+ and then externally on Job-posting Platforms.' },
+            { id: 'p3', lane: 1, x: 540, label: 'Publish Internal', num: '2.4', icon: 'fa-check', duration: 'Instant',
+              desc: 'Oracle publishes job to internal career site (G-Talent+/InJob). Internal employees can view and apply for the position. System tracks internal application source for KPI reporting (Positions filled internally).',
+              owner: 'Oracle System',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'InJob'],
+              rules: ['Auto-publish on approval', 'Track internal applications', 'KPI: Positions filled internally'],
+              goodPractice: 'Search for Internal Candidates: Prioritize searching for internal candidates at the local, regional and national levels.' },
+            { id: 'p4', lane: 1, x: 710, label: '7-Day Wait', num: '2.5', icon: 'fa-hourglass-half', duration: '7 days', type: 'decision',
+              desc: 'MANDATORY internal posting period per GEODIS policy. System enforces 7-day minimum before external posting can be activated. Timer starts when internal posting goes live. Exceptions require documented HR approval.',
+              owner: 'System Timer',
+              systems: ['Oracle Recruiting Cloud', 'Timer Service'],
+              rules: ['MANDATORY 7-day wait', 'System-enforced blocking', 'Exceptions require HR approval', 'Timer auto-tracked'],
+              goodPractice: 'Any search for external candidates must first be advertised internally for a minimum period of one week, with certain exceptions.' },
+            { id: 'p4b', lane: 0, x: 880, label: 'Post Diverse Channels', num: '2.6', icon: 'fa-users', duration: '15 min',
+              desc: 'Publish job on diverse sourcing channels to attract varied candidate pool. Includes: diversity job boards, professional associations, community organizations, and targeted outreach per D&I objectives in requisition.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Diverse Job Boards', 'Professional Networks'],
+              rules: ['Post on diverse sourcing channels', 'D&I objectives addressed', 'Track diverse sourcing', 'Community outreach'],
+              goodPractice: 'Publish job on diverse sourcing channels to ensure a varied candidate pool aligned with GEODIS D&I objectives.' },
+            { id: 'p5', lane: 0, x: 1050, label: 'Select Ext Channels', num: '2.7', icon: 'fa-list-check', duration: '5 min',
+              desc: 'After 7-day internal period: Recruiter selects external job posting channels. Sources include: external career site (GEODIS.com), LinkedIn, Indeed, and external candidate pools from previous recruitments (data stored per GDPR). Recruitment agencies only if absolutely necessary (Regional HRD authorization).',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Job Board Integrations'],
+              rules: ['Only after 7-day internal period', 'Agency requires Regional HRD approval', 'Only GEODIS partner agencies', 'Agency contracts max 90 days'],
+              goodPractice: 'External searches via: candidate pools from previous recruitments, spontaneous applications via G-Talent+, and external applicants. Agencies only if absolutely necessary.' },
+            { id: 'p6', lane: 1, x: 1220, label: 'API Distribution', num: '2.8', icon: 'fa-share-nodes', duration: 'Instant',
+              desc: 'Oracle distributes job posting via API integrations to selected external channels. LinkedIn and Indeed APIs enable seamless multi-channel posting. Job content synchronized across all platforms.',
+              owner: 'Oracle System',
+              systems: ['Oracle Recruiting Cloud', 'LinkedIn API', 'Indeed API', 'Career Site CMS'],
+              rules: ['API-based distribution', 'Content synchronized', 'Tracking enabled', 'Source attribution'],
+              goodPractice: 'Be proactive in creating talent pools by building strong networking in transport and logistics, and developing content and interaction on social media.' },
+            { id: 'p7', lane: 2, x: 1390, label: 'Post to LinkedIn', num: '2.9a', icon: 'fa-linkedin', duration: 'Instant',
+              desc: 'Job posted to LinkedIn via API integration. LinkedIn is a key channel for professional/white collar positions. Leverages GEODIS employer brand presence and recruiter network.',
+              owner: 'LinkedIn',
+              systems: ['LinkedIn', 'LinkedIn API', 'Oracle Recruiting Cloud'],
+              rules: ['API integration active', 'Employer brand standards', 'Response tracking enabled'],
+              goodPractice: 'Develop and maintain strong relationships with talent by developing content and interaction on social media per Employer Branding policy.' },
+            { id: 'p8', lane: 2, x: 1560, label: 'Post to Indeed', num: '2.9b', icon: 'fa-briefcase', duration: 'Instant',
+              desc: 'Job posted to Indeed via API integration. Indeed provides broad reach for all position types. Cost-per-click or sponsorship options based on recruitment urgency and budget.',
+              owner: 'Indeed',
+              systems: ['Indeed', 'Indeed API', 'Oracle Recruiting Cloud'],
+              rules: ['API integration active', 'Budget controls', 'Performance tracking'],
+              goodPractice: 'Use job-posting platforms strategically based on position type and target candidate profile.' },
+            { id: 'p9', lane: 2, x: 1730, label: 'Post to GEODIS.com', num: '2.9c', icon: 'fa-globe', duration: 'Instant',
+              desc: 'Job posted to external GEODIS career site. Primary branded career channel that showcases GEODIS culture, values, mission, and Candidate Promise. Supports Jump\'In program for early careers.',
+              owner: 'GEODIS Career Site',
+              systems: ['GEODIS.com', 'Career Site CMS', 'Oracle Recruiting Cloud'],
+              rules: ['Brand standards maintained', 'Career site SEO optimized', 'Candidate Promise visible'],
+              goodPractice: 'Use communication materials to promote GEODIS\' characteristics, principles, values, mission and vision per Employer Branding policy.' },
+            { id: 'p10', lane: 3, x: 1900, label: 'Discover Job', num: '2.10', icon: 'fa-search', duration: 'Ongoing',
+              desc: 'Candidates discover job opportunities through: internal career site (G-Talent+), external career site (GEODIS.com), LinkedIn, Indeed, career fairs/forums, school partnerships, internship programs (Jump\'In), and social media engagement.',
+              owner: 'Candidate',
+              systems: ['All Posting Channels', 'Social Media', 'Career Fairs'],
+              rules: ['Multi-channel discovery', 'Source tracking enabled'],
+              goodPractice: 'Attract talent by participating in career fairs/forums, establishing partnerships with schools, developing internships and work-study programs per Employer Branding policy.' },
+            { id: 'p11', lane: 3, x: 2070, label: 'Submit Application', num: '2.11', icon: 'fa-paper-plane', duration: '~10 min',
+              desc: 'Candidate completes and submits application. Application must include: CV with initial training and previous work experience, and responses to screening questions. Internal candidates apply via G-Talent+, externals via career site/job boards.',
+              owner: 'Candidate',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'Career Sites'],
+              rules: ['CV required with training/experience', 'Screening questions completed', 'GDPR consent obtained', 'Data stored compliantly'],
+              goodPractice: 'Ensure applicant files provide information on initial training and previous work experience for all positions.' },
+            { id: 'p12', lane: 1, x: 2240, label: 'Application Received', num: '2.12', icon: 'fa-inbox', duration: 'Instant',
+              desc: 'Application stored in Oracle ATS with source attribution. Auto-acknowledgment sent to candidate. Application enters screening queue for recruiter review. KPI tracking: Time to publish offers (from approval to job posting).',
+              owner: 'Oracle System',
+              systems: ['Oracle Recruiting Cloud', 'Email', 'KPI Dashboard'],
+              rules: ['Auto-acknowledgment sent', 'Source tracked for analytics', 'Application queued for review', '24h initial review SLA'],
+              goodPractice: 'All applications must be reviewed - review all applications and select those who meet recruitment criteria based on CV information.' },
+        ];
+
+        const postingConnections = [
+            { from: 'p1', to: 'p1b' },
+            { from: 'p1b', to: 'p2' },
+            { from: 'p2', to: 'p3' },
+            { from: 'p3', to: 'p4' },
+            { from: 'p4', to: 'p4b' },
+            { from: 'p4b', to: 'p5' },
+            { from: 'p5', to: 'p6' },
+            { from: 'p6', to: 'p7' },
+            { from: 'p6', to: 'p8' },
+            { from: 'p6', to: 'p9' },
+            { from: 'p7', to: 'p10', type: 'parallel' },
+            { from: 'p8', to: 'p10', type: 'parallel' },
+            { from: 'p9', to: 'p10', type: 'parallel' },
+            { from: 'p10', to: 'p11' },
+            { from: 'p11', to: 'p12' },
+        ];
+
+        const postingLaneClasses = {
+            0: 'lane-recruiter',
+            1: 'lane-system',
+            2: 'lane-external',
+            3: 'lane-candidate'
+        };
+
+        // ============ INTERVIEW PHASE - Enriched with GEODIS HR Blueprint + H2R Flow ============
+        const interviewSteps = [
+            { id: 'i1', lane: 0, x: 30, label: 'Structured Screening', num: '4.1', icon: 'fa-filter', duration: '1-2 days',
+              desc: 'Apply structured resume screening criteria based on competency requirements. Use standardized evaluation matrix against job requirements. Screen for: qualifications, experience, skills alignment. Document scoring for each candidate.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Screening Matrix'],
+              rules: ['Apply structured screening criteria', 'Use standardized evaluation matrix', 'Score against job requirements', 'Document all decisions'],
+              goodPractice: 'Apply structured resume screening criteria to ensure objective, consistent evaluation across all candidates.' },
+            { id: 'i1b', lane: 0, x: 200, label: 'Blind Resume Review', num: '4.2', icon: 'fa-eye-slash', duration: '1-2 days',
+              desc: 'Conduct blind resume review for diversity: remove identifying information (name, photo, age, gender indicators) during initial screening. Focus purely on qualifications, skills, and experience alignment with role requirements.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Blind Review Module'],
+              rules: ['Remove identifying information', 'Focus on qualifications only', 'D&I best practice', 'Document blind review scores'],
+              goodPractice: 'Use blind resume review for diversity - removes unconscious bias from initial screening and ensures fair evaluation.' },
+            { id: 'i2', lane: 0, x: 370, label: 'Create Shortlist', num: '4.3', icon: 'fa-list', duration: '1-2 days',
+              desc: 'Review ALL applications and select candidates who meet recruitment criteria based on CV information. Ensure files are complete with initial training and previous work experience. Pre-select candidates whose background best meets the vacancy request needs.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+'],
+              rules: ['Review ALL applications - none skipped', 'CV must show training and experience', 'Document selection criteria', 'Consider internal candidates first'],
+              goodPractice: 'Review all applications. Ensure they are complete and that applicant files provide information on initial training and previous work experience for all positions.' },
+            { id: 'i3', lane: 0, x: 540, label: 'Phone Screen', num: '4.4', icon: 'fa-phone', duration: '20-30 min',
+              desc: 'Pre-qualification phase: Carry out rapid pre-qualification interviews to validate key information with candidate: interest in position, availability, salary expectations. Reference checks are MANDATORY for white collars. Provide key information about recruitment process (number of interviews, tests, etc.).',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Phone/Teams'],
+              rules: ['Validate: interest, availability, salary', 'Reference checks mandatory for white collars', 'Inform candidate of full process upfront'],
+              goodPractice: 'Where applicable, carry out rapid pre-qualification interviews to validate key information: interest in position, availability, salary expectations.' },
+            { id: 'i3b', lane: 3, x: 540, label: 'Attend Phone Screen', num: '4.4b', icon: 'fa-headset', duration: '20-30 min',
+              desc: 'Candidate participates in pre-qualification phone screening. Opportunity to confirm interest, discuss availability and salary expectations, and learn about the recruitment process structure.',
+              owner: 'Candidate',
+              systems: ['Phone', 'Microsoft Teams'],
+              rules: ['Be prepared with availability dates', 'Salary expectations clarified'],
+              goodPractice: 'Candidate should come prepared to discuss interest, availability, and expectations.' },
+            { id: 'i4', lane: 0, x: 710, label: 'Schedule HM Interview', num: '4.5', icon: 'fa-calendar-plus', duration: '1-2 days',
+              desc: 'Recruiter coordinates interview scheduling. Invite pre-selected candidates to face-to-face interview with Hiring Manager. Provide key information about recruitment process including number of interviews, tests, timeline.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Outlook Calendar', 'Microsoft Teams'],
+              rules: ['Provide full process info upfront', 'Confirm interviewer availability', 'Allow adequate prep time'],
+              goodPractice: 'When pre-qualification is not necessary, start interview phase directly by inviting candidates to interview. Provide key information about the recruitment process.' },
+            { id: 'i4b', lane: 2, x: 880, label: 'Calibrate Panel', num: '4.6', icon: 'fa-balance-scale', duration: '30 min',
+              desc: 'Calibrate interview panel on competencies before interviews begin. Align panelists on: evaluation criteria, competency definitions, scoring standards, and structured interview approach. Ensures consistent evaluation across interviewers.',
+              owner: 'Recruiter / HRBP',
+              systems: ['Oracle Recruiting Cloud', 'Interview Guide', 'Competency Framework'],
+              rules: ['Panel calibration before interviews', 'Align on evaluation criteria', 'Review competency definitions', 'Agree on scoring standards'],
+              goodPractice: 'Calibrate interview panel on competencies to ensure consistent, fair evaluation. Discuss structured interview guides and scoring approach.' },
+            { id: 'i5', lane: 4, x: 1050, label: 'Send Calendar Invite', num: '4.7', icon: 'fa-envelope', duration: 'Instant',
+              desc: 'System sends calendar invitations to all interview participants: candidate, Hiring Manager, and panel members. Includes meeting link, job details, structured interview guidelines, and competency areas to assess.',
+              owner: 'Oracle System',
+              systems: ['Oracle Recruiting Cloud', 'Outlook Calendar', 'Microsoft Teams'],
+              rules: ['Auto-send on scheduling', 'Include interview guidelines', 'Meeting link attached', 'Competency areas specified'],
+              goodPractice: 'Ensure calendar invites include structured interview guides so all panelists are prepared.' },
+            { id: 'i6', lane: 1, x: 1220, label: 'HM Interview', num: '4.8', icon: 'fa-user-tie', duration: '45-60 min',
+              desc: 'Hiring Manager conducts structured interview following GEODIS guide: 1) Introduction - GEODIS culture/values, 2) Getting to know candidate - CV, 3) Capability questions - structured examples, 4) Close - next steps. Use structured interview guides. Discriminatory questions PROHIBITED.',
+              owner: 'Hiring Manager',
+              systems: ['Microsoft Teams', 'Oracle Recruiting Cloud', 'Structured Interview Guide'],
+              rules: ['Follow structured interview guide', 'Use structured interview guides', 'Discriminatory questions PROHIBITED', '4-part interview structure'],
+              goodPractice: 'Use structured interview guides. Interview structure: Introduction (GEODIS culture/values), Getting to know candidate (CV), Capability questions (examples), Close (next steps).' },
+            { id: 'i7', lane: 3, x: 1220, label: 'Attend HM Interview', num: '4.8b', icon: 'fa-video', duration: '45-60 min',
+              desc: 'Candidate attends structured interview with Hiring Manager. Opportunity to learn about GEODIS culture and values, demonstrate capabilities through examples, and ask questions about the role and team.',
+              owner: 'Candidate',
+              systems: ['Microsoft Teams', 'On-site'],
+              rules: ['Professional presentation', 'Provide concrete examples'],
+              goodPractice: 'Candidates should prepare examples that demonstrate their capabilities aligned with the role requirements.' },
+            { id: 'i8', lane: 1, x: 1390, label: 'HM Feedback', num: '4.9', icon: 'fa-star', duration: 'SLA: 48h',
+              desc: 'Hiring Manager submits interview scorecard within 48-hour SLA. Feedback includes: competency ratings based on structured questions, behavioral observations, hire/no-hire recommendation. All feedback documented.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'Interview Scorecard'],
+              rules: ['48h feedback SLA mandatory', 'Use standardized scorecard', 'Objective observations only', 'Hire recommendation required'],
+              goodPractice: 'Submit feedback within 48h SLA. After reviewing applications and interview reports, select candidates whose skills best meet vacancy request needs.' },
+            { id: 'i9', lane: 0, x: 1560, label: 'Schedule Panel', num: '4.10', icon: 'fa-users-rectangle', duration: '1-2 days',
+              desc: 'Schedule panel interview. Selection committee must include: direct manager + functional manager + HR representative. Include at least one diversity interviewer per D&I best practice.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Outlook Calendar'],
+              rules: ['3-person committee minimum', 'Committee: direct manager + functional manager + HR', 'Include at least one diversity interviewer', 'Coordinate schedules'],
+              goodPractice: 'For positions with functional attachment, ensure selection committee of at least direct manager, functional manager, HR. Include at least one diversity interviewer.' },
+            { id: 'i10', lane: 2, x: 1730, label: 'Panel Interview', num: '4.11', icon: 'fa-comments', duration: '60-90 min',
+              desc: 'Interview panel assesses candidate using structured format. Includes at least one diversity interviewer. Each panel member evaluates different competency areas. Use structured interview guides. Discriminatory questions PROHIBITED.',
+              owner: 'Interview Panel',
+              systems: ['Microsoft Teams', 'Oracle Recruiting Cloud', 'Structured Interview Guide'],
+              rules: ['Follow structured interview format', 'Include diversity interviewer', 'Each panelist covers specific areas', 'Discriminatory questions PROHIBITED'],
+              goodPractice: 'Include at least one diversity interviewer. Use structured interview guides. Discriminatory questions strictly prohibited.' },
+            { id: 'i11', lane: 3, x: 1730, label: 'Attend Panel', num: '4.11b', icon: 'fa-user-group', duration: '60-90 min',
+              desc: 'Candidate attends panel interview with multiple interviewers (direct manager, functional manager, HR, diversity interviewer). May include technical assessment or case study depending on role.',
+              owner: 'Candidate',
+              systems: ['Microsoft Teams', 'On-site', 'Assessment Platform'],
+              rules: ['Prepare for multiple interviewers', 'Technical assessment may apply'],
+              goodPractice: 'Panel interviews provide diverse perspectives and ensure fair, comprehensive candidate evaluation.' },
+            { id: 'i12', lane: 2, x: 1900, label: 'Panel Feedback', num: '4.12', icon: 'fa-clipboard-check', duration: 'SLA: 48h',
+              desc: 'All panel interviewers submit individual scorecards within 48-hour SLA. Independent assessment before seeing others\' feedback. Includes competency ratings, observations, hire recommendation.',
+              owner: 'Interview Panel',
+              systems: ['Oracle Recruiting Cloud', 'Interview Scorecard'],
+              rules: ['48h SLA per interviewer', 'Independent assessment first', 'Standardized scorecard', 'Recommendation required'],
+              goodPractice: 'Interviewers submit feedback independently within 48h SLA to ensure unbiased assessment before group discussion.' },
+            { id: 'i12b', lane: 3, x: 2070, label: 'Candidate Feedback', num: '4.13', icon: 'fa-comment-dots', duration: '5 min',
+              desc: 'Collect candidate feedback on interview experience. Survey covers: scheduling ease, interviewer professionalism, information provided, overall experience. Feeds into HR analytics for process improvement.',
+              owner: 'Candidate',
+              systems: ['Oracle Surveys', 'HR Analytics', 'Email'],
+              rules: ['Survey sent after interviews', 'Anonymous feedback option', 'Feeds HR analytics', 'Process improvement input'],
+              goodPractice: 'Collect candidate feedback on interview experience to continuously improve the recruitment process and candidate experience.' },
+            { id: 'i13', lane: 4, x: 2240, label: 'Aggregate Scores', num: '4.14', icon: 'fa-chart-bar', duration: 'Auto',
+              desc: 'System consolidates all interview feedback into unified candidate assessment view. Aggregates scores across competencies, highlights consensus and divergence, includes candidate experience feedback.',
+              owner: 'Oracle System',
+              systems: ['Oracle Recruiting Cloud', 'Analytics Dashboard'],
+              rules: ['Auto-aggregation', 'Score comparison enabled', 'Consensus highlighting', 'Candidate feedback included'],
+              goodPractice: 'Consolidated view enables informed decision-making based on all interviewer perspectives and candidate feedback.' },
+            { id: 'i14', lane: 1, x: 2410, label: 'Review & Decide', num: '4.15', icon: 'fa-gavel', duration: '1-2 days',
+              desc: 'Hiring Manager reviews all applications and interview reports to select best candidate whose background and skills best meet vacancy request needs. Decision with HR collaboration. If no suitable candidate after 6 months, stop recruitment.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'Decision Dashboard'],
+              rules: ['Review all feedback', 'Document decision rationale', '6-month timeout rule', 'HR collaboration required'],
+              goodPractice: 'Select candidates whose background and skills best meet the vacancy request needs. Make reference checks before presenting to Manager.',
+              highlighted: true },
+        ];
+
+        const interviewConnections = [
+            { from: 'i1', to: 'i1b' },
+            { from: 'i1b', to: 'i2' },
+            { from: 'i2', to: 'i3' },
+            { from: 'i3', to: 'i3b' },
+            { from: 'i3', to: 'i4' },
+            { from: 'i3b', to: 'i4', type: 'parallel' },
+            { from: 'i4', to: 'i4b' },
+            { from: 'i4b', to: 'i5' },
+            { from: 'i5', to: 'i6' },
+            { from: 'i5', to: 'i7' },
+            { from: 'i6', to: 'i8' },
+            { from: 'i7', to: 'i8', type: 'parallel' },
+            { from: 'i8', to: 'i9' },
+            { from: 'i9', to: 'i10' },
+            { from: 'i9', to: 'i11' },
+            { from: 'i10', to: 'i12' },
+            { from: 'i11', to: 'i12', type: 'parallel' },
+            { from: 'i11', to: 'i12b' },
+            { from: 'i12', to: 'i13' },
+            { from: 'i12b', to: 'i13', type: 'parallel' },
+            { from: 'i13', to: 'i14' },
+        ];
+
+        const interviewLaneClasses = {
+            0: 'lane-recruiter',
+            1: 'lane-hiring-manager',
+            2: 'lane-interviewer',
+            3: 'lane-candidate',
+            4: 'lane-system'
+        };
+
+        // ============ OFFER PHASE - Enriched with GEODIS HR Blueprint ============
+        const offerSteps = [
+            { id: 'o1', lane: 0, x: 30, label: 'Select Template', num: '6.1', icon: 'fa-file-alt', duration: '5 min',
+              desc: 'Recruiter selects country-specific offer template from 18 available templates: France (5 variants: CDI, CDD, Alternance, Stage, Cadre), USA (4 variants: At-Will, Exempt, Non-Exempt, Executive), Netherlands (3 variants), UK/Germany/Other (6 variants). Template selection based on country, contract type, and position level.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Offer Templates Library'],
+              rules: ['18 templates available by country', 'FR: 5, US: 4, NL: 3, Other: 6', 'Match template to contract type', 'TopEx uses Executive template'],
+              goodPractice: 'Please refer to the Onboarding and Admin. & Payroll Processes to complete the employment offer.' },
+            { id: 'o2', lane: 0, x: 200, label: 'Draft Offer', num: '6.2', icon: 'fa-edit', duration: '30-60 min',
+              desc: 'Recruiter creates offer with compensation details including: base salary, bonus/incentives, benefits package, start date, reporting structure, and other terms per local requirements. The chosen candidate receives a job offer - aim is to make offer within 2 months of interview phase.',
+              owner: 'Recruiter',
+              systems: ['Oracle Recruiting Cloud', 'Compensation Workbench'],
+              rules: ['Compensation within approved bands', 'All mandatory fields complete', 'Benefits per country package', 'Target: offer within 2 months of interviews'],
+              goodPractice: 'The aim is to make a job offer within two months of the interview phase per GEODIS recruitment policy.' },
+            { id: 'o3', lane: 1, x: 370, label: 'HM Review Comp', num: '6.3', icon: 'fa-eye', duration: '1 day',
+              desc: 'Hiring Manager reviews proposed compensation package to ensure alignment with team equity, budget, and candidate expectations. May request adjustments before formal approval routing.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Recruiting Cloud', 'Compensation Dashboard'],
+              rules: ['Review compensation alignment', 'Verify budget availability', 'Consider internal equity'],
+              goodPractice: 'Ensure compensation aligns with internal equity and candidate expectations before formal submission.' },
+            { id: 'o4', lane: 0, x: 540, label: 'Submit for Approval', num: '6.4', icon: 'fa-paper-plane', duration: 'Instant',
+              desc: 'Recruiter submits offer for approval workflow. System automatically routes to appropriate approvers based on salary thresholds: Standard (<EUR 125K), Senior (EUR 125K-155K), Executive (>EUR 155K or TopEx).',
+              owner: 'Recruiter',
+              systems: ['Oracle BPM Workflow', 'Offer Approval Chain'],
+              rules: ['Auto-routing by salary threshold', 'All fields validated', 'Notifications sent to approvers'],
+              goodPractice: 'Ensure all offer details are accurate before submission to avoid approval delays.' },
+            { id: 'o5', lane: 2, x: 710, label: 'Check Salary', num: '6.5', icon: 'fa-euro-sign', duration: 'Auto', type: 'decision',
+              desc: 'System evaluates salary against approval thresholds: Standard (<EUR 125K) = HRBP approval, Senior (EUR 125K-155K) = adds Compensation team, Executive (>EUR 155K or TopEx) = adds VP HR + CHRO. Same thresholds as requisition approval.',
+              owner: 'System (Auto)',
+              systems: ['Oracle BPM Rules Engine'],
+              rules: ['< EUR 125K = Standard path', 'EUR 125K-155K = Senior path', '> EUR 155K = Executive path', 'TopEx always Executive path'],
+              goodPractice: 'Salary thresholds ensure appropriate governance and compensation equity oversight.' },
+            { id: 'o6', lane: 2, x: 910, label: 'HRBP Approve', num: '6.6a', icon: 'fa-stamp', duration: 'SLA: 24h',
+              desc: 'HRBP approves standard offers (<EUR 125K) after verifying: compensation within bands, internal equity, budget availability, and policy compliance. 24-hour SLA with escalation at 48 hours.',
+              owner: 'HRBP',
+              systems: ['Oracle BPM Workflow', 'Compensation Workbench'],
+              rules: ['24h SLA', 'Verify compensation bands', 'Check internal equity', 'Escalation at 48h if pending'],
+              goodPractice: 'Standard offers should be approved within 24 hours to maintain candidate engagement.' },
+            { id: 'o7', lane: 2, x: 1080, label: 'Comp Team Review', num: '6.6b', icon: 'fa-calculator', duration: 'SLA: 48h',
+              desc: 'For Senior/Executive offers (>EUR 125K): Compensation team reviews package for market alignment, internal equity, and total rewards analysis. Executive offers (>EUR 155K/TopEx) require additional VP HR + CHRO approval.',
+              owner: 'Comp Team / VP HR / CHRO',
+              systems: ['Oracle BPM Workflow', 'Compensation Analytics'],
+              rules: ['48h SLA for Comp review', 'Market data validation', 'Executive: VP HR + CHRO required', 'TopEx: CHRO mandatory'],
+              goodPractice: 'Senior offers require compensation team oversight to ensure market competitiveness and equity.' },
+            { id: 'o8', lane: 3, x: 1250, label: 'Generate PDF', num: '6.7', icon: 'fa-file-pdf', duration: 'Instant',
+              desc: 'System generates personalized offer letter PDF from approved template. Merges candidate data, compensation details, terms, and conditions. Document includes GEODIS branding and required legal language for country.',
+              owner: 'Oracle System',
+              systems: ['Oracle Recruiting Cloud', 'PDF Generator', 'Document Templates'],
+              rules: ['Auto-generate on approval', 'Merge all offer data', 'Country-specific legal terms', 'GEODIS branding applied'],
+              goodPractice: 'Generated offer letter should be reviewed for accuracy before sending to candidate.' },
+            { id: 'o9', lane: 3, x: 1420, label: 'Send to DocuSign', num: '6.8', icon: 'fa-signature', duration: 'Instant',
+              desc: 'Offer document routed to DocuSign for electronic signature. Candidate receives secure email with signing link. DocuSign provides audit trail, reminders, and secure document storage. 5-day response window default.',
+              owner: 'DocuSign Integration',
+              systems: ['DocuSign', 'Oracle Recruiting Cloud', 'Email'],
+              rules: ['Secure signing link sent', '5-day response window', 'Auto-reminders at 2, 4 days', 'Audit trail maintained'],
+              goodPractice: 'Electronic signature accelerates offer acceptance and provides legally binding documentation.' },
+            { id: 'o10', lane: 4, x: 1590, label: 'Receive Offer', num: '6.9', icon: 'fa-envelope-open', duration: 'Instant',
+              desc: 'Candidate receives offer via email with secure DocuSign link. Email includes offer highlights and instructions for review. Regardless of outcome, all applicants receive a response per GEODIS policy.',
+              owner: 'Candidate',
+              systems: ['Email', 'DocuSign'],
+              rules: ['Secure delivery', 'Clear instructions provided', 'Contact info for questions'],
+              goodPractice: 'Regardless of the interview outcome, all applicants receive a response - be prepared to provide more detailed feedback.' },
+            { id: 'o11', lane: 4, x: 1760, label: 'Review Terms', num: '6.10', icon: 'fa-magnifying-glass', duration: '1-3 days',
+              desc: 'Candidate reviews offer terms including: compensation, benefits, start date, reporting structure, and employment conditions. May contact recruiter with questions. 5-day response window with auto-reminders.',
+              owner: 'Candidate',
+              systems: ['DocuSign', 'Email', 'Phone'],
+              rules: ['5-day review window', 'Questions welcome', 'Reminders at 2, 4 days'],
+              goodPractice: 'Provide clear contact for questions during review period to address concerns promptly.' },
+            { id: 'o12', lane: 4, x: 1930, label: 'Sign Offer', num: '6.11', icon: 'fa-pen', duration: '~5 min',
+              desc: 'Candidate electronically signs offer letter via DocuSign. Signature is legally binding. Signed document stored securely in DocuSign vault and Oracle. Triggers pre-boarding workflow upon completion.',
+              owner: 'Candidate',
+              systems: ['DocuSign'],
+              rules: ['E-signature legally binding', 'Document stored securely', 'Triggers next workflow'],
+              goodPractice: 'Electronic signature provides immediate confirmation and enables rapid process continuation.',
+              highlighted: true },
+            { id: 'o13', lane: 3, x: 2100, label: 'Signature Complete', num: '6.12', icon: 'fa-check-double', duration: 'Instant',
+              desc: 'DocuSign confirms signature completion. Signed document synced to Oracle and stored in DocuSign vault. All parties receive confirmation email with signed copy. Audit trail completed.',
+              owner: 'DocuSign',
+              systems: ['DocuSign', 'Oracle Recruiting Cloud', 'Email'],
+              rules: ['Confirmation to all parties', 'Document archived', 'Audit trail complete'],
+              goodPractice: 'Signed offer documentation maintained per GEODIS document retention policy.' },
+            { id: 'o14', lane: 0, x: 2270, label: 'Offer Accepted', num: '6.13', icon: 'fa-handshake', duration: 'Auto',
+              desc: 'System updates candidate status to OFFER_ACCEPTED. Triggers pre-boarding workflow including: background check initiation (Sterling), document collection requests, and HR notification for hire processing.',
+              owner: 'Oracle System',
+              systems: ['Oracle Recruiting Cloud', 'Workflow Engine', 'Sterling Integration'],
+              rules: ['Status = OFFER_ACCEPTED', 'BGC triggered automatically', 'Pre-boarding workflow starts', 'HR notified for hire processing'],
+              goodPractice: 'Please refer to the Onboarding and Admin. & Payroll Processes to complete the employment offer.' },
+        ];
+
+        const offerConnections = [
+            { from: 'o1', to: 'o2' },
+            { from: 'o2', to: 'o3' },
+            { from: 'o3', to: 'o4' },
+            { from: 'o4', to: 'o5' },
+            { from: 'o5', to: 'o6', label: '< 125K' },
+            { from: 'o5', to: 'o7', label: '> 125K' },
+            { from: 'o6', to: 'o8' },
+            { from: 'o7', to: 'o8' },
+            { from: 'o8', to: 'o9' },
+            { from: 'o9', to: 'o10' },
+            { from: 'o10', to: 'o11' },
+            { from: 'o11', to: 'o12' },
+            { from: 'o12', to: 'o13' },
+            { from: 'o13', to: 'o14' },
+        ];
+
+        const offerLaneClasses = {
+            0: 'lane-recruiter',
+            1: 'lane-hiring-manager',
+            2: 'lane-hr',
+            3: 'lane-system',
+            4: 'lane-candidate'
+        };
+
+        // ============ PREBOARDING & HIRE PHASE - MERGED from Hire-to-Retire Flow ============
+        // Lanes: 0=HR Ops, 1=Sterling/Coupa, 2=New Hire, 3=Oracle/Payroll, 4=IT/Facilities/H&S, 5=Hiring Manager
+        const hireSteps = [
+            // === PREBOARDING SECTION ===
+            { id: 'h1', lane: 0, x: 30, label: 'Contract Signed Trigger', num: '7.1', icon: 'fa-file-signature', duration: 'Trigger',
+              desc: 'Contract signature in DocuSign triggers the preboarding workflow. System automatically initiates: HCM profile creation, equipment ordering, BGC request, document collection, and IT/Facilities notifications. This is the starting point for all preboarding activities.',
+              owner: 'System (DocuSign)',
+              systems: ['DocuSign', 'Oracle Recruiting Cloud', 'Workflow Engine'],
+              rules: ['Auto-trigger on signature completion', 'Parallel workflows initiated', 'Notifications sent to all stakeholders', 'Start date captured'],
+              goodPractice: 'Automated trigger ensures no delay between offer acceptance and preboarding initiation.' },
+            { id: 'h2', lane: 0, x: 200, label: 'Create HCM Profile', num: '7.2', icon: 'fa-user-plus', duration: '30 min',
+              desc: 'HR Operations creates Employee Profile in Oracle HCM. Profile includes: personal information, job assignment, reporting structure, work location, and start date. This is the foundation record for all downstream provisioning.',
+              owner: 'HR Operations',
+              systems: ['Oracle Core HR', 'Oracle Recruiting Cloud'],
+              rules: ['Profile created within 24h of contract signature', 'All mandatory fields completed', 'Manager assignment confirmed', 'Cost center validated'],
+              goodPractice: 'HCM profile creation is the foundation for all downstream integrations - ensure accuracy to avoid provisioning delays.',
+              highlighted: true },
+            { id: 'h3', lane: 1, x: 370, label: 'Order Equipment (Coupa)', num: '7.3', icon: 'fa-box', duration: '1-2 days',
+              desc: 'Equipment order submitted via Coupa procurement system. Standard equipment package based on role: laptop, monitors, keyboard, mouse, headset, mobile phone (if applicable). Order triggers approval workflow and supplier fulfillment.',
+              owner: 'Coupa Integration',
+              systems: ['Coupa', 'Oracle Core HR', 'IT Asset Management'],
+              rules: ['Equipment request auto-generated from HCM profile', 'Standard package by job role', 'Approval workflow triggered', 'Delivery scheduled before start date'],
+              goodPractice: 'Order equipment immediately upon profile creation to ensure delivery before Day 1. Standard lead time is 5-7 business days.' },
+            { id: 'h4', lane: 1, x: 540, label: 'Initiate BGC (Sterling)', num: '7.4', icon: 'fa-shield-alt', duration: 'Instant',
+              desc: 'Background check request automatically sent to Sterling via secure API integration. Request includes candidate information and required check types based on position level and country requirements. 68% of checks complete within 1 day.',
+              owner: 'Sterling',
+              systems: ['Sterling', 'Oracle API Integration'],
+              rules: ['Secure API transmission', 'Candidate consent required', 'Check types per position', '68% complete in 1 day'],
+              goodPractice: 'Sterling integration enables automated request processing. 68% of background checks close in 1 day.' },
+            { id: 'h5', lane: 2, x: 710, label: 'BGC Consent + Docs Upload', num: '7.5', icon: 'fa-cloud-upload-alt', duration: '2-5 days',
+              desc: 'New hire completes BGC consent forms and uploads required documents via secure portal: ID/passport, work authorization, tax forms, bank details, emergency contacts, certifications. All uploads encrypted per GDPR.',
+              owner: 'New Hire',
+              systems: ['Sterling Portal', 'Secure Upload Portal', 'Oracle Onboarding'],
+              rules: ['BGC consent mandatory', 'Secure encrypted upload only', 'All required documents submitted', 'Auto-reminders at 3 days, 1 day before deadline'],
+              goodPractice: 'Use secure digital upload portal for all document collection - never accept documents via unsecured email.' },
+            { id: 'h6', lane: 1, x: 880, label: 'Run BGC Verification', num: '7.6', icon: 'fa-magnifying-glass', duration: '3-7 days',
+              desc: 'Sterling performs comprehensive background verification: criminal records, employment history, education verification, and reference checks. Results returned via secure API with clear/alert status.',
+              owner: 'Sterling',
+              systems: ['Sterling Verification Platform', 'Oracle API'],
+              rules: ['Criminal records check', 'Employment verification', 'Education verification', 'Reference checks for white collars'],
+              goodPractice: '68% of background checks close in 1 day. Standard completion within 3-7 business days.' },
+            { id: 'h7', lane: 0, x: 1050, label: 'Review BGC + Verify Docs', num: '7.7', icon: 'fa-clipboard-check', duration: '1-2 days', type: 'decision',
+              desc: 'HR Operations reviews BGC results and validates document authenticity: ID verification (photo match), work authorization validity, tax form completeness, bank details format. Clear BGC proceeds; alerts require investigation.',
+              owner: 'HR Operations',
+              systems: ['Oracle Recruiting Cloud', 'Document Verification', 'Compliance Dashboard'],
+              rules: ['Review all BGC results', 'Verify document authenticity', 'Identity matches contract', 'Issues escalated immediately'],
+              goodPractice: 'All background check results and documents must be reviewed and verified before proceeding to hire processing.' },
+            { id: 'h8', lane: 2, x: 1220, label: 'Preboarding Survey', num: '7.8', icon: 'fa-poll', duration: '10 min',
+              desc: 'New hire completes preboarding survey: preferred name, dietary restrictions, accessibility needs, parking requirements, first day preferences. Feedback helps personalize the onboarding experience.',
+              owner: 'New Hire',
+              systems: ['Oracle Surveys', 'Email', 'HR Analytics'],
+              rules: ['Survey sent 1 week before start', 'Responses captured in HCM', 'Special needs flagged to Facilities', 'Dietary info shared for Day 1'],
+              goodPractice: 'Preboarding surveys demonstrate care for new hire experience and enable personalized onboarding.' },
+            { id: 'h9', lane: 4, x: 1390, label: 'IT Hardware Setup', num: '7.9', icon: 'fa-desktop', duration: '2-3 days',
+              desc: 'IT configures hardware: laptop imaging with GEODIS build, software installation per role, security certificates, VPN configuration. Equipment staged for Day 1 handoff.',
+              owner: 'IT Department',
+              systems: ['IT Asset Management', 'Active Directory', 'Software Deployment', 'Coupa'],
+              rules: ['Standard GEODIS image applied', 'Role-specific software installed', 'Security certificates configured', 'Equipment tested before handoff'],
+              goodPractice: 'IT hardware must be fully configured and tested before Day 1 to ensure productive first day.' },
+            { id: 'h10', lane: 4, x: 1560, label: 'Software & Access Setup', num: '7.10', icon: 'fa-key', duration: '1-2 days',
+              desc: 'IT provisions software access: email (Outlook), Teams, Oracle applications, role-specific systems (TMS, WMS, etc.), shared drives. Access per security role template.',
+              owner: 'IT Department',
+              systems: ['Active Directory', 'Azure AD', 'Oracle IAM', 'Email System'],
+              rules: ['Access per role security template', 'Email account active before Day 1', 'Welcome email prepared', 'Password reset ready'],
+              goodPractice: 'Email account should be active 1 day before start so new hire receives welcome communications.' },
+            { id: 'h11', lane: 4, x: 1730, label: 'Facilities & Badge Setup', num: '7.11', icon: 'fa-building', duration: '1-2 days',
+              desc: 'Facilities prepares workspace: desk assignment, badge/access card programming, parking registration, building access configuration, nameplate. Workspace ready for Day 1.',
+              owner: 'Facilities',
+              systems: ['Badge System', 'Parking Management', 'Desk Booking', 'Building Access Control'],
+              rules: ['Badge programmed with correct zones', 'Workspace clean and equipped', 'Building access configured', 'Parking assigned if applicable'],
+              goodPractice: 'Workspace setup includes: clean desk, chair, monitors connected, phone configured, and welcome materials placed.' },
+            { id: 'h12', lane: 4, x: 1900, label: 'H&S + Medical Visit', num: '7.12', icon: 'fa-stethoscope', duration: '1 day',
+              desc: 'Health & Safety schedules medical visit (if required: FR, NL), ergonomic assessment, prepares safety orientation materials. Medical appointment within first 2 weeks.',
+              owner: 'Health & Safety',
+              systems: ['Medical Provider Portal', 'H&S Management System', 'Calendar'],
+              rules: ['Medical visit legally required in FR, NL', 'Appointment within first 2 weeks', 'Ergonomic assessment for desk workers', 'Safety materials prepared'],
+              goodPractice: 'Medical visit is mandatory in certain countries - schedule proactively to ensure compliance.' },
+            // === HIRE & ONBOARDING SECTION ===
+            { id: 'h13', lane: 0, x: 2070, label: 'Create Worker Record', num: '8.1', icon: 'fa-user-check', duration: '30 min',
+              desc: 'HR Operations creates worker record in Oracle Core HR per Admin & Payroll 4.4 Employee Data Administration. Record includes: personal data, job assignment, compensation, manager, location, organization.',
+              owner: 'HR Operations',
+              systems: ['Oracle Core HR', 'Worker Assignment'],
+              rules: ['Data accuracy verified', 'Job assignment configured', 'Manager assigned', 'Effective date set'],
+              goodPractice: 'Please refer to Admin. & Payroll Processes - 4.4 Employee Data Administration for worker record standards.',
+              highlighted: true },
+            { id: 'h14', lane: 3, x: 2240, label: 'Sync to Payroll', num: '8.2', icon: 'fa-money-bill', duration: 'Auto',
+              desc: 'Worker record synced to Oracle Payroll per Admin & Payroll 4.12-4.14. Compensation elements configured, pay frequency set, tax withholding established. Validated against pay cycle calendar.',
+              owner: 'Oracle Core HR',
+              systems: ['Oracle Core HR', 'Oracle Payroll', 'Pay Cycle Calendar'],
+              rules: ['Real-time sync', 'Compensation setup', 'Tax withholding configured', 'Pay cycle validated'],
+              goodPractice: 'Payroll setup must complete before first pay cycle to ensure on-time salary payment.' },
+            { id: 'h15', lane: 3, x: 2410, label: 'Sync to Benefits', num: '8.3', icon: 'fa-heart', duration: 'Auto',
+              desc: 'Worker record synced to Oracle Benefits. Benefits enrollment initiated per C&B 5.3. Enrollment window opened, eligibility set, elections due date communicated.',
+              owner: 'Oracle Core HR',
+              systems: ['Oracle Core HR', 'Oracle Benefits', 'Integration'],
+              rules: ['Benefits eligibility set', 'Enrollment window opened', 'Elections due date set'],
+              goodPractice: 'Please refer to Compensation & Benefits Processes - 5.3 for benefits program administration.' },
+            { id: 'h16', lane: 0, x: 2580, label: 'Send Welcome Email', num: '8.4', icon: 'fa-envelope-open-text', duration: 'D-1',
+              desc: 'HR sends comprehensive welcome email: Day 1 logistics (time, location, who to meet), first week schedule, required documents to bring, dress code, parking, emergency contacts. Manager copied.',
+              owner: 'HR Operations',
+              systems: ['Email', 'Oracle Onboarding', 'Welcome Templates'],
+              rules: ['Sent 1-2 days before start', 'All Day 1 logistics included', 'Manager contact provided', 'Emergency info included'],
+              goodPractice: 'Welcome email is the final touchpoint before Day 1 - ensure it answers all practical questions.' },
+            { id: 'h17', lane: 3, x: 2750, label: 'Day 1 Readiness Check', num: '8.5', icon: 'fa-clipboard-check', duration: 'D-1',
+              desc: 'Final readiness verification: HCM profile complete, documents verified, BGC clear, equipment ready, IT access active, workspace prepared, badge programmed, medical scheduled, welcome email sent.',
+              owner: 'System Dashboard',
+              systems: ['Oracle Onboarding', 'Readiness Dashboard', 'Checklist System'],
+              rules: ['100% checklist completion required', 'Gaps escalated immediately', 'Manager notified of readiness', 'New hire confirmed'],
+              goodPractice: 'Day 1 readiness check ensures nothing is missed. New hire should arrive to a fully prepared environment.',
+              highlighted: true },
+            { id: 'h18', lane: 2, x: 2920, label: 'Day 1 Start', num: '8.6', icon: 'fa-door-open', duration: 'Day 1',
+              desc: 'New hire begins first day at GEODIS. Activities: badge/access obtained, workspace orientation, IT equipment handoff, HR orientation, compliance training initiation, team introduction. Probation period begins.',
+              owner: 'New Hire',
+              systems: ['GEODIS Facilities', 'Oracle Learning', 'Badge System'],
+              rules: ['Complete Day 1 checklist', 'Badge/access obtained', 'Compliance training started', 'Probation begins'],
+              goodPractice: 'Please refer to Talent Mgmt. & Development - 3.2 Probation review for trial period guidelines.' },
+            { id: 'h19', lane: 5, x: 2920, label: 'Welcome & Onboard', num: '8.7', icon: 'fa-handshake', duration: 'Day 1',
+              desc: 'Hiring Manager welcomes new employee per GEODIS induction program: workspace ready, team introductions, first week schedule, 30-60-90 day expectations, buddy/mentor assigned, regular check-ins scheduled.',
+              owner: 'Hiring Manager',
+              systems: ['Oracle Onboarding', 'GEODIS Induction Program'],
+              rules: ['Workspace prepared', 'Team introductions made', 'Expectations set', 'Buddy assigned', 'Check-ins scheduled'],
+              goodPractice: 'Manager engagement on Day 1 is critical for new hire success and retention. Assign a buddy/mentor per H2R flow.',
+              highlighted: true },
+            { id: 'h20', lane: 3, x: 3090, label: 'Benefits Enrollment', num: '8.8', icon: 'fa-clipboard-list', duration: 'Week 1',
+              desc: 'New hire completes benefits enrollment within enrollment window. Elections for medical, dental, vision, life insurance, retirement plans. Deadline enforced by system.',
+              owner: 'Oracle Benefits',
+              systems: ['Oracle Benefits', 'Benefits Portal'],
+              rules: ['Enrollment window active', 'Elections required', 'Deadline enforced', 'Confirmation sent'],
+              goodPractice: 'Ensure new hire understands benefits options and deadlines during HR orientation on Day 1.' },
+        ];
+
+        const hireConnections = [
+            // Preboarding parallel tracks
+            { from: 'h1', to: 'h2' },
+            { from: 'h2', to: 'h3' },
+            { from: 'h2', to: 'h4' },
+            { from: 'h3', to: 'h9' },
+            { from: 'h4', to: 'h5' },
+            { from: 'h5', to: 'h6' },
+            { from: 'h6', to: 'h7' },
+            { from: 'h7', to: 'h8' },
+            { from: 'h8', to: 'h16' },
+            { from: 'h9', to: 'h10' },
+            { from: 'h10', to: 'h11' },
+            { from: 'h11', to: 'h12' },
+            { from: 'h12', to: 'h17' },
+            // Hire processing
+            { from: 'h7', to: 'h13' },
+            { from: 'h13', to: 'h14' },
+            { from: 'h14', to: 'h15' },
+            { from: 'h15', to: 'h17' },
+            { from: 'h16', to: 'h17' },
+            { from: 'h17', to: 'h18' },
+            { from: 'h17', to: 'h19' },
+            { from: 'h18', to: 'h20' },
+            { from: 'h19', to: 'h20', type: 'parallel' },
+        ];
+
+        const hireLaneClasses = {
+            0: 'lane-hr',
+            1: 'lane-external',
+            2: 'lane-candidate',
+            3: 'lane-system',
+            4: 'lane-interviewer',
+            5: 'lane-hiring-manager'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDiagram('e2e', e2eSteps, e2eConnections, laneClasses, 'e2eLanesContent', 'e2eConnectors');
+            renderDiagram('req', reqSteps, reqConnections, reqLaneClasses, 'reqLanesContent', 'reqConnectors');
+            renderDiagram('posting', postingSteps, postingConnections, postingLaneClasses, 'postingLanesContent', 'postingConnectors');
+            renderDiagram('interview', interviewSteps, interviewConnections, interviewLaneClasses, 'interviewLanesContent', 'interviewConnectors');
+            renderDiagram('offer', offerSteps, offerConnections, offerLaneClasses, 'offerLanesContent', 'offerConnectors');
+            renderDiagram('hire', hireSteps, hireConnections, hireLaneClasses, 'hireLanesContent', 'hireConnectors');
+
+            document.querySelectorAll('.phase-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const phaseId = btn.dataset.phase;
+                    document.querySelectorAll('.phase-section').forEach(s => s.classList.remove('active'));
+                    document.getElementById(phaseId).classList.add('active');
+                });
+            });
+        });
+
+        function renderDiagram(prefix, steps, connections, laneClassMap, containerId, svgId) {
+            const container = document.getElementById(containerId);
+            const svg = document.getElementById(svgId);
+
+            const maxX = Math.max(...steps.map(s => s.x)) + STEP_WIDTH + 100;
+            container.style.width = maxX + 'px';
+            svg.setAttribute('width', maxX);
+            svg.setAttribute('height', Object.keys(laneClassMap).length * LANE_HEIGHT);
+
+            steps.forEach(step => {
+                const laneClass = laneClassMap[step.lane];
+
+                if (step.type === 'decision') {
+                    const decision = document.createElement('div');
+                    decision.className = 'decision-block';
+                    decision.id = step.id;
+                    decision.style.left = step.x + 'px';
+                    decision.style.top = (step.lane * LANE_HEIGHT + V_CENTER - 35) + 'px';
+                    decision.innerHTML = `
+                        <div class="decision-diamond"></div>
+                        <div class="decision-content">
+                            <i class="fas ${step.icon}"></i>
+                            <span>${step.label.split(' ')[0]}</span>
+                        </div>
+                    `;
+                    decision.onclick = () => showStepModal(step, laneClass);
+                    container.appendChild(decision);
+                } else {
+                    const block = document.createElement('div');
+                    block.className = `step-block ${laneClass}` + (step.highlighted ? ' highlighted' : '');
+                    block.id = step.id;
+                    block.style.left = step.x + 'px';
+                    block.style.top = (step.lane * LANE_HEIGHT + V_CENTER - STEP_HEIGHT/2) + 'px';
+                    block.innerHTML = `
+                        <div class="step-header">
+                            <div class="step-number">${step.num}</div>
+                            <i class="fas ${step.icon} step-icon"></i>
+                        </div>
+                        <div class="step-title">${step.label}</div>
+                        <div class="step-meta">
+                            <i class="fas fa-clock"></i>
+                            ${step.duration}
+                        </div>
+                    `;
+                    block.onclick = () => showStepModal(step, laneClass);
+                    block.onmouseenter = (e) => showTooltip(e, step.label);
+                    block.onmouseleave = hideTooltip;
+                    container.appendChild(block);
+                }
+            });
+
+            drawConnections(steps, connections, svg);
+        }
+
+        function drawConnections(steps, connections, svg) {
+            const stepsMap = {};
+            steps.forEach(s => stepsMap[s.id] = s);
+
+            connections.forEach(conn => {
+                const from = stepsMap[conn.from];
+                const to = stepsMap[conn.to];
+                if (!from || !to) return;
+
+                const fromX = from.x + (from.type === 'decision' ? 70 : STEP_WIDTH);
+                const fromY = from.lane * LANE_HEIGHT + V_CENTER;
+                const toX = to.x;
+                const toY = to.lane * LANE_HEIGHT + V_CENTER;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+                let d;
+                if (from.lane === to.lane) {
+                    d = `M ${fromX} ${fromY} L ${toX} ${toY}`;
+                } else {
+                    const midX = fromX + (toX - fromX) / 2;
+                    d = `M ${fromX} ${fromY} C ${midX} ${fromY}, ${midX} ${toY}, ${toX} ${toY}`;
+                }
+
+                path.setAttribute('d', d);
+                path.setAttribute('class', 'connector-path' + (conn.type === 'parallel' ? ' animated' : ''));
+                svg.appendChild(path);
+
+                const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                const arrowSize = 6;
+                const arrowX = toX - 2;
+                const arrowY = toY;
+
+                const points = [
+                    [arrowX, arrowY],
+                    [arrowX - arrowSize * 1.5, arrowY - arrowSize],
+                    [arrowX - arrowSize * 1.5, arrowY + arrowSize]
+                ].map(p => p.join(',')).join(' ');
+
+                arrow.setAttribute('points', points);
+                arrow.setAttribute('class', 'connector-arrow');
+                svg.appendChild(arrow);
+            });
+        }
+
+        function showStepModal(step, laneClass) {
+            const modal = document.getElementById('modal');
+            const icon = document.getElementById('modalIcon');
+            const title = document.getElementById('modalTitleText');
+            const body = document.getElementById('modalBody');
+
+            const colorMap = {
+                'lane-hiring-manager': 'var(--lane-hiring-manager)',
+                'lane-recruiter': 'var(--lane-recruiter)',
+                'lane-hr': 'var(--lane-hr)',
+                'lane-candidate': 'var(--lane-candidate)',
+                'lane-interviewer': 'var(--lane-interviewer)',
+                'lane-system': 'var(--lane-system)',
+                'lane-external': 'var(--lane-external)'
+            };
+
+            icon.style.background = colorMap[laneClass] || 'var(--geodis-blue)';
+            icon.innerHTML = `<i class="fas ${step.icon}"></i>`;
+            title.textContent = step.label;
+
+            // Build systems tags
+            let systemsTags = '';
+            if (step.systems && step.systems.length > 0) {
+                systemsTags = step.systems.map(s => `<span class="tag">${s}</span>`).join('');
+            } else {
+                systemsTags = '<span class="tag">Oracle Recruiting Cloud</span>';
+            }
+
+            // Build rules list
+            let rulesList = '';
+            if (step.rules && step.rules.length > 0) {
+                rulesList = step.rules.map(r => `<li><i class="fas fa-check-circle"></i> ${r}</li>`).join('');
+            } else {
+                rulesList = `
+                    <li><i class="fas fa-check-circle"></i> Follow GEODIS standard process</li>
+                    <li><i class="fas fa-check-circle"></i> Document all decisions</li>
+                    <li><i class="fas fa-check-circle"></i> Meet SLA requirements</li>
+                `;
+            }
+
+            // Build good practice section
+            let goodPracticeHtml = '';
+            if (step.goodPractice) {
+                goodPracticeHtml = `
+                    <div class="modal-section" style="background: var(--geodis-orange-light); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--geodis-orange);">
+                        <h4 style="color: var(--geodis-orange);"><i class="fas fa-lightbulb"></i> GEODIS Good Practice</h4>
+                        <p style="font-style: italic; color: var(--gray-700);">"${step.goodPractice}"</p>
+                    </div>
+                `;
+            }
+
+            body.innerHTML = `
+                <div class="modal-section">
+                    <h4><i class="fas fa-info-circle"></i> Description</h4>
+                    <p>${step.desc || 'Process step in the recruitment workflow.'}</p>
+                </div>
+                <div class="info-row">
+                    <div class="info-box">
+                        <label>Owner / Responsible</label>
+                        <span>${step.owner || 'Various'}</span>
+                    </div>
+                    <div class="info-box">
+                        <label>Duration / SLA</label>
+                        <span>${step.duration}</span>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><i class="fas fa-cog"></i> Systems & Tools</h4>
+                    <div class="tag-list">
+                        ${systemsTags}
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><i class="fas fa-gavel"></i> Key Rules & Requirements</h4>
+                    <ul class="rule-list">
+                        ${rulesList}
+                    </ul>
+                </div>
+                ${goodPracticeHtml}
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function showTooltip(e, text) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.textContent = text;
+            tooltip.style.left = (e.pageX + 10) + 'px';
+            tooltip.style.top = (e.pageY - 30) + 'px';
+            tooltip.classList.add('visible');
+        }
+
+        function hideTooltip() {
+            document.getElementById('tooltip').classList.remove('visible');
+        }
+
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.1, 1.5);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+            applyZoom();
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            document.querySelectorAll('.swimlane-diagram').forEach(diagram => {
+                diagram.style.transform = `scale(${currentZoom})`;
+                diagram.style.transformOrigin = 'top left';
+            });
+        }
+
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

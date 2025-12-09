@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End-to-End Recruitment Overview - GEODIS HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --geodis-blue: #3200eb;
+            --geodis-blue-dark: #2800c0;
+            --geodis-blue-light: #ebe6ff;
+            --geodis-orange: #eb692b;
+            --geodis-orange-light: #fff5f0;
+            --geodis-purple: #8B5CF6;
+            --geodis-green: #10B981;
+            --geodis-red: #EF4444;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --white: #FFFFFF;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --radius-sm: 4px;
+            --radius-lg: 16px;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--gray-50); min-height: 100vh; color: var(--gray-800); }
+
+        /* Header */
+        .header { background: white; border-bottom: 1px solid var(--gray-200); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; }
+        .header-content { max-width: 1800px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; height: 72px; gap: 2rem; }
+        .logo-section { display: flex; align-items: center; gap: 0.75rem; }
+        .geodis-logo { height: 40px; }
+        .logo-divider { border-left: 2px solid var(--gray-200); padding-left: 0.75rem; margin-left: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .app-icon { width: 40px; height: 40px; color: var(--geodis-orange); }
+        .app-title h1 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--geodis-blue-dark); }
+        .app-title p { font-size: 0.75rem; color: var(--gray-500); }
+        .header-nav { margin-left: auto; display: flex; gap: 0.5rem; }
+        .nav-link { padding: 0.5rem 1rem; background: var(--gray-100); color: var(--gray-600); font-size: 0.8rem; font-weight: 500; border-radius: var(--radius-sm); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: var(--transition); }
+        .nav-link:hover { background: var(--gray-200); color: var(--gray-800); }
+        .nav-link i { font-size: 0.75rem; }
+
+        /* Main */
+        .main-content { padding: 2rem; max-width: 1800px; margin: 0 auto; }
+
+        /* Process Header */
+        .process-header { background: white; border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-md); }
+        .process-header h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; color: var(--gray-900); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+        .process-header h2 .icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--geodis-blue), var(--geodis-blue-dark)); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: white; }
+        .process-header p { color: var(--gray-600); margin-left: 52px; }
+        .process-stats { display: flex; gap: 1rem; margin-top: 1rem; margin-left: 52px; }
+        .stat { background: var(--geodis-blue-light); border: 1px solid var(--geodis-blue); border-radius: var(--radius); padding: 0.5rem 1rem; text-align: center; }
+        .stat .value { font-size: 1.1rem; font-weight: 700; color: var(--geodis-blue); }
+        .stat .label { font-size: 0.65rem; color: var(--geodis-blue-dark); text-transform: uppercase; }
+        .stat.orange { background: var(--geodis-orange-light); border-color: var(--geodis-orange); }
+        .stat.orange .value, .stat.orange .label { color: var(--geodis-orange); }
+
+        /* Phase colors */
+        .phase-requisition { --phase-color: #3B82F6; --phase-light: #DBEAFE; }
+        .phase-posting { --phase-color: #F59E0B; --phase-light: #FEF3C7; }
+        .phase-screening { --phase-color: #8B5CF6; --phase-light: #EDE9FE; }
+        .phase-interview { --phase-color: #EC4899; --phase-light: #FCE7F3; }
+        .phase-offer { --phase-color: #10B981; --phase-light: #D1FAE5; }
+        .phase-hire { --phase-color: #06B6D4; --phase-light: #CFFAFE; }
+
+        /* Phases Container */
+        .phases-container { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* Phase Card */
+        .phase-card { background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden; border-left: 4px solid var(--phase-color); }
+        .phase-header-bar { background: var(--phase-light); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--gray-200); }
+        .phase-title { display: flex; align-items: center; gap: 0.75rem; }
+        .phase-number { width: 32px; height: 32px; background: var(--phase-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+        .phase-name { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--gray-800); }
+        .phase-duration { background: white; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 500; color: var(--phase-color); border: 1px solid var(--phase-color); }
+        .phase-link { font-size: 0.8rem; color: var(--geodis-blue); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; }
+        .phase-link:hover { text-decoration: underline; }
+
+        /* Steps Flow */
+        .steps-flow { padding: 1.5rem; display: flex; align-items: flex-start; gap: 0.5rem; overflow-x: auto; }
+        .step-item { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; min-width: 120px; }
+        .step-box { background: var(--phase-light); border: 2px solid var(--phase-color); border-radius: var(--radius); padding: 0.75rem; text-align: center; width: 110px; cursor: default; transition: var(--transition); }
+        .step-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .step-num { font-size: 0.65rem; font-weight: 700; color: var(--phase-color); margin-bottom: 0.25rem; }
+        .step-icon { font-size: 1.25rem; color: var(--phase-color); margin-bottom: 0.25rem; }
+        .step-label { font-size: 0.7rem; font-weight: 600; color: var(--gray-700); line-height: 1.2; }
+        .step-owner { font-size: 0.6rem; color: var(--gray-500); margin-top: 0.25rem; }
+        .step-arrow { color: var(--gray-400); font-size: 1rem; margin-top: 1.5rem; flex-shrink: 0; }
+
+        /* Rules Section */
+        .rules-section { background: var(--gray-50); padding: 1rem 1.5rem; border-top: 1px solid var(--gray-200); }
+        .rules-title { font-size: 0.75rem; font-weight: 600; color: var(--geodis-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
+        .rules-title i { color: var(--geodis-orange); }
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem; }
+        .rule-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; color: var(--gray-600); background: white; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
+        .rule-item i { color: var(--geodis-orange); margin-top: 0.15rem; flex-shrink: 0; font-size: 0.7rem; }
+
+        /* Footer */
+        .footer { background: white; border-top: 1px solid var(--gray-200); margin-top: 2rem; padding: 1.5rem 2rem; }
+        .footer-content { max-width: 1800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-copyright { font-size: 0.85rem; color: var(--gray-500); }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-link { font-size: 0.8rem; color: var(--geodis-blue); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; }
+        .footer-link:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .header-nav { display: none; }
+            .process-stats { flex-wrap: wrap; }
+            .steps-flow { padding: 1rem; }
+        }
+        @media print {
+            .header, .footer, .header-nav { display: none; }
+            .phase-card { break-inside: avoid; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://d25zu39ynyitwy.cloudfront.net/oms/000000/image/2024/8/6RPG2_Logo/Logo_-1x-1.png" alt="GEODIS Logo" class="geodis-logo">
+                <div class="logo-divider">
+                    <svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <div class="app-title">
+                        <h1>End-to-End Recruitment</h1>
+                        <p>GEODIS HCM - Process Overview with Rules</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="Decision_Flowchart_01_Requisition.html" class="nav-link"><i class="fas fa-file-signature"></i> Requisition</a>
+                <a href="Decision_Flowchart_02_Posting.html" class="nav-link"><i class="fas fa-bullhorn"></i> Posting</a>
+                <a href="Decision_Flowchart_03_Screening.html" class="nav-link"><i class="fas fa-filter"></i> Screening</a>
+                <a href="Decision_Flowchart_04_Interview.html" class="nav-link"><i class="fas fa-comments"></i> Interview</a>
+                <a href="Decision_Flowchart_05_Offer.html" class="nav-link"><i class="fas fa-file-contract"></i> Offer</a>
+                <a href="Decision_Flowchart_06_Hire.html" class="nav-link"><i class="fas fa-user-plus"></i> Hire</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="process-header">
+            <h2>
+                <span class="icon"><i class="fas fa-project-diagram"></i></span>
+                GEODIS Recruitment Process - End-to-End Overview
+            </h2>
+            <p><strong>GEODIS Policy:</strong> Identify and fill vacancies in line with our principles of diversity and inclusion, giving priority to internal candidates and broadening the search to attract the best talent in the market.</p>
+            <div class="process-stats">
+                <div class="stat"><div class="value">6</div><div class="label">Phases</div></div>
+                <div class="stat orange"><div class="value">21</div><div class="label">Steps</div></div>
+                <div class="stat"><div class="value">10-12</div><div class="label">Weeks Avg</div></div>
+                <div class="stat"><div class="value">7</div><div class="label">Actors</div></div>
+            </div>
+        </div>
+
+        <div class="phases-container">
+            <!-- Phase 1: Requisition -->
+            <div class="phase-card phase-requisition">
+                <div class="phase-header-bar">
+                    <div class="phase-title">
+                        <span class="phase-number">1</span>
+                        <span class="phase-name">Requisition Creation & Approval</span>
+                        <span class="phase-duration"><i class="fas fa-clock"></i> 2-5 Days</span>
+                    </div>
+                    <a href="Decision_Flowchart_01_Requisition.html" class="phase-link"><i class="fas fa-external-link-alt"></i> View Details</a>
+                </div>
+                <div class="steps-flow">
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">1.1</div><div class="step-icon"><i class="fas fa-lightbulb"></i></div><div class="step-label">Intake Meeting</div><div class="step-owner">HM + HR</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">1.2</div><div class="step-icon"><i class="fas fa-file-alt"></i></div><div class="step-label">Create Requisition</div><div class="step-owner">Hiring Mgr</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">1.3</div><div class="step-icon"><i class="fas fa-tasks"></i></div><div class="step-label">Competency JD</div><div class="step-owner">Hiring Mgr</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">1.4</div><div class="step-icon"><i class="fas fa-check-double"></i></div><div class="step-label">N+1 Approval</div><div class="step-owner">Manager</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">1.5</div><div class="step-icon"><i class="fas fa-chart-line"></i></div><div class="step-label">HRBP Review</div><div class="step-owner">HRBP</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">1.6</div><div class="step-icon"><i class="fas fa-bolt"></i></div><div class="step-label">Activate</div><div class="step-owner">System</div></div>
+                    </div>
+                </div>
+                <div class="rules-section">
+                    <div class="rules-title"><i class="fas fa-gavel"></i> Key Rules & Policies</div>
+                    <div class="rules-grid">
+                        <div class="rule-item"><i class="fas fa-check"></i> Use 5 GEODIS templates: STD, EXEC, FR, US, INTERN</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Positions must be budgeted or justified</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Salary thresholds: &lt;125K, 125-155K, &gt;155K/TopEx</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> TopEx positions require CHRO approval</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> SLA: 24h per approval level, escalation at 2/3/5 days</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Conduct Intake Meeting to align HM + Recruiter</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Posting -->
+            <div class="phase-card phase-posting">
+                <div class="phase-header-bar">
+                    <div class="phase-title">
+                        <span class="phase-number">2</span>
+                        <span class="phase-name">Job Posting & Sourcing</span>
+                        <span class="phase-duration"><i class="fas fa-clock"></i> 7+ Days</span>
+                    </div>
+                    <a href="Decision_Flowchart_02_Posting.html" class="phase-link"><i class="fas fa-external-link-alt"></i> View Details</a>
+                </div>
+                <div class="steps-flow">
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">2.1</div><div class="step-icon"><i class="fas fa-home"></i></div><div class="step-label">Post Internal</div><div class="step-owner">Recruiter</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">2.2</div><div class="step-icon"><i class="fas fa-clock"></i></div><div class="step-label">7-Day Wait</div><div class="step-owner">Policy</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">2.3</div><div class="step-icon"><i class="fas fa-globe"></i></div><div class="step-label">Post External</div><div class="step-owner">Recruiter</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">2.4</div><div class="step-icon"><i class="fas fa-broadcast-tower"></i></div><div class="step-label">Distribute</div><div class="step-owner">System</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">2.5</div><div class="step-icon"><i class="fas fa-paper-plane"></i></div><div class="step-label">Apply</div><div class="step-owner">Candidate</div></div>
+                    </div>
+                </div>
+                <div class="rules-section">
+                    <div class="rules-title"><i class="fas fa-gavel"></i> Key Rules & Policies</div>
+                    <div class="rules-grid">
+                        <div class="rule-item"><i class="fas fa-check"></i> <strong>Internal First:</strong> 7-day minimum internal posting before external</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Priority: Internal candidates at Local → Regional → National</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Channels: G-Talent+, LinkedIn, Indeed, GEODIS.com, Employee Referral</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Only GEODIS partner agencies allowed (Regional HRD approval)</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Agency contracts maximum 90 days</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Paradox (Olivia) available in select countries</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Screening -->
+            <div class="phase-card phase-screening">
+                <div class="phase-header-bar">
+                    <div class="phase-title">
+                        <span class="phase-number">3</span>
+                        <span class="phase-name">Screening & Shortlisting</span>
+                        <span class="phase-duration"><i class="fas fa-clock"></i> 3-5 Days</span>
+                    </div>
+                    <a href="Decision_Flowchart_03_Screening.html" class="phase-link"><i class="fas fa-external-link-alt"></i> View Details</a>
+                </div>
+                <div class="steps-flow">
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">3.1</div><div class="step-icon"><i class="fas fa-robot"></i></div><div class="step-label">Auto-Screen</div><div class="step-owner">System</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">3.2</div><div class="step-icon"><i class="fas fa-search"></i></div><div class="step-label">Review CV</div><div class="step-owner">Recruiter</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">3.3</div><div class="step-icon"><i class="fas fa-phone"></i></div><div class="step-label">Phone Screen</div><div class="step-owner">Recruiter</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">3.4</div><div class="step-icon"><i class="fas fa-star"></i></div><div class="step-label">Rank & Rate</div><div class="step-owner">Recruiter</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">3.5</div><div class="step-icon"><i class="fas fa-list-check"></i></div><div class="step-label">Shortlist</div><div class="step-owner">HM + HR</div></div>
+                    </div>
+                </div>
+                <div class="rules-section">
+                    <div class="rules-title"><i class="fas fa-gavel"></i> Key Rules & Policies</div>
+                    <div class="rules-grid">
+                        <div class="rule-item"><i class="fas fa-check"></i> Review ALL applications - none skipped</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> CV must include initial training and work experience</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Reference checks MANDATORY for white collar positions</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Pre-qualification validates: interest, availability, salary</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Mass disposition available for bulk rejections</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Rank candidates by qualification score</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Interview -->
+            <div class="phase-card phase-interview">
+                <div class="phase-header-bar">
+                    <div class="phase-title">
+                        <span class="phase-number">4</span>
+                        <span class="phase-name">Interview & Selection</span>
+                        <span class="phase-duration"><i class="fas fa-clock"></i> 1-2 Weeks</span>
+                    </div>
+                    <a href="Decision_Flowchart_04_Interview.html" class="phase-link"><i class="fas fa-external-link-alt"></i> View Details</a>
+                </div>
+                <div class="steps-flow">
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">4.1</div><div class="step-icon"><i class="fas fa-calendar"></i></div><div class="step-label">Schedule</div><div class="step-owner">Recruiter</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">4.2</div><div class="step-icon"><i class="fas fa-comments"></i></div><div class="step-label">Interview</div><div class="step-owner">Panel</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">4.3</div><div class="step-icon"><i class="fas fa-clipboard-check"></i></div><div class="step-label">Assessment</div><div class="step-owner">Panel</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">4.4</div><div class="step-icon"><i class="fas fa-star"></i></div><div class="step-label">Feedback</div><div class="step-owner">Interviewers</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">4.5</div><div class="step-icon"><i class="fas fa-check-circle"></i></div><div class="step-label">Select</div><div class="step-owner">Hiring Mgr</div></div>
+                    </div>
+                </div>
+                <div class="rules-section">
+                    <div class="rules-title"><i class="fas fa-gavel"></i> Key Rules & Policies</div>
+                    <div class="rules-grid">
+                        <div class="rule-item"><i class="fas fa-check"></i> Panel: Direct Manager + Functional Manager + HR</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Include at least one diversity interviewer</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> <strong>Discriminatory questions PROHIBITED</strong></div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Feedback SLA: 48 hours after interview</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> 6-month timeout: Stop if no candidate meets requirements</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Paradox (Olivia) for scheduling in select countries</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5: Offer -->
+            <div class="phase-card phase-offer">
+                <div class="phase-header-bar">
+                    <div class="phase-title">
+                        <span class="phase-number">5</span>
+                        <span class="phase-name">Offer Management</span>
+                        <span class="phase-duration"><i class="fas fa-clock"></i> 3-7 Days</span>
+                    </div>
+                    <a href="Decision_Flowchart_05_Offer.html" class="phase-link"><i class="fas fa-external-link-alt"></i> View Details</a>
+                </div>
+                <div class="steps-flow">
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">5.1</div><div class="step-icon"><i class="fas fa-file-alt"></i></div><div class="step-label">Prepare Offer</div><div class="step-owner">Recruiter</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">5.2</div><div class="step-icon"><i class="fas fa-balance-scale"></i></div><div class="step-label">C&B Review</div><div class="step-owner">C&B Team</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">5.3</div><div class="step-icon"><i class="fas fa-stamp"></i></div><div class="step-label">Approve</div><div class="step-owner">HRBP/Exec</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">5.4</div><div class="step-icon"><i class="fas fa-signature"></i></div><div class="step-label">DocuSign</div><div class="step-owner">System</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">5.5</div><div class="step-icon"><i class="fas fa-handshake"></i></div><div class="step-label">Accept</div><div class="step-owner">Candidate</div></div>
+                    </div>
+                </div>
+                <div class="rules-section">
+                    <div class="rules-title"><i class="fas fa-gavel"></i> Key Rules & Policies</div>
+                    <div class="rules-grid">
+                        <div class="rule-item"><i class="fas fa-check"></i> 18 country-specific offer templates available</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> GL coding and Cost Center allocation required</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Target: Offer within 2 months of interview start</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Approval by salary threshold (&lt;125K, 125-155K, &gt;155K)</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> E-signature via DocuSign, valid 5 days</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Auto-reminders at 2 and 4 days</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 6: Hire -->
+            <div class="phase-card phase-hire">
+                <div class="phase-header-bar">
+                    <div class="phase-title">
+                        <span class="phase-number">6</span>
+                        <span class="phase-name">Pre-boarding & Hire</span>
+                        <span class="phase-duration"><i class="fas fa-clock"></i> 5-10 Days</span>
+                    </div>
+                    <a href="Decision_Flowchart_06_Hire.html" class="phase-link"><i class="fas fa-external-link-alt"></i> View Details</a>
+                </div>
+                <div class="steps-flow">
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">6.1</div><div class="step-icon"><i class="fas fa-shield-alt"></i></div><div class="step-label">Background</div><div class="step-owner">Sterling</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">6.2</div><div class="step-icon"><i class="fas fa-folder-open"></i></div><div class="step-label">Collect Docs</div><div class="step-owner">HR Ops</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">6.3</div><div class="step-icon"><i class="fas fa-user-plus"></i></div><div class="step-label">Create Worker</div><div class="step-owner">HR Ops</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">6.4</div><div class="step-icon"><i class="fas fa-database"></i></div><div class="step-label">Core HR Sync</div><div class="step-owner">System</div></div>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="step-item">
+                        <div class="step-box"><div class="step-num">6.5</div><div class="step-icon"><i class="fas fa-door-open"></i></div><div class="step-label">Day 1</div><div class="step-owner">HM + New Hire</div></div>
+                    </div>
+                </div>
+                <div class="rules-section">
+                    <div class="rules-title"><i class="fas fa-gavel"></i> Key Rules & Policies</div>
+                    <div class="rules-grid">
+                        <div class="rule-item"><i class="fas fa-check"></i> Sterling background check (68% complete in 1 day)</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> All documents verified before hire</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Worker record synced to Payroll, Benefits, IT, Learning</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Day 1 checklist: workspace, access, introductions</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Manager welcome mandatory</div>
+                        <div class="rule-item"><i class="fas fa-check"></i> Refer to Onboarding Process (3.1) and Probation (3.2)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-copyright">&copy; 2024 GEODIS - HCM Recruitment End-to-End Overview</div>
+            <div class="footer-links">
+                <a href="GEODIS_Recruitment_Swimlane_Connected.html" class="footer-link"><i class="fas fa-project-diagram"></i> Full Swimlane</a>
+                <a href="00_DOCUMENTATION_INDEX.md" class="footer-link"><i class="fas fa-book"></i> Documentation</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

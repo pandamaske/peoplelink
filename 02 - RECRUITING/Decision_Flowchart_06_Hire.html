@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Flowchart - Hire & Preboarding - GEODIS HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --geodis-blue: #3200eb; --geodis-blue-dark: #2800c0; --geodis-blue-light: #ebe6ff;
+            --geodis-orange: #eb692b; --geodis-orange-light: #fff5f0;
+            --geodis-purple: #8B5CF6; --geodis-green: #10B981; --geodis-red: #EF4444; --geodis-cyan: #06B6D4;
+            --lane-hr: #EC4899; --lane-hr-light: #FCE7F3;
+            --lane-external: #06B6D4; --lane-external-light: #CFFAFE;
+            --lane-candidate: #10B981; --lane-candidate-light: #D1FAE5;
+            --lane-system: #6B7280; --lane-system-light: #F3F4F6;
+            --lane-it: #8B5CF6; --lane-it-light: #EDE9FE;
+            --lane-hiring-manager: #3B82F6; --lane-hiring-manager-light: #DBEAFE;
+            --gray-50: #F9FAFB; --gray-100: #F3F4F6; --gray-200: #E5E7EB; --gray-400: #9CA3AF;
+            --gray-500: #6B7280; --gray-600: #4B5563; --gray-700: #374151; --gray-800: #1F2937; --gray-900: #111827; --white: #FFFFFF;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px; --radius-sm: 4px; --radius-lg: 16px; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --lane-height: 120px; --step-width: 140px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #F9FAFB; min-height: 100vh; color: var(--gray-800); display: flex; flex-direction: column; }
+        .header { background-color: white; border-bottom: 1px solid #E5E7EB; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
+        .header-content { padding: 0 2rem; display: flex; align-items: center; height: 72px; gap: 2rem; }
+        .logo-section { display: flex; align-items: center; gap: 0.75rem; }
+        .geodis-logo { height: 40px; }
+        .logo-divider { border-left: 2px solid #E5E7EB; padding-left: 0.75rem; margin-left: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .app-icon { width: 40px; height: 40px; color: var(--geodis-orange); }
+        .app-title h1 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--geodis-blue-dark); }
+        .app-title p { font-size: 0.75rem; color: #6B7280; }
+        .header-controls { margin-left: auto; display: flex; gap: 1rem; align-items: center; }
+        .nav-links { display: flex; gap: 0.5rem; }
+        .nav-link { padding: 0.5rem 1rem; background: var(--gray-100); color: var(--gray-600); font-size: 0.8rem; font-weight: 500; border-radius: var(--radius-sm); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; border: none; cursor: pointer; transition: var(--transition); }
+        .nav-link:hover { background: var(--gray-200); color: var(--gray-800); }
+        .nav-link.active { background: var(--geodis-blue); color: var(--white); }
+        .zoom-controls { display: flex; gap: 0.25rem; background: var(--gray-100); border-radius: var(--radius); padding: 4px; }
+        .zoom-btn { width: 32px; height: 32px; border: none; background: transparent; color: var(--gray-600); cursor: pointer; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+        .zoom-btn:hover { background: var(--gray-200); color: var(--geodis-blue); }
+        .main-content { flex: 1; padding: 2rem; }
+        .phase-header { background: var(--white); border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .phase-info h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; color: var(--gray-900); display: flex; align-items: center; gap: 0.75rem; }
+        .phase-info h2 .phase-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--geodis-blue), var(--geodis-blue-dark)); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--white); }
+        .phase-info p { color: var(--gray-600); margin-top: 0.25rem; margin-left: 52px; }
+        .phase-stats { display: flex; gap: 1rem; }
+        .stat-box { background: var(--geodis-blue-light); border: 1px solid var(--geodis-blue); border-radius: var(--radius); padding: 0.75rem 1.25rem; text-align: center; }
+        .stat-box .value { font-size: 1.25rem; font-weight: 700; color: var(--geodis-blue); }
+        .stat-box .label { font-size: 0.7rem; color: var(--geodis-blue-dark); text-transform: uppercase; }
+        .stat-box.orange { background: var(--geodis-orange-light); border-color: var(--geodis-orange); }
+        .stat-box.orange .value, .stat-box.orange .label { color: var(--geodis-orange); }
+        .stat-box.green { background: #D1FAE5; border-color: var(--geodis-green); }
+        .stat-box.green .value, .stat-box.green .label { color: var(--geodis-green); }
+        .swimlane-wrapper { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; }
+        .swimlane-legend { padding: 1rem 1.5rem; background: linear-gradient(to right, var(--gray-50), var(--white)); border-bottom: 1px solid var(--gray-200); display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+        .legend-title { font-weight: 600; color: var(--geodis-blue); font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
+        .legend-items { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--gray-600); }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .legend-shape.diamond { width: 14px; height: 14px; background: var(--geodis-orange-light); border: 2px solid var(--geodis-orange); transform: rotate(45deg); }
+        .legend-line { width: 30px; height: 3px; border-radius: 2px; }
+        .swimlane-canvas { position: relative; overflow-x: auto; overflow-y: hidden; }
+        .swimlane-diagram { display: flex; min-width: max-content; position: relative; }
+        .lane-labels { position: sticky; left: 0; z-index: 100; background: var(--white); border-right: 2px solid var(--gray-200); box-shadow: 4px 0 8px rgba(0,0,0,0.05); }
+        .lane-label { height: var(--lane-height); width: 180px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid var(--gray-100); }
+        .lane-icon { width: 36px; height: 36px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 0.9rem; }
+        .lane-info h4 { font-size: 0.8rem; font-weight: 600; color: var(--gray-800); }
+        .lane-info span { font-size: 0.7rem; color: var(--gray-500); }
+        .lanes-content { flex: 1; position: relative; }
+        .connectors-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+        .connector-path { fill: none; stroke-width: 2; stroke-linecap: round; }
+        .connector-path.forward { stroke: var(--geodis-blue); }
+        .connector-path.yes { stroke: var(--geodis-green); stroke-width: 2.5; }
+        .connector-path.no { stroke: var(--geodis-red); stroke-width: 2.5; }
+        .connector-path.parallel { stroke: var(--geodis-purple); stroke-width: 2; }
+        .connector-path.return { stroke: var(--geodis-red); stroke-dasharray: 8 4; }
+        .connector-path.animated { animation: flowAnimation 1s linear infinite; }
+        @keyframes flowAnimation { from { stroke-dashoffset: 12; } to { stroke-dashoffset: 0; } }
+        .connector-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; }
+        .lane-row { height: var(--lane-height); position: relative; border-bottom: 1px solid var(--gray-100); }
+        .lane-row.lane-hr { background: var(--lane-hr-light); }
+        .lane-row.lane-external { background: var(--lane-external-light); }
+        .lane-row.lane-candidate { background: var(--lane-candidate-light); }
+        .lane-row.lane-system { background: var(--lane-system-light); }
+        .lane-row.lane-it { background: var(--lane-it-light); }
+        .lane-row.lane-hiring-manager { background: var(--lane-hiring-manager-light); }
+        .lane-label.lane-hr .lane-icon { background: var(--lane-hr); }
+        .lane-label.lane-external .lane-icon { background: var(--lane-external); }
+        .lane-label.lane-candidate .lane-icon { background: var(--lane-candidate); }
+        .lane-label.lane-system .lane-icon { background: var(--lane-system); }
+        .lane-label.lane-it .lane-icon { background: var(--lane-it); }
+        .lane-label.lane-hiring-manager .lane-icon { background: var(--lane-hiring-manager); }
+        .step-block { position: absolute; width: var(--step-width); padding: 0.6rem 0.75rem; background: var(--white); border-radius: var(--radius); border: 2px solid; box-shadow: var(--shadow); cursor: pointer; transition: var(--transition); z-index: 60; }
+        .step-block:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); z-index: 70; }
+        .step-block.lane-hr { border-color: var(--lane-hr); }
+        .step-block.lane-hr .step-number { background: var(--lane-hr); }
+        .step-block.lane-external { border-color: var(--lane-external); }
+        .step-block.lane-external .step-number { background: var(--lane-external); }
+        .step-block.lane-candidate { border-color: var(--lane-candidate); }
+        .step-block.lane-candidate .step-number { background: var(--lane-candidate); }
+        .step-block.lane-system { border-color: var(--lane-system); }
+        .step-block.lane-system .step-number { background: var(--lane-system); }
+        .step-block.lane-it { border-color: var(--lane-it); }
+        .step-block.lane-it .step-number { background: var(--lane-it); }
+        .step-block.lane-hiring-manager { border-color: var(--lane-hiring-manager); }
+        .step-block.lane-hiring-manager .step-number { background: var(--lane-hiring-manager); }
+        .step-block.start { border-color: var(--geodis-green); background: linear-gradient(135deg, #D1FAE5, #ECFDF5); }
+        .step-block.start .step-number { background: var(--geodis-green); }
+        .step-block.end { border-color: var(--geodis-green); background: linear-gradient(135deg, #D1FAE5, #ECFDF5); }
+        .step-block.end .step-number { background: var(--geodis-green); }
+        .step-block.reject { border-color: var(--geodis-red); background: #FEE2E2; }
+        .step-block.reject .step-number { background: var(--geodis-red); }
+        .step-block.highlighted { animation: pulseGlow 2s ease-in-out infinite; }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: var(--shadow); } 50% { box-shadow: 0 0 20px rgba(50, 0, 235, 0.4); } }
+        .step-header { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem; }
+        .step-number { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: var(--white); }
+        .step-icon { font-size: 0.75rem; opacity: 0.7; }
+        .step-title { font-size: 0.75rem; font-weight: 600; color: var(--gray-800); }
+        .step-meta { font-size: 0.65rem; color: var(--gray-500); margin-top: 0.25rem; display: flex; align-items: center; gap: 0.3rem; }
+        .decision-block { position: absolute; width: 80px; height: 80px; z-index: 60; cursor: pointer; }
+        .decision-diamond { width: 55px; height: 55px; background: var(--white); border: 2.5px solid var(--geodis-orange); transform: rotate(45deg); position: absolute; top: 12px; left: 12px; box-shadow: var(--shadow); transition: var(--transition); }
+        .decision-block:hover .decision-diamond { transform: rotate(45deg) scale(1.1); box-shadow: var(--shadow-lg); }
+        .decision-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 2; }
+        .decision-content .decision-id { font-size: 0.7rem; font-weight: 700; color: var(--geodis-orange); }
+        .decision-content span { display: block; font-size: 0.6rem; font-weight: 600; color: var(--gray-600); }
+
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: var(--transition); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-width: 600px; width: 90%; max-height: 85vh; overflow: hidden; transform: scale(0.9); transition: var(--transition); }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-header { background: linear-gradient(135deg, var(--geodis-blue), var(--geodis-blue-dark)); color: var(--white); padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .modal-header h3 { display: flex; align-items: center; gap: 0.75rem; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; }
+        .modal-icon { width: 40px; height: 40px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .modal-close { background: rgba(255, 255, 255, 0.2); border: none; color: var(--white); width: 36px; height: 36px; border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .modal-close:hover { background: rgba(255, 255, 255, 0.3); }
+        .modal-body { padding: 1.5rem; overflow-y: auto; max-height: calc(85vh - 80px); }
+        .modal-section { margin-bottom: 1.25rem; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .modal-section h4 { font-size: 0.8rem; font-weight: 600; color: var(--geodis-blue); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .modal-section h4 i { color: var(--geodis-orange); font-size: 0.75rem; }
+        .modal-section p { color: var(--gray-600); font-size: 0.875rem; line-height: 1.6; }
+        .info-row { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .info-box { flex: 1; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 0.75rem; }
+        .info-box label { display: block; font-size: 0.65rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.2rem; }
+        .info-box span { font-size: 0.85rem; font-weight: 600; color: var(--gray-800); }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .tag { background: var(--geodis-blue-light); border: 1px solid var(--geodis-blue); padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.7rem; color: var(--geodis-blue-dark); font-weight: 500; }
+        .rule-list { list-style: none; }
+        .rule-list li { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.4rem 0; font-size: 0.8rem; color: var(--gray-600); border-bottom: 1px solid var(--gray-100); }
+        .rule-list li:last-child { border-bottom: none; }
+        .rule-list li i { color: var(--geodis-orange); margin-top: 0.2rem; font-size: 0.7rem; }
+
+        .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .info-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1rem; }
+        .info-card h4 { font-size: 0.85rem; font-weight: 600; color: var(--geodis-blue); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .info-card h4 i { color: var(--geodis-orange); }
+        .info-card ul { list-style: none; font-size: 0.8rem; color: var(--gray-600); }
+        .info-card li { padding: 0.3rem 0; display: flex; align-items: flex-start; gap: 0.5rem; }
+        .info-card li i { color: var(--geodis-green); margin-top: 3px; font-size: 0.7rem; }
+        .footer { background: white; border-top: 1px solid var(--gray-200); margin-top: auto; }
+        .footer-content { padding: 1.5rem 2rem; }
+        .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+        .footer-copyright { font-size: 0.875rem; color: var(--gray-600); }
+        .footer-nav { display: flex; gap: 1rem; }
+        .footer-nav a { font-size: 0.8rem; color: var(--geodis-blue); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--gray-100); }
+        ::-webkit-scrollbar-thumb { background: var(--gray-400); border-radius: 5px; }
+        @media (max-width: 768px) { .nav-links, .phase-stats { display: none; } .lane-label { width: 120px; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://d25zu39ynyitwy.cloudfront.net/oms/000000/image/2024/8/6RPG2_Logo/Logo_-1x-1.png" alt="GEODIS Logo" class="geodis-logo">
+                <div class="logo-divider">
+                    <svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/><path d="M9 14l2 2 4-4"/></svg>
+                    <div class="app-title"><h1>Decision Flowchart</h1><p>Phase 6: Hire & Preboarding</p></div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="nav-links">
+                    <a href="Decision_Flowchart_01_Requisition.html" class="nav-link"><i class="fas fa-file-signature"></i> Requisition</a>
+                    <a href="Decision_Flowchart_02_Posting.html" class="nav-link"><i class="fas fa-bullhorn"></i> Posting</a>
+                    <a href="Decision_Flowchart_03_Screening.html" class="nav-link"><i class="fas fa-filter"></i> Screening</a>
+                    <a href="Decision_Flowchart_04_Interview.html" class="nav-link"><i class="fas fa-comments"></i> Interview</a>
+                    <a href="Decision_Flowchart_05_Offer.html" class="nav-link"><i class="fas fa-file-contract"></i> Offer</a>
+                    <a href="Decision_Flowchart_06_Hire.html" class="nav-link active"><i class="fas fa-user-plus"></i> Hire</a>
+                </div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
+                    <button class="zoom-btn" onclick="resetZoom()"><i class="fas fa-compress-arrows-alt"></i></button>
+                    <button class="zoom-btn" onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="phase-header">
+            <div class="phase-info">
+                <h2><span class="phase-icon"><i class="fas fa-user-plus"></i></span>Phase 6: Hire & Preboarding</h2>
+                <p><strong>GEODIS Policy:</strong> Parallel preboarding tracks: BGC via Sterling (68% &lt;1 day), IT/Equipment provisioning via Coupa, Day 1 preparation. Convert to employee on start date.</p>
+            </div>
+            <div class="phase-stats">
+                <div class="stat-box"><div class="value">12</div><div class="label">Steps</div></div>
+                <div class="stat-box orange"><div class="value">2</div><div class="label">Decisions</div></div>
+                <div class="stat-box green"><div class="value">68%</div><div class="label">BGC &lt;1 Day</div></div>
+            </div>
+        </div>
+
+        <div class="swimlane-wrapper">
+            <div class="swimlane-legend">
+                <div class="legend-title"><i class="fas fa-shapes"></i> Legend:</div>
+                <div class="legend-items">
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--geodis-green);"></div><span>Start/End</span></div>
+                    <div class="legend-item"><div class="legend-shape diamond"></div><span>Decision</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-blue);"></div><span>Sequential</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-purple);"></div><span>Parallel</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-green);"></div><span>Pass</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-red);"></div><span>Fail/Rescind</span></div>
+                </div>
+            </div>
+
+            <div class="swimlane-canvas" id="canvas">
+                <div class="swimlane-diagram" id="diagram">
+                    <div class="lane-labels">
+                        <div class="lane-label lane-hr"><div class="lane-icon"><i class="fas fa-user-shield"></i></div><div class="lane-info"><h4>HR Ops</h4><span>Initiates preboarding</span></div></div>
+                        <div class="lane-label lane-external"><div class="lane-icon"><i class="fas fa-shield-alt"></i></div><div class="lane-info"><h4>Sterling / Coupa</h4><span>BGC & Equipment</span></div></div>
+                        <div class="lane-label lane-candidate"><div class="lane-icon"><i class="fas fa-user"></i></div><div class="lane-info"><h4>New Hire</h4><span>Completes tasks</span></div></div>
+                        <div class="lane-label lane-system"><div class="lane-icon"><i class="fas fa-cog"></i></div><div class="lane-info"><h4>System</h4><span>Convert & provision</span></div></div>
+                        <div class="lane-label lane-it"><div class="lane-icon"><i class="fas fa-laptop"></i></div><div class="lane-info"><h4>IT / Facilities</h4><span>Access & workspace</span></div></div>
+                        <div class="lane-label lane-hiring-manager"><div class="lane-icon"><i class="fas fa-user-tie"></i></div><div class="lane-info"><h4>Hiring Manager</h4><span>Day 1 welcome</span></div></div>
+                    </div>
+
+                    <div class="lanes-content" id="lanesContent">
+                        <svg class="connectors-layer" id="connectors"></svg>
+                        <div class="lane-row lane-hr" id="lane0"></div>
+                        <div class="lane-row lane-external" id="lane1"></div>
+                        <div class="lane-row lane-candidate" id="lane2"></div>
+                        <div class="lane-row lane-system" id="lane3"></div>
+                        <div class="lane-row lane-it" id="lane4"></div>
+                        <div class="lane-row lane-hiring-manager" id="lane5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-cards">
+            <div class="info-card">
+                <h4><i class="fas fa-code-branch"></i> Decision Points</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> <strong>D1:</strong> BGC Pass/Fail (Sterling - 68% &lt;1 day)</li>
+                    <li><i class="fas fa-check"></i> <strong>D2:</strong> All Preboarding Complete?</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-stream"></i> Parallel Tracks</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> <strong>BGC:</strong> Sterling background check</li>
+                    <li><i class="fas fa-check"></i> <strong>Equipment:</strong> Coupa laptop/phone order</li>
+                    <li><i class="fas fa-check"></i> <strong>IT:</strong> AD, email, system access</li>
+                    <li><i class="fas fa-check"></i> <strong>Facilities:</strong> Workspace, badge, parking</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-clipboard-check"></i> New Hire Forms</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> I-9 Employment Eligibility</li>
+                    <li><i class="fas fa-check"></i> W-4 Tax Withholding</li>
+                    <li><i class="fas fa-check"></i> Direct Deposit Setup</li>
+                    <li><i class="fas fa-check"></i> Emergency Contact</li>
+                    <li><i class="fas fa-check"></i> Policy Acknowledgements</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-copyright">&copy; 2024 GEODIS - HCM Recruitment Decision Flowchart</div>
+                <div class="footer-nav">
+                    <a href="Decision_Flowchart_05_Offer.html"><i class="fas fa-arrow-left"></i> Prev: Offer</a>
+                    <a href="GEODIS_Recruitment_Swimlane_Connected.html"><i class="fas fa-project-diagram"></i> Full Swimlane</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><span class="modal-icon" id="modalIcon"></span><span id="modalTitleText">Step Title</span></h3>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const LANE_HEIGHT = 120, STEP_WIDTH = 140, V_CENTER = 60;
+
+        // Steps data with detailed GEODIS process information
+        const steps = [
+            { id: 'start', lane: 0, x: 30, label: 'FROM OFFER', icon: 'fa-play', type: 'start', meta: 'Accepted',
+              desc: 'Offer accepted via DocuSign. Preboarding phase begins immediately. Multiple parallel tracks initiated to ensure new hire is ready for Day 1. Time between offer acceptance and start date typically 2-4 weeks.',
+              owner: 'HR Ops', duration: 'Transition', systems: ['Oracle HCM', 'DocuSign'],
+              rules: ['Offer must be signed', 'Start date confirmed', 'Parallel tracks initiated immediately'],
+              goodPractice: 'Start preboarding immediately upon offer acceptance to maximize readiness for Day 1.' },
+
+            { id: 's1', lane: 0, x: 200, label: 'Init Preboard', num: '1', icon: 'fa-tasks', meta: 'Parallel',
+              desc: 'HR Ops initiates parallel preboarding tracks: Background Check (Sterling), Equipment ordering (Coupa), IT access provisioning (AD/Email), and Facilities setup. All tracks run concurrently to minimize time to Day 1.',
+              owner: 'HR Ops', duration: '1 day', systems: ['Oracle HCM', 'Sterling', 'Coupa', 'ServiceNow'],
+              rules: ['Initiate all tracks same day', 'Track progress in system', 'Escalate delays immediately'],
+              goodPractice: 'Parallel processing of preboarding tracks reduces time-to-productivity significantly.',
+              highlighted: true },
+
+            { id: 's2a', lane: 1, x: 400, label: 'Sterling BGC', num: '2a', icon: 'fa-shield-alt', meta: '68% <1 day',
+              desc: 'Sterling initiates background check package based on role requirements. Standard package includes: criminal history, employment verification, education verification. 68% of BGCs complete in less than 1 day. Extended checks for sensitive roles.',
+              owner: 'Sterling', duration: '68% <1 day', systems: ['Sterling', 'Oracle HCM Integration'],
+              rules: ['Package based on role level', 'Criminal history check', 'Employment verification', 'Education verification for roles requiring'],
+              goodPractice: 'Sterling provides fast turnaround - 68% of background checks complete within 1 day.' },
+
+            { id: 's2b', lane: 1, x: 680, label: 'Order Equip', num: '2b', icon: 'fa-box', meta: 'Coupa',
+              desc: 'Equipment ordered through Coupa based on role requirements: laptop, mobile phone, monitors, peripherals. Standard equipment packages defined by role type. Ship to office or home based on work arrangement.',
+              owner: 'Procurement / Coupa', duration: '3-5 days', systems: ['Coupa', 'IT Asset Management'],
+              rules: ['Standard packages by role', 'Approval workflow', 'Ship to work location', 'Asset tagging required'],
+              goodPractice: 'Order equipment immediately to ensure availability before start date.' },
+
+            { id: 's2c', lane: 4, x: 400, label: 'Create Access', num: '2c', icon: 'fa-key', meta: 'AD/Email',
+              desc: 'IT creates Active Directory account, email address, and provisions access to required systems based on role. Access profile determined by job code and department. VPN access configured for remote workers.',
+              owner: 'IT Operations', duration: '1-2 days', systems: ['Active Directory', 'Exchange', 'ServiceNow'],
+              rules: ['Role-based access profile', 'Email created from naming convention', 'VPN for remote workers', 'System access per job code'],
+              goodPractice: 'Access provisioning should complete before equipment arrives to enable immediate productivity.' },
+
+            { id: 'd1', lane: 1, x: 580, label: 'BGC Pass?', type: 'decision', icon: 'fa-question',
+              desc: 'Decision point: Did candidate pass background check? Sterling provides clear/adverse finding. Adverse findings reviewed by HR and Legal before final decision. Most candidates pass (>95%).',
+              owner: 'Sterling / HR', duration: 'Auto', systems: ['Sterling', 'Oracle HCM'],
+              rules: ['Clear = proceed', 'Adverse = HR/Legal review', 'Candidate notification required', 'Appeal process available'],
+              goodPractice: 'Most BGCs return clear. Adverse findings require careful review before any action.' },
+
+            { id: 'rescind', lane: 0, x: 780, label: 'Rescind Offer', icon: 'fa-times', type: 'reject', meta: 'BGC Failed',
+              desc: 'Offer rescinded due to adverse background check findings. Candidate notified per legal requirements. Pre-adverse action notice sent first, allowing candidate to dispute. Final adverse action if confirmed.',
+              owner: 'HR / Legal', duration: '5-7 days', systems: ['Oracle HCM', 'Sterling', 'Legal'],
+              rules: ['Pre-adverse action notice required', 'Candidate dispute period', 'Final adverse action letter', 'Documentation retained'],
+              goodPractice: 'Follow strict legal process for adverse actions. Document all steps thoroughly.' },
+
+            { id: 's3', lane: 2, x: 780, label: 'BGC Consent', num: '3', icon: 'fa-file-signature', meta: 'Data',
+              desc: 'New hire completes BGC consent forms and provides required data: SSN, addresses, employment history, education details. Sterling portal provides secure data collection. Data retained per compliance requirements.',
+              owner: 'New Hire', duration: '1-2 days', systems: ['Sterling Portal', 'Secure Forms'],
+              rules: ['Consent required before check', 'Secure data collection', 'Data accuracy critical', 'Privacy protected'],
+              goodPractice: 'Prompt completion of BGC consent ensures faster processing and earlier clearance.' },
+
+            { id: 's4', lane: 2, x: 980, label: 'Complete Forms', num: '4', icon: 'fa-clipboard-list', meta: 'I-9, W-4',
+              desc: 'New hire completes all onboarding forms in Oracle HCM Journeys: I-9 Employment Eligibility, W-4 Tax Withholding, Direct Deposit, Emergency Contacts, Policy Acknowledgements, Benefits Enrollment (if applicable).',
+              owner: 'New Hire', duration: '2-3 days', systems: ['Oracle HCM Journeys', 'E-Verify'],
+              rules: ['I-9 within 3 days of start', 'W-4 before first payroll', 'Direct deposit setup', 'Policy acknowledgements required'],
+              goodPractice: 'Complete forms before Day 1 when possible to focus on training and integration.',
+              highlighted: true },
+
+            { id: 's5', lane: 2, x: 1180, label: 'Receive Equip', num: '5', icon: 'fa-box-open', meta: 'Setup',
+              desc: 'New hire receives equipment (laptop, phone, peripherals) and completes initial setup. IT support available for configuration assistance. Asset acceptance documented. Software installation automated via MDM.',
+              owner: 'New Hire / IT', duration: '1 day', systems: ['Coupa', 'IT Asset Management', 'MDM'],
+              rules: ['Asset receipt confirmation', 'Initial setup completion', 'Security software verification', 'Network connectivity test'],
+              goodPractice: 'Test all equipment before Day 1 to resolve any issues proactively.' },
+
+            { id: 's6', lane: 3, x: 1180, label: 'Validate All', num: '6', icon: 'fa-check-double', meta: 'Check',
+              desc: 'System validates all preboarding tasks complete: BGC cleared, forms submitted, equipment received, access provisioned, workspace ready. Dashboard shows readiness status. Blockers flagged for action.',
+              owner: 'Oracle System', duration: 'Auto', systems: ['Oracle HCM', 'Preboarding Dashboard'],
+              rules: ['All tracks must complete', 'Blockers escalated', 'Manager notified of status', 'Day 1 confirmed'],
+              goodPractice: 'Automated validation ensures nothing is missed before Day 1.' },
+
+            { id: 's7', lane: 4, x: 680, label: 'Workspace', num: '7', icon: 'fa-building', meta: 'Badge',
+              desc: 'Facilities prepares physical workspace: desk assignment, badge/access card, parking permit (if applicable), office supplies. Building access configured. Remote workers receive home office setup guidance.',
+              owner: 'Facilities', duration: '2-3 days', systems: ['Facilities Management', 'Access Control'],
+              rules: ['Desk assignment', 'Badge creation', 'Building access', 'Parking if applicable'],
+              goodPractice: 'Prepared workspace creates positive first impression and immediate productivity.' },
+
+            { id: 'd2', lane: 3, x: 1400, label: 'Ready?', type: 'decision', icon: 'fa-question',
+              desc: 'Decision point: Are all preboarding tasks complete and ready for Day 1? System checks: BGC clear, forms done, equipment received, access active, workspace ready. Green = proceed, any red = action required.',
+              owner: 'System / HR', duration: 'Auto', systems: ['Oracle HCM', 'Preboarding Dashboard'],
+              rules: ['All checks must be green', 'Any blockers require action', 'Start date may need adjustment if not ready'],
+              goodPractice: 'Review readiness 3 days before start date to allow time for issue resolution.' },
+
+            { id: 's8', lane: 3, x: 1600, label: 'Convert EE', num: '8', icon: 'fa-user-plus', meta: 'Day 1',
+              desc: 'System converts candidate to employee record on start date. Worker type changes from Candidate to Employee. Full Oracle HCM record created with position, compensation, org assignment. Payroll activated.',
+              owner: 'Oracle System', duration: 'Auto', systems: ['Oracle HCM', 'Payroll'],
+              rules: ['Automatic conversion on start date', 'Full employee record created', 'Payroll activated', 'Benefits enrollment finalizes'],
+              goodPractice: 'Automated conversion ensures seamless transition from candidate to employee.',
+              highlighted: true },
+
+            { id: 's9', lane: 5, x: 1600, label: 'Day 1 Welcome', num: '9', icon: 'fa-handshake', meta: 'Onboard',
+              desc: 'Hiring Manager welcomes new employee on Day 1. Team introductions, workspace tour, first day agenda. Review 30-60-90 day plan. Set expectations and initial goals. Lunch with team recommended.',
+              owner: 'Hiring Manager', duration: 'Day 1', systems: ['Oracle HCM', 'Calendar'],
+              rules: ['Manager must be available', 'Team introductions', 'First week agenda reviewed', 'Goals discussed'],
+              goodPractice: 'Manager engagement on Day 1 sets tone for successful employment relationship.' },
+
+            { id: 's10', lane: 5, x: 1820, label: 'Assign Mentor', num: '10', icon: 'fa-chalkboard-teacher', meta: 'Guide',
+              desc: 'Assign buddy/mentor to guide new employee through first weeks. Mentor helps with cultural integration, informal knowledge sharing, and navigating the organization. Check-ins scheduled weekly.',
+              owner: 'Hiring Manager', duration: 'Week 1', systems: ['Oracle HCM', 'Mentoring Program'],
+              rules: ['Mentor assigned by Day 1', 'Weekly check-ins scheduled', 'Mentor training completed', 'Feedback collected'],
+              goodPractice: 'Buddy program accelerates integration and reduces time-to-productivity by 25%.' },
+
+            { id: 'end', lane: 2, x: 2020, label: 'ONBOARDED', icon: 'fa-flag-checkered', type: 'end', meta: 'Complete',
+              desc: 'Employee successfully onboarded! Preboarding complete, Day 1 welcome done, mentor assigned. Transition to regular employee lifecycle in Oracle HCM. Performance management, learning, and development begin.',
+              owner: 'System', duration: 'Complete', systems: ['Oracle HCM', 'Learning', 'Performance'],
+              rules: ['All preboarding tasks complete', 'Day 1 activities done', 'Mentor assigned', 'Employee lifecycle begins'],
+              goodPractice: 'Successful onboarding leads to higher engagement and retention in first year.' }
+        ];
+
+        const connections = [
+            { from: 'start', to: 's1', type: 'forward' },
+            { from: 's1', to: 's2a', type: 'parallel', label: 'BGC' },
+            { from: 's1', to: 's2b', type: 'parallel', label: 'Equip' },
+            { from: 's1', to: 's2c', type: 'parallel', label: 'IT' },
+            { from: 's2a', to: 'd1', type: 'forward' },
+            { from: 'd1', to: 'rescind', type: 'no', label: 'Fail' },
+            { from: 'd1', to: 's3', type: 'yes', label: 'Pass' },
+            { from: 's3', to: 's4', type: 'forward' },
+            { from: 's2b', to: 's5', type: 'forward' },
+            { from: 's4', to: 's6', type: 'forward' },
+            { from: 's5', to: 's6', type: 'forward' },
+            { from: 's2c', to: 's7', type: 'forward' },
+            { from: 's7', to: 's6', type: 'forward' },
+            { from: 's6', to: 'd2', type: 'forward' },
+            { from: 'd2', to: 's8', type: 'yes', label: 'Ready' },
+            { from: 's8', to: 's9', type: 'forward' },
+            { from: 's9', to: 's10', type: 'forward' },
+            { from: 's10', to: 'end', type: 'yes' }
+        ];
+
+        const stepsMap = {};
+        steps.forEach(s => stepsMap[s.id] = s);
+        const laneClasses = ['lane-hr', 'lane-external', 'lane-candidate', 'lane-system', 'lane-it', 'lane-hiring-manager'];
+
+        function init() {
+            const lanesContent = document.getElementById('lanesContent');
+            const maxX = Math.max(...steps.map(s => s.x)) + STEP_WIDTH + 100;
+            lanesContent.style.minWidth = maxX + 'px';
+
+            steps.forEach(step => {
+                const laneRow = document.getElementById('lane' + step.lane);
+                if (!laneRow) return;
+                const laneClass = laneClasses[step.lane];
+
+                if (step.type === 'decision') {
+                    const block = document.createElement('div');
+                    block.className = 'decision-block';
+                    block.style.left = step.x + 'px';
+                    block.style.top = (V_CENTER - 40) + 'px';
+                    block.innerHTML = `<div class="decision-diamond"></div><div class="decision-content"><div class="decision-id">${step.id.toUpperCase()}</div><span>${step.label}</span></div>`;
+                    block.onclick = () => showStepModal(step, laneClass);
+                    laneRow.appendChild(block);
+                } else {
+                    const block = document.createElement('div');
+                    let blockClass = 'step-block';
+                    if (step.type === 'start') blockClass += ' start';
+                    else if (step.type === 'end') blockClass += ' end';
+                    else if (step.type === 'reject') blockClass += ' reject';
+                    else blockClass += ' ' + laneClass;
+                    if (step.highlighted) blockClass += ' highlighted';
+
+                    block.className = blockClass;
+                    block.style.left = step.x + 'px';
+                    block.style.top = (V_CENTER - 35) + 'px';
+
+                    const numContent = step.num ? step.num : `<i class="fas ${step.icon}"></i>`;
+                    const iconHtml = step.num ? `<i class="fas ${step.icon} step-icon"></i>` : '';
+
+                    block.innerHTML = `<div class="step-header"><span class="step-number">${numContent}</span>${iconHtml}</div><div class="step-title">${step.label}</div><div class="step-meta"><i class="fas fa-info-circle"></i> ${step.meta}</div>`;
+                    block.onclick = () => showStepModal(step, laneClass);
+                    laneRow.appendChild(block);
+                }
+            });
+
+            drawConnections();
+        }
+
+        function drawConnections() {
+            const svg = document.getElementById('connectors');
+            const maxX = Math.max(...steps.map(s => s.x)) + STEP_WIDTH + 100;
+            const totalHeight = 6 * LANE_HEIGHT;
+            svg.setAttribute('viewBox', `0 0 ${maxX} ${totalHeight}`);
+            svg.style.width = maxX + 'px';
+            svg.style.height = totalHeight + 'px';
+
+            let svgContent = '';
+
+            connections.forEach(conn => {
+                const from = stepsMap[conn.from];
+                const to = stepsMap[conn.to];
+                if (!from || !to) return;
+
+                const fromIsDecision = from.type === 'decision';
+                let fromX, fromY, toX, toY;
+
+                if (fromIsDecision) {
+                    fromX = from.x + 40;
+                    fromY = from.lane * LANE_HEIGHT + V_CENTER;
+                    if (conn.type === 'yes') {
+                        if (to.lane > from.lane) fromY = from.lane * LANE_HEIGHT + V_CENTER + 28;
+                        else if (to.lane < from.lane) fromY = from.lane * LANE_HEIGHT + V_CENTER - 28;
+                        else fromX = from.x + 80;
+                    } else if (conn.type === 'no') { fromY = from.lane * LANE_HEIGHT + V_CENTER - 28; }
+                    else { fromX = from.x + 80; }
+                } else {
+                    fromX = from.x + STEP_WIDTH;
+                    fromY = from.lane * LANE_HEIGHT + V_CENTER;
+                    if (to.lane > from.lane) { fromX = from.x + STEP_WIDTH / 2; fromY = from.lane * LANE_HEIGHT + V_CENTER + 35; }
+                    else if (to.lane < from.lane) { fromX = from.x + STEP_WIDTH / 2; fromY = from.lane * LANE_HEIGHT + V_CENTER - 35; }
+                }
+
+                const toIsDecision = to.type === 'decision';
+                if (toIsDecision) {
+                    toX = to.x; toY = to.lane * LANE_HEIGHT + V_CENTER;
+                    if (from.lane !== to.lane) {
+                        if (from.lane < to.lane) toY = to.lane * LANE_HEIGHT + V_CENTER - 28;
+                        else toY = to.lane * LANE_HEIGHT + V_CENTER + 28;
+                        toX = to.x + 40;
+                    }
+                } else {
+                    toX = to.x; toY = to.lane * LANE_HEIGHT + V_CENTER;
+                    if (from.lane < to.lane) { toX = to.x + STEP_WIDTH / 2; toY = to.lane * LANE_HEIGHT + V_CENTER - 35; }
+                    else if (from.lane > to.lane) { toX = to.x + STEP_WIDTH / 2; toY = to.lane * LANE_HEIGHT + V_CENTER + 35; }
+                }
+
+                let pathD;
+                if (from.lane === to.lane) pathD = `M ${fromX} ${fromY} L ${toX} ${toY}`;
+                else { const midX = fromX + (toX - fromX) / 2; pathD = `M ${fromX} ${fromY} C ${midX} ${fromY}, ${midX} ${toY}, ${toX} ${toY}`; }
+                svgContent += `<path d="${pathD}" class="connector-path ${conn.type}"/>`;
+
+                const arrowColor = conn.type === 'yes' ? '#10B981' : conn.type === 'no' ? '#EF4444' : conn.type === 'parallel' ? '#8B5CF6' : '#3200eb';
+                let angle = Math.atan2(toY - fromY, toX - fromX);
+                if (from.lane !== to.lane) { if (toY > fromY) angle = Math.PI / 2; else if (toY < fromY) angle = -Math.PI / 2; }
+                const arrowSize = 8;
+                svgContent += `<polygon points="${toX},${toY} ${toX - arrowSize * Math.cos(angle - 0.4)},${toY - arrowSize * Math.sin(angle - 0.4)} ${toX - arrowSize * Math.cos(angle + 0.4)},${toY - arrowSize * Math.sin(angle + 0.4)}" fill="${arrowColor}"/>`;
+                if (conn.label) svgContent += `<text x="${fromX + (toX - fromX) * 0.5}" y="${fromY + (toY - fromY) * 0.5 - 8}" class="connector-label" fill="${arrowColor}">${conn.label}</text>`;
+            });
+
+            svg.innerHTML = svgContent;
+        }
+
+        function showStepModal(step, laneClass) {
+            const modal = document.getElementById('modal');
+            const icon = document.getElementById('modalIcon');
+            const title = document.getElementById('modalTitleText');
+            const body = document.getElementById('modalBody');
+
+            const colorMap = { 'lane-hr': 'var(--lane-hr)', 'lane-external': 'var(--lane-external)', 'lane-candidate': 'var(--lane-candidate)', 'lane-system': 'var(--lane-system)', 'lane-it': 'var(--lane-it)', 'lane-hiring-manager': 'var(--lane-hiring-manager)' };
+            let iconColor = colorMap[laneClass] || 'var(--geodis-blue)';
+            if (step.type === 'start' || step.type === 'end') iconColor = 'var(--geodis-green)';
+            if (step.type === 'reject') iconColor = 'var(--geodis-red)';
+            if (step.type === 'decision') iconColor = 'var(--geodis-orange)';
+
+            icon.style.background = iconColor;
+            icon.innerHTML = `<i class="fas ${step.icon || 'fa-question'}"></i>`;
+            title.textContent = step.label;
+
+            const systemsTags = (step.systems || ['Oracle HCM']).map(s => `<span class="tag">${s}</span>`).join('');
+            const rulesList = (step.rules || ['Follow GEODIS standard process']).map(r => `<li><i class="fas fa-check-circle"></i> ${r}</li>`).join('');
+            const goodPracticeHtml = step.goodPractice ? `<div class="modal-section" style="background: var(--geodis-orange-light); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--geodis-orange);"><h4 style="color: var(--geodis-orange);"><i class="fas fa-lightbulb"></i> GEODIS Good Practice</h4><p style="font-style: italic; color: var(--gray-700);">"${step.goodPractice}"</p></div>` : '';
+
+            body.innerHTML = `
+                <div class="modal-section"><h4><i class="fas fa-info-circle"></i> Description</h4><p>${step.desc}</p></div>
+                <div class="info-row"><div class="info-box"><label>Owner</label><span>${step.owner}</span></div><div class="info-box"><label>Duration</label><span>${step.duration}</span></div></div>
+                <div class="modal-section"><h4><i class="fas fa-cog"></i> Systems</h4><div class="tag-list">${systemsTags}</div></div>
+                <div class="modal-section"><h4><i class="fas fa-gavel"></i> Key Rules</h4><ul class="rule-list">${rulesList}</ul></div>
+                ${goodPracticeHtml}`;
+            modal.classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('modal').classList.remove('active'); }
+
+        let currentZoom = 1;
+        function zoomIn() { currentZoom = Math.min(currentZoom + 0.1, 2); document.getElementById('diagram').style.transform = `scale(${currentZoom})`; }
+        function zoomOut() { currentZoom = Math.max(currentZoom - 0.1, 0.5); document.getElementById('diagram').style.transform = `scale(${currentZoom})`; }
+        function resetZoom() { currentZoom = 1; document.getElementById('diagram').style.transform = 'scale(1)'; }
+
+        document.getElementById('modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

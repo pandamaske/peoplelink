@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Flowchart - Screening - GEODIS HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --geodis-blue: #3200eb;
+            --geodis-blue-dark: #2800c0;
+            --geodis-blue-light: #ebe6ff;
+            --geodis-orange: #eb692b;
+            --geodis-orange-light: #fff5f0;
+            --geodis-purple: #8B5CF6;
+            --geodis-green: #10B981;
+            --geodis-red: #EF4444;
+
+            --lane-system: #6B7280;
+            --lane-system-light: #F3F4F6;
+            --lane-recruiter: #F59E0B;
+            --lane-recruiter-light: #FEF3C7;
+            --lane-candidate: #10B981;
+            --lane-candidate-light: #D1FAE5;
+            --lane-hiring-manager: #3B82F6;
+            --lane-hiring-manager-light: #DBEAFE;
+
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --white: #FFFFFF;
+
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+            --radius: 8px;
+            --radius-sm: 4px;
+            --radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --lane-height: 120px;
+            --step-width: 140px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F9FAFB;
+            min-height: 100vh;
+            color: var(--gray-800);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: white;
+            border-bottom: 1px solid #E5E7EB;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            height: 72px;
+            gap: 2rem;
+        }
+
+        .logo-section { display: flex; align-items: center; gap: 0.75rem; }
+        .geodis-logo { height: 40px; }
+
+        .logo-divider {
+            border-left: 2px solid #E5E7EB;
+            padding-left: 0.75rem;
+            margin-left: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .app-icon { width: 40px; height: 40px; color: var(--geodis-orange); }
+        .app-title h1 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--geodis-blue-dark); }
+        .app-title p { font-size: 0.75rem; color: #6B7280; }
+
+        .header-controls { margin-left: auto; display: flex; gap: 1rem; align-items: center; }
+        .nav-links { display: flex; gap: 0.5rem; }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            background: var(--gray-100);
+            color: var(--gray-600);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover { background: var(--gray-200); color: var(--gray-800); }
+        .nav-link.active { background: var(--geodis-blue); color: var(--white); }
+
+        .zoom-controls { display: flex; gap: 0.25rem; background: var(--gray-100); border-radius: var(--radius); padding: 4px; }
+
+        .zoom-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-btn:hover { background: var(--gray-200); color: var(--geodis-blue); }
+
+        .main-content { flex: 1; padding: 2rem; }
+
+        .phase-header {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .phase-info h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .phase-info h2 .phase-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--geodis-blue), var(--geodis-blue-dark));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .phase-info p { color: var(--gray-600); margin-top: 0.25rem; margin-left: 52px; }
+
+        .phase-stats { display: flex; gap: 1rem; }
+
+        .stat-box {
+            background: var(--geodis-blue-light);
+            border: 1px solid var(--geodis-blue);
+            border-radius: var(--radius);
+            padding: 0.75rem 1.25rem;
+            text-align: center;
+        }
+
+        .stat-box .value { font-size: 1.25rem; font-weight: 700; color: var(--geodis-blue); }
+        .stat-box .label { font-size: 0.7rem; color: var(--geodis-blue-dark); text-transform: uppercase; }
+        .stat-box.orange { background: var(--geodis-orange-light); border-color: var(--geodis-orange); }
+        .stat-box.orange .value, .stat-box.orange .label { color: var(--geodis-orange); }
+
+        .swimlane-wrapper { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; }
+
+        .swimlane-legend {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(to right, var(--gray-50), var(--white));
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .legend-title { font-weight: 600; color: var(--geodis-blue); font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
+        .legend-items { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--gray-600); }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .legend-shape.diamond { width: 14px; height: 14px; background: var(--geodis-orange-light); border: 2px solid var(--geodis-orange); transform: rotate(45deg); }
+        .legend-line { width: 30px; height: 3px; border-radius: 2px; }
+
+        .swimlane-canvas { position: relative; overflow-x: auto; overflow-y: hidden; }
+        .swimlane-diagram { display: flex; min-width: max-content; position: relative; }
+
+        .lane-labels {
+            position: sticky;
+            left: 0;
+            z-index: 100;
+            background: var(--white);
+            border-right: 2px solid var(--gray-200);
+            box-shadow: 4px 0 8px rgba(0,0,0,0.05);
+        }
+
+        .lane-label {
+            height: var(--lane-height);
+            width: 180px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .lane-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        .lane-info h4 { font-size: 0.8rem; font-weight: 600; color: var(--gray-800); }
+        .lane-info span { font-size: 0.7rem; color: var(--gray-500); }
+
+        .lanes-content { flex: 1; position: relative; }
+
+        .connectors-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+        .connector-path { fill: none; stroke-width: 2; stroke-linecap: round; }
+        .connector-path.forward { stroke: var(--geodis-blue); }
+        .connector-path.yes { stroke: var(--geodis-green); stroke-width: 2.5; }
+        .connector-path.no { stroke: var(--geodis-red); stroke-width: 2.5; }
+        .connector-path.return { stroke: var(--geodis-red); stroke-dasharray: 8 4; }
+        .connector-path.animated { animation: flowAnimation 1s linear infinite; }
+
+        @keyframes flowAnimation { from { stroke-dashoffset: 12; } to { stroke-dashoffset: 0; } }
+
+        .connector-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; }
+
+        .lane-row { height: var(--lane-height); position: relative; border-bottom: 1px solid var(--gray-100); }
+
+        .lane-row.lane-system { background: var(--lane-system-light); }
+        .lane-row.lane-recruiter { background: var(--lane-recruiter-light); }
+        .lane-row.lane-candidate { background: var(--lane-candidate-light); }
+        .lane-row.lane-hiring-manager { background: var(--lane-hiring-manager-light); }
+
+        .lane-label.lane-system .lane-icon { background: var(--lane-system); }
+        .lane-label.lane-recruiter .lane-icon { background: var(--lane-recruiter); }
+        .lane-label.lane-candidate .lane-icon { background: var(--lane-candidate); }
+        .lane-label.lane-hiring-manager .lane-icon { background: var(--lane-hiring-manager); }
+
+        .step-block {
+            position: absolute;
+            width: var(--step-width);
+            padding: 0.6rem 0.75rem;
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 2px solid;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 60;
+        }
+
+        .step-block:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); z-index: 70; }
+
+        .step-block.lane-system { border-color: var(--lane-system); }
+        .step-block.lane-system .step-number { background: var(--lane-system); }
+        .step-block.lane-recruiter { border-color: var(--lane-recruiter); }
+        .step-block.lane-recruiter .step-number { background: var(--lane-recruiter); }
+        .step-block.lane-candidate { border-color: var(--lane-candidate); }
+        .step-block.lane-candidate .step-number { background: var(--lane-candidate); }
+        .step-block.lane-hiring-manager { border-color: var(--lane-hiring-manager); }
+        .step-block.lane-hiring-manager .step-number { background: var(--lane-hiring-manager); }
+
+        .step-block.start { border-color: var(--geodis-green); background: linear-gradient(135deg, #D1FAE5, #ECFDF5); }
+        .step-block.start .step-number { background: var(--geodis-green); }
+        .step-block.end { border-color: var(--geodis-purple); background: linear-gradient(135deg, #EDE9FE, #F5F3FF); }
+        .step-block.end .step-number { background: var(--geodis-purple); }
+        .step-block.reject { border-color: var(--geodis-red); background: #FEE2E2; }
+        .step-block.reject .step-number { background: var(--geodis-red); }
+        .step-block.highlighted { animation: pulseGlow 2s ease-in-out infinite; }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: var(--shadow); }
+            50% { box-shadow: 0 0 20px rgba(50, 0, 235, 0.4); }
+        }
+
+        .step-header { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem; }
+
+        .step-number {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .step-icon { font-size: 0.75rem; opacity: 0.7; }
+        .step-title { font-size: 0.75rem; font-weight: 600; color: var(--gray-800); }
+        .step-meta { font-size: 0.65rem; color: var(--gray-500); margin-top: 0.25rem; display: flex; align-items: center; gap: 0.3rem; }
+
+        .decision-block { position: absolute; width: 80px; height: 80px; z-index: 60; cursor: pointer; }
+
+        .decision-diamond {
+            width: 55px;
+            height: 55px;
+            background: var(--white);
+            border: 2.5px solid var(--geodis-orange);
+            transform: rotate(45deg);
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .decision-block:hover .decision-diamond { transform: rotate(45deg) scale(1.1); box-shadow: var(--shadow-lg); }
+
+        .decision-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 2; }
+        .decision-content .decision-id { font-size: 0.7rem; font-weight: 700; color: var(--geodis-orange); }
+        .decision-content span { display: block; font-size: 0.6rem; font-weight: 600; color: var(--gray-600); }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            width: 90%;
+            max-height: 85vh;
+            overflow: hidden;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--geodis-blue), var(--geodis-blue-dark));
+            color: var(--white);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .modal-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: var(--white);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: calc(85vh - 80px);
+        }
+
+        .modal-section {
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-section h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--geodis-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-section h4 i {
+            color: var(--geodis-orange);
+            font-size: 0.75rem;
+        }
+
+        .modal-section p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-box {
+            flex: 1;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 0.75rem;
+        }
+
+        .info-box label {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-box span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            background: var(--geodis-blue-light);
+            border: 1px solid var(--geodis-blue);
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: var(--geodis-blue-dark);
+            font-weight: 500;
+        }
+
+        .rule-list {
+            list-style: none;
+        }
+
+        .rule-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.4rem 0;
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .rule-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rule-list li i {
+            color: var(--geodis-orange);
+            margin-top: 0.2rem;
+            font-size: 0.7rem;
+        }
+
+        .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+
+        .info-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1rem; }
+        .info-card h4 { font-size: 0.85rem; font-weight: 600; color: var(--geodis-blue); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .info-card h4 i { color: var(--geodis-orange); }
+        .info-card ul { list-style: none; font-size: 0.8rem; color: var(--gray-600); }
+        .info-card li { padding: 0.3rem 0; display: flex; align-items: flex-start; gap: 0.5rem; }
+        .info-card li i { color: var(--geodis-green); margin-top: 3px; font-size: 0.7rem; }
+        .info-card li i.fa-arrow-left { color: var(--geodis-red); }
+
+        .footer { background: white; border-top: 1px solid var(--gray-200); margin-top: auto; }
+        .footer-content { padding: 1.5rem 2rem; }
+        .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+        .footer-copyright { font-size: 0.875rem; color: var(--gray-600); }
+        .footer-nav { display: flex; gap: 1rem; }
+        .footer-nav a { font-size: 0.8rem; color: var(--geodis-blue); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; }
+
+        .tooltip { position: fixed; background: var(--gray-900); color: var(--white); padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 0.8rem; max-width: 300px; z-index: 2000; pointer-events: none; opacity: 0; transition: opacity 0.2s ease; }
+        .tooltip.visible { opacity: 1; }
+        .tooltip h5 { font-weight: 600; margin-bottom: 0.3rem; color: var(--geodis-orange); }
+        .tooltip p { font-size: 0.75rem; color: var(--gray-300); }
+
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--gray-100); }
+        ::-webkit-scrollbar-thumb { background: var(--gray-400); border-radius: 5px; }
+
+        @media (max-width: 768px) { .nav-links, .phase-stats { display: none; } .lane-label { width: 120px; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://d25zu39ynyitwy.cloudfront.net/oms/000000/image/2024/8/6RPG2_Logo/Logo_-1x-1.png" alt="GEODIS Logo" class="geodis-logo">
+                <div class="logo-divider">
+                    <svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        <path d="M9 14l2 2 4-4"/>
+                    </svg>
+                    <div class="app-title">
+                        <h1>Decision Flowchart</h1>
+                        <p>Phase 3: Screening & Qualification</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="nav-links">
+                    <a href="Decision_Flowchart_01_Requisition.html" class="nav-link"><i class="fas fa-file-signature"></i> Requisition</a>
+                    <a href="Decision_Flowchart_02_Posting.html" class="nav-link"><i class="fas fa-bullhorn"></i> Posting</a>
+                    <a href="Decision_Flowchart_03_Screening.html" class="nav-link active"><i class="fas fa-filter"></i> Screening</a>
+                    <a href="Decision_Flowchart_04_Interview.html" class="nav-link"><i class="fas fa-comments"></i> Interview</a>
+                    <a href="Decision_Flowchart_05_Offer.html" class="nav-link"><i class="fas fa-file-contract"></i> Offer</a>
+                    <a href="Decision_Flowchart_06_Hire.html" class="nav-link"><i class="fas fa-user-plus"></i> Hire</a>
+                </div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
+                    <button class="zoom-btn" onclick="resetZoom()"><i class="fas fa-compress-arrows-alt"></i></button>
+                    <button class="zoom-btn" onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="phase-header">
+            <div class="phase-info">
+                <h2>
+                    <span class="phase-icon"><i class="fas fa-filter"></i></span>
+                    Phase 3: Screening & Qualification
+                </h2>
+                <p><strong>GEODIS Policy:</strong> Auto-screen applications against minimum requirements, then manual recruiter review to build qualified shortlist for hiring manager.</p>
+            </div>
+            <div class="phase-stats">
+                <div class="stat-box"><div class="value">8</div><div class="label">Steps</div></div>
+                <div class="stat-box orange"><div class="value">3</div><div class="label">Decisions</div></div>
+                <div class="stat-box"><div class="value">2</div><div class="label">Loops</div></div>
+            </div>
+        </div>
+
+        <div class="swimlane-wrapper">
+            <div class="swimlane-legend">
+                <div class="legend-title"><i class="fas fa-shapes"></i> Legend:</div>
+                <div class="legend-items">
+                    <div class="legend-item"><div class="legend-dot" style="background: var(--geodis-green);"></div><span>Start/End</span></div>
+                    <div class="legend-item"><div class="legend-shape diamond"></div><span>Decision</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-blue);"></div><span>Forward</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-green);"></div><span>Pass</span></div>
+                    <div class="legend-item"><div class="legend-line" style="background: var(--geodis-red);"></div><span>Reject</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #06B6D4;"></div><span>Paradox (Olivia)*</span></div>
+                </div>
+                <div style="margin-left: auto;">
+                    <a href="Decision_Flowchart_Paradox_Availability.html" style="font-size: 0.75rem; color: var(--geodis-blue); text-decoration: none; display: flex; align-items: center; gap: 0.3rem;">
+                        <i class="fas fa-info-circle"></i> *Paradox not available in all countries
+                    </a>
+                </div>
+            </div>
+
+            <div class="swimlane-canvas" id="canvas">
+                <div class="swimlane-diagram" id="diagram">
+                    <div class="lane-labels">
+                        <div class="lane-label lane-system">
+                            <div class="lane-icon"><i class="fas fa-robot"></i></div>
+                            <div class="lane-info"><h4>System (Auto)</h4><span>KO screening rules</span></div>
+                        </div>
+                        <div class="lane-label lane-recruiter">
+                            <div class="lane-icon"><i class="fas fa-user-friends"></i></div>
+                            <div class="lane-info"><h4>Recruiter</h4><span>Manual review</span></div>
+                        </div>
+                        <div class="lane-label lane-candidate">
+                            <div class="lane-icon"><i class="fas fa-user"></i></div>
+                            <div class="lane-info"><h4>Candidate</h4><span>Phone screen</span></div>
+                        </div>
+                        <div class="lane-label lane-hiring-manager">
+                            <div class="lane-icon"><i class="fas fa-user-tie"></i></div>
+                            <div class="lane-info"><h4>Hiring Manager</h4><span>Reviews shortlist</span></div>
+                        </div>
+                    </div>
+
+                    <div class="lanes-content" id="lanesContent">
+                        <svg class="connectors-layer" id="connectors"></svg>
+
+                        <!-- Lane Rows -->
+                        <div class="lane-row lane-system" id="lane0"></div>
+                        <div class="lane-row lane-recruiter" id="lane1"></div>
+                        <div class="lane-row lane-candidate" id="lane2"></div>
+                        <div class="lane-row lane-hiring-manager" id="lane3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-cards">
+            <div class="info-card">
+                <h4><i class="fas fa-code-branch"></i> Decision Points</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> <strong>D1:</strong> Auto KO Screening (System rules)</li>
+                    <li><i class="fas fa-check"></i> <strong>D2:</strong> Resume Qualification (Recruiter)</li>
+                    <li><i class="fas fa-check"></i> <strong>D3:</strong> Phone Screen Fit (Recruiter)</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-robot"></i> Auto-Screening & Tools</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Work authorization (KO)</li>
+                    <li><i class="fas fa-check"></i> Required certifications (KO)</li>
+                    <li><i class="fas fa-check"></i> Minimum experience years</li>
+                    <li><i class="fas fa-check"></i> <strong>Paradox (Olivia):</strong> AI phone screening</li>
+                    <li><i class="fas fa-check"></i> <strong>Mass Disposition:</strong> Bulk rejections</li>
+                    <li><i class="fas fa-check"></i> <strong>Candidate Ranking:</strong> Qualification scoring</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-funnel-dollar"></i> Screening Funnel</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> ~60% pass auto-screening</li>
+                    <li><i class="fas fa-check"></i> ~30% qualify after resume review</li>
+                    <li><i class="fas fa-check"></i> ~15% proceed to interview</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-copyright">&copy; 2024 GEODIS - HCM Recruitment Decision Flowchart</div>
+                <div class="footer-nav">
+                    <a href="Decision_Flowchart_02_Posting.html"><i class="fas fa-arrow-left"></i> Prev: Posting</a>
+                    <a href="Decision_Flowchart_04_Interview.html"><i class="fas fa-arrow-right"></i> Next: Interview</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>
+                    <span class="modal-icon" id="modalIcon"></span>
+                    <span id="modalTitleText">Step Title</span>
+                </h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const LANE_HEIGHT = 120;
+        const STEP_WIDTH = 140;
+        const V_CENTER = 60;
+        const STEP_HEIGHT = 70;
+
+        // Steps data - lane: 0=System, 1=Recruiter, 2=Candidate, 3=Hiring Manager
+        // Enriched with detailed GEODIS process information
+        const steps = [
+            { id: 'start', lane: 0, x: 30, label: 'NEW APP', icon: 'fa-play', type: 'start', meta: 'Received',
+              desc: 'New application received from posting phase. Application contains: CV with initial training and previous work experience, and responses to screening questions. All applications must be reviewed per GEODIS policy.',
+              owner: 'Oracle System',
+              duration: 'Instant',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'Career Sites'],
+              rules: ['All applications must be reviewed', 'Source tracking enabled', 'GDPR consent recorded'],
+              goodPractice: 'Review all applications - select those who meet recruitment criteria based on CV information.' },
+
+            { id: 's1', lane: 0, x: 200, label: 'Auto-Screen', num: '1', icon: 'fa-robot', meta: 'KO Rules',
+              desc: 'System runs automated screening rules against application data. KO (knockout) questions automatically disqualify candidates who do not meet minimum mandatory requirements. This ensures only qualified candidates proceed to manual review.',
+              owner: 'Oracle System (Auto)',
+              duration: 'Instant',
+              systems: ['Oracle Recruiting Cloud', 'Screening Rules Engine'],
+              rules: ['Work authorization KO check', 'Required certifications KO check', 'Minimum experience validation', 'Location/relocation screening'],
+              goodPractice: 'Automated screening ensures consistent, objective initial filtering based on mandatory requirements.' },
+
+            { id: 'd1', lane: 0, x: 400, label: 'Pass KO?', type: 'decision',
+              desc: 'Decision point: Does the candidate pass all KO (knockout) screening criteria? Work authorization and required certifications are typically strict KO criteria. Candidates failing KO criteria are auto-rejected.',
+              owner: 'System (Auto)',
+              duration: 'Instant',
+              systems: ['Oracle Recruiting Cloud', 'Rules Engine'],
+              rules: ['Binary pass/fail evaluation', 'KO failures auto-rejected', 'Passing candidates proceed to manual review'],
+              goodPractice: 'KO criteria should be limited to truly mandatory requirements to avoid excluding qualified candidates.' },
+
+            { id: 'reject1', lane: 0, x: 600, label: 'Auto-Reject', icon: 'fa-times', type: 'reject', meta: 'Failed KO',
+              desc: 'Candidate automatically rejected due to failing KO screening criteria. Auto-rejection notification sent with generic reason. Supports mass disposition for bulk rejections of candidates failing KO criteria. Candidate data retained per GDPR requirements for analytics and future opportunities.',
+              owner: 'Oracle System',
+              duration: 'Instant',
+              systems: ['Oracle Recruiting Cloud', 'Email', 'Mass Disposition Engine'],
+              rules: ['Auto-rejection email sent', 'Generic rejection reason provided', 'Mass disposition for bulk rejections', 'Data retained per GDPR', 'Candidate can reapply for other positions'],
+              goodPractice: 'Regardless of the interview outcome, all applicants receive a response - rejection emails should be prompt and professional. Use mass disposition for efficient bulk processing.' },
+
+            { id: 's2', lane: 1, x: 600, label: 'Review Resume', num: '2', icon: 'fa-search', meta: 'Manual Check',
+              desc: 'Recruiter manually reviews resume, experience, and qualifications against job requirements. Review ALL applications and select candidates who meet recruitment criteria based on CV information. Candidates are ranked based on qualification match, experience relevance, and skills alignment. Ensure files are complete with initial training and previous work experience.',
+              owner: 'Recruiter',
+              duration: '5-10 min/app',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'Screening Matrix', 'Candidate Ranking Tool'],
+              rules: ['Review ALL applications - none skipped', 'CV must show training and experience', 'Document selection criteria', 'Consider internal candidates first', 'Rank candidates by qualification score'],
+              goodPractice: 'Review all applications and rank candidates based on qualification match. Ensure applicant files provide information on initial training and previous work experience for all positions.',
+              highlighted: true },
+
+            { id: 'd2', lane: 1, x: 820, label: 'Qualified?', type: 'decision',
+              desc: 'Decision point: Is the candidate qualified based on resume review? Recruiter evaluates: skills alignment, experience relevance, qualifications match, and potential fit. Use structured evaluation criteria.',
+              owner: 'Recruiter',
+              duration: '2-5 min',
+              systems: ['Oracle Recruiting Cloud', 'Screening Matrix'],
+              rules: ['Structured evaluation criteria', 'Document qualification decision', 'Internal candidates given priority consideration'],
+              goodPractice: 'Use blind resume review for diversity - removes unconscious bias from initial screening and ensures fair evaluation.' },
+
+            { id: 'reject2', lane: 0, x: 1020, label: 'Rejected', icon: 'fa-times', type: 'reject', meta: 'Not Qualified',
+              desc: 'Candidate rejected by recruiter after resume review. Does not meet minimum qualifications for the position. Mass disposition available for bulk rejection of unqualified candidates. Rejection notification sent with opportunity to apply for other suitable positions.',
+              owner: 'Recruiter',
+              duration: '5 min',
+              systems: ['Oracle Recruiting Cloud', 'Email', 'Mass Disposition Engine'],
+              rules: ['Rejection documented with reason', 'Professional notification sent', 'Mass disposition for bulk processing', 'Candidate can apply for other roles', 'Data retained for talent pool'],
+              goodPractice: 'All applicants receive a response - be prepared to provide more detailed feedback if requested. Use mass disposition for efficient bulk rejections.' },
+
+            { id: 's3', lane: 2, x: 1020, label: 'Phone Screen', num: '3', icon: 'fa-phone', meta: '15-30 min',
+              desc: 'Recruiter conducts phone screening to assess fit and interest. Pre-qualification phase: validate key information with candidate including interest in position, availability, and salary expectations. Paradox (Olivia) conversational AI can assist with initial phone screening automation and scheduling. Reference checks are MANDATORY for white collar positions.',
+              owner: 'Recruiter / Paradox',
+              duration: '20-30 min',
+              systems: ['Oracle Recruiting Cloud', 'Paradox (Olivia)', 'Phone/Teams'],
+              rules: ['Validate: interest, availability, salary', 'Reference checks mandatory for white collars', 'Inform candidate of full process upfront', 'Document screening notes', 'Paradox can automate initial screening'],
+              goodPractice: 'Where applicable, carry out rapid pre-qualification interviews to validate key information: interest in position, availability, salary expectations. Paradox (Olivia) can assist with automated phone screening.' },
+
+            { id: 'd3', lane: 2, x: 1240, label: 'Good Fit?', type: 'decision',
+              desc: 'Decision point: Is the candidate a good fit after phone screen? Evaluates: communication skills, interest level, availability alignment, salary expectations, and cultural fit indicators.',
+              owner: 'Recruiter',
+              duration: '5 min',
+              systems: ['Oracle Recruiting Cloud'],
+              rules: ['Structured phone screen evaluation', 'Document fit assessment', 'Consider all qualification factors'],
+              goodPractice: 'Phone screening helps ensure only genuinely interested and suitable candidates proceed to interview phase.' },
+
+            { id: 'reject3', lane: 2, x: 1440, label: 'Poor Fit', icon: 'fa-times', type: 'reject', meta: 'Rejected',
+              desc: 'Candidate rejected after phone screen due to poor fit indicators: misaligned expectations, availability issues, communication concerns, or lack of interest. Mass disposition available for bulk processing of poor-fit candidates. Professional rejection communication sent.',
+              owner: 'Recruiter',
+              duration: '5 min',
+              systems: ['Oracle Recruiting Cloud', 'Email', 'Phone', 'Mass Disposition Engine'],
+              rules: ['Professional rejection communication', 'Document rejection reason', 'Mass disposition for batch rejections', 'Offer to stay in touch for future opportunities'],
+              goodPractice: 'Regardless of outcome, all applicants receive a response - rejection should be communicated professionally and promptly. Mass disposition enables efficient bulk rejections.' },
+
+            { id: 's4', lane: 1, x: 1440, label: 'Add Shortlist', num: '4', icon: 'fa-list', meta: 'Qualified',
+              desc: 'Add qualified candidate to shortlist for hiring manager review. Shortlist includes screening scores, phone screen notes, and recruiter recommendation. Pre-select candidates whose background best meets the vacancy request needs.',
+              owner: 'Recruiter',
+              duration: '5 min',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+'],
+              rules: ['Document screening scores', 'Include phone screen notes', 'Add recruiter recommendation', 'Flag internal candidates'],
+              goodPractice: 'Pre-select candidates whose background best meets the vacancy request needs. Include diverse candidate slate.' },
+
+            { id: 's5', lane: 3, x: 1660, label: 'Review Shortlist', num: '5', icon: 'fa-clipboard-list', meta: 'Select',
+              desc: 'Hiring manager reviews shortlist and selects candidates for interview. Reviews: screening scores, recruiter notes, candidate profiles, and internal candidate status. Makes final selection for interview phase.',
+              owner: 'Hiring Manager',
+              duration: '30-60 min',
+              systems: ['Oracle Recruiting Cloud', 'G-Talent+', 'Decision Dashboard'],
+              rules: ['Review all shortlisted candidates', 'Consider internal candidates first', 'Select for interview based on fit', 'Document selection rationale'],
+              goodPractice: 'Select candidates whose background and skills best meet the vacancy request needs. Prioritize internal candidates per GEODIS policy.',
+              highlighted: true },
+
+            { id: 'end', lane: 3, x: 1880, label: 'TO INTERVIEW', icon: 'fa-arrow-right', type: 'end', meta: 'Phase 4',
+              desc: 'Candidates selected for interview phase. Shortlist approved by hiring manager. Proceed to Phase 4: Interview & Assessment for structured interviews with hiring manager and panel.',
+              owner: 'System',
+              duration: 'Transition',
+              systems: ['Oracle Recruiting Cloud'],
+              rules: ['Shortlist finalized', 'Interview scheduling begins', 'Candidates notified of selection'],
+              goodPractice: 'When pre-qualification is not necessary, start interview phase directly by inviting candidates to interview. Provide key information about the recruitment process.' }
+        ];
+
+        // Connections data
+        const connections = [
+            { from: 'start', to: 's1', type: 'forward' },
+            { from: 's1', to: 'd1', type: 'forward' },
+            { from: 'd1', to: 'reject1', type: 'no', label: 'Fail KO' },
+            { from: 'd1', to: 's2', type: 'yes', label: 'Pass' },
+            { from: 's2', to: 'd2', type: 'forward' },
+            { from: 'd2', to: 'reject2', type: 'no', label: 'Not Qual' },
+            { from: 'd2', to: 's3', type: 'yes', label: 'Qualified' },
+            { from: 's3', to: 'd3', type: 'forward' },
+            { from: 'd3', to: 'reject3', type: 'no', label: 'Poor Fit' },
+            { from: 'd3', to: 's4', type: 'yes', label: 'Good Fit' },
+            { from: 's4', to: 's5', type: 'forward' },
+            { from: 's5', to: 'end', type: 'forward' }
+        ];
+
+        // Create steps map for quick lookup
+        const stepsMap = {};
+        steps.forEach(s => stepsMap[s.id] = s);
+
+        // Lane class names
+        const laneClasses = ['lane-system', 'lane-recruiter', 'lane-candidate', 'lane-hiring-manager'];
+
+        function init() {
+            const lanesContent = document.getElementById('lanesContent');
+
+            // Calculate dynamic width
+            const maxX = Math.max(...steps.map(s => s.x)) + STEP_WIDTH + 100;
+            lanesContent.style.minWidth = maxX + 'px';
+
+            // Create step elements
+            steps.forEach(step => {
+                const laneRow = document.getElementById('lane' + step.lane);
+                if (!laneRow) return;
+
+                const laneClass = laneClasses[step.lane];
+
+                if (step.type === 'decision') {
+                    // Decision diamond
+                    const block = document.createElement('div');
+                    block.className = 'decision-block';
+                    block.style.left = step.x + 'px';
+                    block.style.top = (V_CENTER - 40) + 'px';
+                    block.innerHTML = `
+                        <div class="decision-diamond"></div>
+                        <div class="decision-content">
+                            <div class="decision-id">${step.id.toUpperCase()}</div>
+                            <span>${step.label}</span>
+                        </div>
+                    `;
+                    block.onclick = () => showStepModal(step, laneClass);
+                    laneRow.appendChild(block);
+                } else {
+                    // Regular step block
+                    const block = document.createElement('div');
+                    let blockClass = 'step-block';
+                    if (step.type === 'start') blockClass += ' start';
+                    else if (step.type === 'end') blockClass += ' end';
+                    else if (step.type === 'reject') blockClass += ' reject';
+                    else blockClass += ' ' + laneClass;
+                    if (step.highlighted) blockClass += ' highlighted';
+
+                    block.className = blockClass;
+                    block.style.left = step.x + 'px';
+                    block.style.top = (V_CENTER - 35) + 'px';
+
+                    const numContent = step.num ? step.num : `<i class="fas ${step.icon}"></i>`;
+                    const iconHtml = step.num ? `<i class="fas ${step.icon} step-icon"></i>` : '';
+
+                    block.innerHTML = `
+                        <div class="step-header">
+                            <span class="step-number">${numContent}</span>
+                            ${iconHtml}
+                        </div>
+                        <div class="step-title">${step.label}</div>
+                        <div class="step-meta"><i class="fas fa-info-circle"></i> ${step.meta}</div>
+                    `;
+                    block.onclick = () => showStepModal(step, laneClass);
+                    laneRow.appendChild(block);
+                }
+            });
+
+            // Draw connections
+            drawConnections();
+        }
+
+        function drawConnections() {
+            const svg = document.getElementById('connectors');
+            const maxX = Math.max(...steps.map(s => s.x)) + STEP_WIDTH + 100;
+            const totalHeight = 4 * LANE_HEIGHT;
+            svg.setAttribute('viewBox', `0 0 ${maxX} ${totalHeight}`);
+            svg.style.width = maxX + 'px';
+            svg.style.height = totalHeight + 'px';
+
+            let svgContent = '';
+
+            connections.forEach(conn => {
+                const from = stepsMap[conn.from];
+                const to = stepsMap[conn.to];
+                if (!from || !to) return;
+
+                // Calculate connection points
+                const fromIsDecision = from.type === 'decision';
+                const toIsDecision = to.type === 'decision';
+
+                let fromX, fromY, toX, toY;
+
+                // From point
+                if (fromIsDecision) {
+                    fromX = from.x + 40; // Center of diamond
+                    fromY = from.lane * LANE_HEIGHT + V_CENTER;
+
+                    // Adjust based on connection direction
+                    if (conn.type === 'yes' && to.lane > from.lane) {
+                        fromY = from.lane * LANE_HEIGHT + V_CENTER + 28; // Bottom of diamond
+                    } else if (conn.type === 'yes' && to.lane < from.lane) {
+                        fromY = from.lane * LANE_HEIGHT + V_CENTER - 28; // Top of diamond
+                    } else if (conn.type === 'no') {
+                        fromX = from.x + 80; // Right side
+                    } else {
+                        fromX = from.x + 80; // Right side for forward
+                    }
+                } else {
+                    fromX = from.x + STEP_WIDTH;
+                    fromY = from.lane * LANE_HEIGHT + V_CENTER;
+
+                    // Vertical connections from bottom
+                    if (to.lane > from.lane) {
+                        fromX = from.x + STEP_WIDTH / 2;
+                        fromY = from.lane * LANE_HEIGHT + V_CENTER + 35;
+                    } else if (to.lane < from.lane) {
+                        fromX = from.x + STEP_WIDTH / 2;
+                        fromY = from.lane * LANE_HEIGHT + V_CENTER - 35;
+                    }
+                }
+
+                // To point
+                if (toIsDecision) {
+                    toX = to.x;
+                    toY = to.lane * LANE_HEIGHT + V_CENTER;
+
+                    if (from.lane !== to.lane) {
+                        if (from.lane < to.lane) {
+                            toY = to.lane * LANE_HEIGHT + V_CENTER - 28; // Top
+                        } else {
+                            toY = to.lane * LANE_HEIGHT + V_CENTER + 28; // Bottom
+                        }
+                        toX = to.x + 40;
+                    }
+                } else {
+                    toX = to.x;
+                    toY = to.lane * LANE_HEIGHT + V_CENTER;
+
+                    // Vertical connections to top
+                    if (from.lane < to.lane) {
+                        toX = to.x + STEP_WIDTH / 2;
+                        toY = to.lane * LANE_HEIGHT + V_CENTER - 35;
+                    } else if (from.lane > to.lane) {
+                        toX = to.x + STEP_WIDTH / 2;
+                        toY = to.lane * LANE_HEIGHT + V_CENTER + 35;
+                    }
+                }
+
+                let pathD;
+                const pathClass = `connector-path ${conn.type}`;
+
+                if (from.lane === to.lane) {
+                    // Same lane - straight line
+                    pathD = `M ${fromX} ${fromY} L ${toX} ${toY}`;
+                } else {
+                    // Cross-lane - Bezier curve
+                    const midX = fromX + (toX - fromX) / 2;
+                    pathD = `M ${fromX} ${fromY} C ${midX} ${fromY}, ${midX} ${toY}, ${toX} ${toY}`;
+                }
+
+                svgContent += `<path d="${pathD}" class="${pathClass}"/>`;
+
+                // Draw arrow
+                const arrowColor = conn.type === 'yes' ? '#10B981' :
+                                   conn.type === 'no' || conn.type === 'return' ? '#EF4444' : '#3200eb';
+
+                // Calculate arrow direction
+                let angle = Math.atan2(toY - fromY, toX - fromX);
+                if (from.lane !== to.lane) {
+                    // For vertical movements, adjust angle based on final direction
+                    if (toY > fromY) angle = Math.PI / 2;
+                    else if (toY < fromY) angle = -Math.PI / 2;
+                }
+
+                const arrowSize = 8;
+                const ax = toX;
+                const ay = toY;
+
+                const p1x = ax - arrowSize * Math.cos(angle - 0.4);
+                const p1y = ay - arrowSize * Math.sin(angle - 0.4);
+                const p2x = ax - arrowSize * Math.cos(angle + 0.4);
+                const p2y = ay - arrowSize * Math.sin(angle + 0.4);
+
+                svgContent += `<polygon points="${ax},${ay} ${p1x},${p1y} ${p2x},${p2y}" fill="${arrowColor}"/>`;
+
+                // Label
+                if (conn.label) {
+                    const labelX = fromX + (toX - fromX) * 0.5;
+                    const labelY = fromY + (toY - fromY) * 0.5 - 8;
+                    const labelColor = conn.type === 'yes' ? '#10B981' : '#EF4444';
+                    svgContent += `<text x="${labelX}" y="${labelY}" class="connector-label" fill="${labelColor}">${conn.label}</text>`;
+                }
+            });
+
+            svg.innerHTML = svgContent;
+        }
+
+        function showStepModal(step, laneClass) {
+            const modal = document.getElementById('modal');
+            const icon = document.getElementById('modalIcon');
+            const title = document.getElementById('modalTitleText');
+            const body = document.getElementById('modalBody');
+
+            const colorMap = {
+                'lane-system': 'var(--lane-system)',
+                'lane-recruiter': 'var(--lane-recruiter)',
+                'lane-candidate': 'var(--lane-candidate)',
+                'lane-hiring-manager': 'var(--lane-hiring-manager)'
+            };
+
+            // Determine icon color based on step type
+            let iconColor = colorMap[laneClass] || 'var(--geodis-blue)';
+            if (step.type === 'start') iconColor = 'var(--geodis-green)';
+            if (step.type === 'end') iconColor = 'var(--geodis-purple)';
+            if (step.type === 'reject') iconColor = 'var(--geodis-red)';
+            if (step.type === 'decision') iconColor = 'var(--geodis-orange)';
+
+            icon.style.background = iconColor;
+            icon.innerHTML = `<i class="fas ${step.icon || 'fa-question'}"></i>`;
+            title.textContent = step.label;
+
+            // Build systems tags
+            let systemsTags = '';
+            if (step.systems && step.systems.length > 0) {
+                systemsTags = step.systems.map(s => `<span class="tag">${s}</span>`).join('');
+            } else {
+                systemsTags = '<span class="tag">Oracle Recruiting Cloud</span>';
+            }
+
+            // Build rules list
+            let rulesList = '';
+            if (step.rules && step.rules.length > 0) {
+                rulesList = step.rules.map(r => `<li><i class="fas fa-check-circle"></i> ${r}</li>`).join('');
+            } else {
+                rulesList = `
+                    <li><i class="fas fa-check-circle"></i> Follow GEODIS standard process</li>
+                    <li><i class="fas fa-check-circle"></i> Document all decisions</li>
+                    <li><i class="fas fa-check-circle"></i> Meet SLA requirements</li>
+                `;
+            }
+
+            // Build good practice section
+            let goodPracticeHtml = '';
+            if (step.goodPractice) {
+                goodPracticeHtml = `
+                    <div class="modal-section" style="background: var(--geodis-orange-light); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--geodis-orange);">
+                        <h4 style="color: var(--geodis-orange);"><i class="fas fa-lightbulb"></i> GEODIS Good Practice</h4>
+                        <p style="font-style: italic; color: var(--gray-700);">"${step.goodPractice}"</p>
+                    </div>
+                `;
+            }
+
+            body.innerHTML = `
+                <div class="modal-section">
+                    <h4><i class="fas fa-info-circle"></i> Description</h4>
+                    <p>${step.desc || 'Process step in the recruitment workflow.'}</p>
+                </div>
+                <div class="info-row">
+                    <div class="info-box">
+                        <label>Owner / Responsible</label>
+                        <span>${step.owner || 'Various'}</span>
+                    </div>
+                    <div class="info-box">
+                        <label>Duration / SLA</label>
+                        <span>${step.duration || step.meta}</span>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><i class="fas fa-cog"></i> Systems & Tools</h4>
+                    <div class="tag-list">
+                        ${systemsTags}
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><i class="fas fa-gavel"></i> Key Rules & Requirements</h4>
+                    <ul class="rule-list">
+                        ${rulesList}
+                    </ul>
+                </div>
+                ${goodPracticeHtml}
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Zoom controls
+        let currentZoom = 1;
+        const diagram = document.getElementById('diagram');
+
+        function zoomIn() { currentZoom = Math.min(currentZoom + 0.1, 2); applyZoom(); }
+        function zoomOut() { currentZoom = Math.max(currentZoom - 0.1, 0.5); applyZoom(); }
+        function resetZoom() { currentZoom = 1; applyZoom(); }
+        function applyZoom() {
+            diagram.style.transform = `scale(${currentZoom})`;
+            diagram.style.transformOrigin = 'top left';
+        }
+
+        // Modal close on overlay click
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') closeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
